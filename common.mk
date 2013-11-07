@@ -154,14 +154,14 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version=131072 \
     debug.hwui.render_dirty_regions=false \
-    ro.bq.gpu_to_cpu_unsupported=1 \
-    ro.zygote.disable_gl_preload=true
+    ro.bq.gpu_to_cpu_unsupported=1
 
 PRODUCT_TAGS += dalvik.gc.type-precise
 
 # Set default USB interface
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    persist.sys.usb.config=mtp
+    persist.sys.usb.config=mtp \
+    ro.zygote.disable_gl_preload=true
 
 $(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
 
