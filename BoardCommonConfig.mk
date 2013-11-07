@@ -138,8 +138,8 @@ BOARD_BLUEDROID_VENDOR_CONF := device/samsung/smdk4412-common/bluetooth/vnd_smdk
 TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/platform/s3c-usbgadget/gadget/lun%d/file"
 
 # Recovery
-BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/smdk4412-common/recovery/recovery_keys.c
-BOARD_CUSTOM_GRAPHICS := ../../../device/samsung/smdk4412-common/recovery/graphics.c
+# BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/smdk4412-common/recovery/recovery_keys.c
+# BOARD_CUSTOM_GRAPHICS := ../../../device/samsung/smdk4412-common/recovery/graphics.c
 BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_15x24.h\"
 BOARD_UMS_LUNFILE := "/sys/class/android_usb/android0/f_mass_storage/lun0/file"
 BOARD_USES_MMCUTILS := true
@@ -153,3 +153,15 @@ BOARD_BATTERY_DEVICE_NAME := "battery"
 
 # inherit from the proprietary version
 -include vendor/samsung/smdk4412-common/BoardConfigVendor.mk
+
+#TWRP Flags
+DEVICE_RESOLUTION := 720x1280
+TW_NO_REBOOT_BOOTLOADER := true
+TW_INTERNAL_STORAGE_PATH := "/sdcard
+TW_INTERNAL_STORAGE_MOUNT_POINT := "sdcard"
+TW_EXTERNAL_STORAGE_PATH := "/emmc"
+TW_EXTERNAL_STORAGE_MOUNT_POINT := "emmc"
+TW_EXCLUDE_SUPERSU := true
+TW_NO_PARTITION_SD_CARD := true
+TW_NO_EXFAT_FUSE := true
+TW_INCLUDE_FB2PNG := true

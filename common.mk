@@ -149,6 +149,9 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:system/etc/permissions/android.software.live_wallpaper.xml
 
+# TWRP fstab
+PRODUCT_COPY_FILES += device/samsung/smdk4412-common/twrp.fstab:recovery/root/etc/twrp.fstab
+
 # Graphics
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version=131072 \
