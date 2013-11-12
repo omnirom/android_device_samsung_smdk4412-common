@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ab89d9a9_48d68eca",
+        "filename": "rootdir/init.smdk4x12.rc",
+        "patchSetId": 3
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 1000001
+      },
+      "writtenOn": "2013-11-12T18:50:28Z",
+      "side": 1,
+      "message": "duplicate of -g@android:",
+      "revId": "5a5ce93df826d24df60b5fb6b96d6aa6129f75f9",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ab89d9a9_28d14ad2",
+        "filename": "rootdir/init.smdk4x12.rc",
+        "patchSetId": 3
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 1000001
+      },
+      "writtenOn": "2013-11-12T18:50:28Z",
+      "side": 1,
+      "message": "duplicate, that parameter is just below",
+      "revId": "5a5ce93df826d24df60b5fb6b96d6aa6129f75f9",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    }
+  ]
+}
