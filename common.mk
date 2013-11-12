@@ -49,10 +49,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/98netflix:system/etc/init.d/98netflix
 
-# Bluetooth configuration files
-#PRODUCT_COPY_FILES += \
-#    system/bluetooth/data/main.le.conf:system/etc/bluetooth/main.conf
-
 # Wifi
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf
