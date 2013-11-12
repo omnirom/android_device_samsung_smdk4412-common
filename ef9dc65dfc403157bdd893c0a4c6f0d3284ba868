@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ab89d9a9_88a89675",
+        "filename": "BoardCommonConfig.mk",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000001
+      },
+      "writtenOn": "2013-11-12T12:01:02Z",
+      "side": 1,
+      "message": "Not needed",
+      "revId": "ef9dc65dfc403157bdd893c0a4c6f0d3284ba868",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ab89d9a9_a8a55a9d",
+        "filename": "BoardCommonConfig.mk",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000001
+      },
+      "writtenOn": "2013-11-12T12:01:02Z",
+      "side": 1,
+      "message": "Does that makes a difference?",
+      "revId": "ef9dc65dfc403157bdd893c0a4c6f0d3284ba868",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ab89d9a9_c8b29ee5",
+        "filename": "rootdir/init.smdk4x12.rc",
+        "patchSetId": 2
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 1000001
+      },
+      "writtenOn": "2013-11-12T12:01:02Z",
+      "side": 1,
+      "message": "This is already fixed",
+      "revId": "ef9dc65dfc403157bdd893c0a4c6f0d3284ba868",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    }
+  ]
+}
