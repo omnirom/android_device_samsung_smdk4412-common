@@ -334,6 +334,8 @@ on post-fs-data
     chown system radio /sys/class/sensors/proximity_sensor/name
     chown system radio /sys/class/sensors/proximity_sensor/prox_thresh
     chown system radio /sys/class/sensors/proximity_sensor/barcode_emul_en
+    echo 0 > /sys/class/sensors/proximity_sensor/prox_cal
+    echo 1 > /sys/class/sensors/proximity_sensor/prox_cal
 # Light_sensor
     chown system radio /sys/class/input/input7/enable
     chown system radio /sys/class/input/input7/poll_delay
