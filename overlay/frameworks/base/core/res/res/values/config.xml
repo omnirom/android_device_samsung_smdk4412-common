@@ -229,4 +229,8 @@
         <item>10</item>
     </integer-array>
 
+    <!-- bool name="config_button_brightness_support">true</bool-->
+
+    <integer name="config_deviceHardwareKeys">7</integer>
+
 </resources>
