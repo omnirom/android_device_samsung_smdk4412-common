@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b8b61a3_fd0e47e6",
+        "filename": "camera/exynos_camera.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 4241,
+      "author": {
+        "id": 1000023
+      },
+      "writtenOn": "2013-12-02T09:09:13Z",
+      "side": 0,
+      "message": "This makes me wonder.\nDoes higher level of HAL keep track of autofocus process to prevent taking picture while autofocusing?\nOr would it be blocked somewhere around v4l2?\n\nSeems like previously it was resolved here and now...? ^^\u0027",
+      "revId": "8f576fc04ab7a249e0ef6da3195d28603e41c93e",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    }
+  ]
+}
