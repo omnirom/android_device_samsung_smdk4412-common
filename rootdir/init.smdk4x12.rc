@@ -521,3 +521,9 @@ service bootsnd /system/bin/tinyplay /system/etc/sound/silence.wav -D 0 -d 0 -p 
     user root
     group audio
     oneshot
+
+# exFAT
+service exfat /system/bin/exfat.sh
+class core
+user root
+oneshot
