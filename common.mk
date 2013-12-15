@@ -75,7 +75,9 @@ PRODUCT_PACKAGES := \
     lights.exynos4 \
     macloader \
     tinymix \
-    OmniTorch
+    OmniTorch \
+    SamsungServiceMode \
+    DeviceSettings
 
 # MFC API
 PRODUCT_PACKAGES += \
