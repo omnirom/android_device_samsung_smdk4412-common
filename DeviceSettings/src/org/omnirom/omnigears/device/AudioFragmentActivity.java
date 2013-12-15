@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2012 The CyanogenMod Project
+* Copyright (C) 2012 The OmniRom Project
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
 * limitations under the License.
 */
 
-package org.omnirom.omnigears.device;
+package org.omnirom.device;
 
 import android.app.ActivityManagerNative;
 import android.content.Context;
@@ -30,7 +30,7 @@ import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.util.Log;
 
-import org.omnirom.omnigears.device.R;
+import org.omnirom.device.R;
 
 public class AudioFragmentActivity extends PreferenceFragment {
 
@@ -55,7 +55,7 @@ public class AudioFragmentActivity extends PreferenceFragment {
 
         if (key.compareTo(DeviceSettings.KEY_USE_DOCK_AUDIO) == 0) {
             boxValue = (((CheckBoxPreference)preference).isChecked() ? "1" : "0");
-            Intent i = new Intent("com.cyanogenmod.settings.SamsungDock");
+            Intent i = new Intent("com.omnirom.settings.SamsungDock");
             i.putExtra("data", boxValue);
             ActivityManagerNative.broadcastStickyIntent(i, null, UserHandle.USER_ALL);
         }
@@ -65,7 +65,7 @@ public class AudioFragmentActivity extends PreferenceFragment {
     public static void restore(Context context) {
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
         boolean dockAudio = sharedPrefs.getBoolean(DeviceSettings.KEY_USE_DOCK_AUDIO, false);
-        Intent i = new Intent("com.cyanogenmod.settings.SamsungDock");
+        Intent i = new Intent("com.omnirom.settings.SamsungDock");
         i.putExtra("data", (dockAudio? "1" : "0"));
         ActivityManagerNative.broadcastStickyIntent(i, null, UserHandle.USER_ALL);
     }

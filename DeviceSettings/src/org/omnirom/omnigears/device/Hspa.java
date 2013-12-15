@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 The CyanogenMod Project
+ * Copyright (C) 2012 The OmniRom Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.omnirom.omnigears.device;
+package org.omnirom.device;
 
 import android.content.Context;
 import android.content.Intent;
@@ -59,7 +59,7 @@ public class Hspa extends ListPreference implements OnPreferenceChangeListener {
     }
 
     private static void sendIntent(Context context, String value) {
-        Intent i = new Intent("com.cyanogenmod.SamsungServiceMode.EXECUTE");
+        Intent i = new Intent("com.omnirom.SamsungServiceMode.EXECUTE");
         i.putExtra("sub_type", 20); // HSPA Setting
         i.putExtra("data", value);
         context.sendBroadcast(i);

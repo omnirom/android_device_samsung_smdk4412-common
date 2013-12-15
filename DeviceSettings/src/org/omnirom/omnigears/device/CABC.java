@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.omnirom.omnigears.device;
+package org.omnirom.device;
 
 import android.content.Context;
 import android.content.SharedPreferences;
