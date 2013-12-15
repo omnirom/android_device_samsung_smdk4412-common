@@ -106,6 +106,9 @@ BOARD_USES_MFC_FPS := true
 BOARD_USE_S3D_SUPPORT := true
 BOARD_USE_CSC_FIMC := false
 
+# Hardware tunables
+BOARD_HARDWARE_CLASS := hardware/samsung/cmhw
+
 # RIL
 BOARD_MOBILEDATA_INTERFACE_NAME := "pdp0"
 

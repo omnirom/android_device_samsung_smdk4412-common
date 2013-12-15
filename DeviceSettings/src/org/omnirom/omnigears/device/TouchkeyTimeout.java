@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.omnirom.omnigears.device;
+package org.omnirom.device;
 
 import java.io.IOException;
 import android.content.Context;

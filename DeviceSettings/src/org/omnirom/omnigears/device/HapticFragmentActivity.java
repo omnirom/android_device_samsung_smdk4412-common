@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.omnirom.omnigears.device;
+package org.omnirom.device;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -28,7 +28,7 @@ import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.util.Log;
 
-import org.omnirom.omnigears.device.R;
+import org.omnirom.device.R;
 
 public class HapticFragmentActivity extends PreferenceFragment {
 
