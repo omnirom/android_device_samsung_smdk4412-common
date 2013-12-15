@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 The CyanogenMod Project
+ * Copyright (C) 2012 The OmniRom Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,32 +14,34 @@
  * limitations under the License.
  */
 
-package org.omnirom.omnigears.device;
+package org.omnirom.device;
 
-import java.io.IOException;
 import android.content.Context;
-import android.util.AttributeSet;
+import android.content.Intent;
 import android.content.SharedPreferences;
-import android.preference.Preference;
+import android.util.AttributeSet;
 import android.preference.ListPreference;
+import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceManager;
 
-public class TouchkeyTimeout extends ListPreference implements OnPreferenceChangeListener {
+public class Hspa extends ListPreference implements OnPreferenceChangeListener {
 
-    public TouchkeyTimeout(Context context, AttributeSet attrs) {
+    private static final String FILE = "/system/app/SamsungServiceMode.apk";
+    private Context mCtx;
+
+    public Hspa(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.setOnPreferenceChangeListener(this);
+        mCtx = context;
     }
 
-    private static final String FILE_TOUCHKEY_TIMEOUT = "/sys/class/sec/sec_touchkey/timeout";
-
     public static boolean isSupported() {
-        return Utils.fileExists(FILE_TOUCHKEY_TIMEOUT);
+        return Utils.fileExists(FILE);
     }
 
     /**
-     * Restore touchscreen sensitivity setting from SharedPreferences. (Write to kernel.)
+     * Restore hspa setting from SharedPreferences. (Write to kernel.)
      * @param context       The context to read the SharedPreferences from
      */
     public static void restore(Context context) {
@@ -48,12 +50,18 @@ public class TouchkeyTimeout extends ListPreference implements OnPreferenceChang
         }
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-        Utils.writeValue(FILE_TOUCHKEY_TIMEOUT, sharedPrefs.getString(DeviceSettings.KEY_TOUCHKEY_TIMEOUT, "3"));
+        sendIntent(context, sharedPrefs.getString(DeviceSettings.KEY_HSPA, "23"));
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        Utils.writeValue(FILE_TOUCHKEY_TIMEOUT, (String) newValue);
+        sendIntent(mCtx, (String) newValue);
         return true;
     }
 
+    private static void sendIntent(Context context, String value) {
+        Intent i = new Intent("com.omnirom.SamsungServiceMode.EXECUTE");
+        i.putExtra("sub_type", 20); // HSPA Setting
+        i.putExtra("data", value);
+        context.sendBroadcast(i);
+    }
 }
