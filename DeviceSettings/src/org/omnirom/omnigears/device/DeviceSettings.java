@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 The CyanogenMod Project
+ * Copyright (C) 2012 The OmniRom Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,8 +34,8 @@ import java.util.ArrayList;
 
 public class DeviceSettings extends FragmentActivity {
 
-    public static final String SHARED_PREFERENCES_BASENAME = "com.cyanogenmod.settings.device";
-    public static final String ACTION_UPDATE_PREFERENCES = "com.cyanogenmod.settings.device.UPDATE";
+    public static final String SHARED_PREFERENCES_BASENAME = "com.omnirom.settings.device";
+    public static final String ACTION_UPDATE_PREFERENCES = "com.omnirom.settings.device.UPDATE";
     public static final String KEY_CABC = "cabc";
     public static final String KEY_MDNIE_SCENARIO = "mdnie_scenario";
     public static final String KEY_MDNIE_MODE = "mdnie_mode";
