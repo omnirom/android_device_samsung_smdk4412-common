@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b8b61a3_4b7043a2",
+        "filename": "BoardCommonConfig.mk",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1000060
+      },
+      "writtenOn": "2013-12-16T07:26:25Z",
+      "side": 1,
+      "message": "omni doesnt have cmhw support?",
+      "revId": "833153b792e03fdb08063bff56dce871a22871ab",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6b8b61a3_2b6bf7b5",
+        "filename": "DeviceSettings/src/org/omnirom/omnigears/device/AudioFragmentActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000060
+      },
+      "writtenOn": "2013-12-16T07:26:25Z",
+      "side": 1,
+      "message": "change back",
+      "revId": "833153b792e03fdb08063bff56dce871a22871ab",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6b8b61a3_0b763ba0",
+        "filename": "DeviceSettings/src/org/omnirom/omnigears/device/DeviceSettings.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000060
+      },
+      "writtenOn": "2013-12-16T07:26:25Z",
+      "side": 1,
+      "message": "change back",
+      "revId": "833153b792e03fdb08063bff56dce871a22871ab",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6b8b61a3_eb702fa7",
+        "filename": "DeviceSettings/src/org/omnirom/omnigears/device/Hspa.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000060
+      },
+      "writtenOn": "2013-12-16T07:26:25Z",
+      "side": 1,
+      "message": "id change this back",
+      "revId": "833153b792e03fdb08063bff56dce871a22871ab",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    }
+  ]
+}
