@@ -40,9 +40,10 @@ PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/audio_effects.conf:system/etc/audio_effects.conf \
     $(COMMON_PATH)/configs/audio_policy.conf:system/etc/audio_policy.conf
 
-# Camera FW
+# Camera Files
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/configs/80cfw:system/etc/init.d/80cfw
+    $(COMMON_PATH)/configs/80cfw:system/etc/init.d/80cfw \
+    $(COMMON_PATH)/configs/restartcamera.sh:system/etc/restartcamera.sh
 
 # Netflix hack
 PRODUCT_COPY_FILES += \
