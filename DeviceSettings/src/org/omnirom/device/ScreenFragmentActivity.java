@@ -23,16 +23,20 @@ import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceGroup;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
+import android.preference.SwitchPreference;
 import android.util.Log;
 
 import org.omnirom.device.R;
 
-public class ScreenFragmentActivity extends PreferenceFragment {
+public class ScreenFragmentActivity extends PreferenceFragment implements
+        OnPreferenceChangeListener {
 
     private static final String PREF_ENABLED = "1";
     private static final String TAG = "DeviceSettings_Screen";
@@ -46,9 +50,16 @@ public class ScreenFragmentActivity extends PreferenceFragment {
 
     private static boolean sSPenSupported;
     private static boolean sTouchkeySupport;
-
     private static final String FILE_TOUCHKEY_BRIGHTNESS = "/sys/class/sec/sec_touchkey/brightness";
     private static final String FILE_TOUCHKEY_DISABLE = "/sys/class/sec/sec_touchkey/force_disable";
+
+    private SwitchPreference mTouchwakeEnable;
+    private SeekBarPreference mTouchwakeTimeout;
+    private static final String TOUCHWAKE_CATEGORY = "category_power_menu";
+    private static final String KEY_TOUCHWAKE_ENABLE = "touchwake_enable";
+    private static final String KEY_TOUCHWAKE_TIMEOUT = "touchwake_timeout";
+    private static final String FILE_TOUCHWAKE_ENABLE = "/sys/devices/virtual/misc/touchwake/enabled";
+    private static final String FILE_TOUCHWAKE_TIMEOUT = "/sys/devices/virtual/misc/touchwake/delay";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -89,6 +100,24 @@ public class ScreenFragmentActivity extends PreferenceFragment {
             mTouchKeyTimeout.setEnabled(false);
         }
 
+        /* Touchwake */
+        mTouchwakeEnable = (SwitchPreference) findPreference(KEY_TOUCHWAKE_ENABLE);
+        mTouchwakeTimeout = (SeekBarPreference) findPreference(KEY_TOUCHWAKE_TIMEOUT);
+
+        if (!isSupported(FILE_TOUCHWAKE_ENABLE)) {
+            PreferenceGroup touchWake = (PreferenceGroup) findPreference(TOUCHWAKE_CATEGORY);
+            touchWake.removePreference(mTouchwakeEnable);
+            touchWake.removePreference(mTouchwakeTimeout);
+        } else {
+            boolean b = Boolean.valueOf(Utils.readOneLine(FILE_TOUCHWAKE_ENABLE));
+            int i1 = Integer.parseInt(Utils.readOneLine(FILE_TOUCHWAKE_TIMEOUT));
+            int i2 = (i1 / 1000);
+            mTouchwakeEnable.setChecked(b);
+            mTouchwakeEnable.setOnPreferenceChangeListener(this);
+            mTouchwakeTimeout.setValue(i2);
+            mTouchwakeTimeout.setOnPreferenceChangeListener(this);
+        }
+
         /* S-Pen */
         String spenFilePath = res.getString(R.string.spen_sysfs_file);
         sSPenSupported = SPenPowerSavingMode.isSupported(spenFilePath);
@@ -119,6 +148,20 @@ public class ScreenFragmentActivity extends PreferenceFragment {
         return true;
     }
 
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
+        if (preference == mTouchwakeEnable) {
+            mTouchwakeEnable.setChecked((Boolean) newValue);
+            Utils.writeValue(FILE_TOUCHWAKE_ENABLE, (Boolean) newValue ? "1" : "0");
+            return true;
+        } else if (preference == mTouchwakeTimeout) {
+            mTouchwakeTimeout.setValue((Integer) newValue);
+            int delay = ((Integer) newValue) * 1000;
+            Utils.writeValue(FILE_TOUCHWAKE_TIMEOUT, Integer.toString(delay));
+            return true;
+        }
+        return false;
+    }
+
     public static boolean isSupported(String FILE) {
         return Utils.fileExists(FILE);
     }
@@ -129,5 +172,10 @@ public class ScreenFragmentActivity extends PreferenceFragment {
 
         Utils.writeValue(FILE_TOUCHKEY_DISABLE, light ? "0" : "1");
         Utils.writeValue(FILE_TOUCHKEY_BRIGHTNESS, light ? "1" : "2");
+
+        if (isSupported(FILE_TOUCHWAKE_ENABLE)) {
+            Utils.writeValue(FILE_TOUCHWAKE_ENABLE, sharedPrefs.getBoolean(KEY_TOUCHWAKE_ENABLE, false) ? "1" : "0");
+            Utils.writeValue(FILE_TOUCHWAKE_TIMEOUT, sharedPrefs.getString(KEY_TOUCHWAKE_TIMEOUT, "0"));
+        }
     }
 }
