@@ -82,4 +82,25 @@
                 android:defaultValue="3" />
     </PreferenceCategory>
 
+    <!-- Touchwake -->
+    <PreferenceCategory android:key="touchwake"
+            android:title="@string/touchwake_title">
+        <SwitchPreference
+                android:key="touchwake_enable"
+                android:title="@string/touchkey_light_title_head"
+                android:summaryOff="@string/touchwake_enable_summary_off"
+                android:summaryOn="@string/touchwake_enable_summary_on"
+                android:dependency="touchwake_enable"
+                android:defaultValue="true" />
+        <org.omnirom.omnigears.chameleonos.SeekBarPreference
+                android:key="touchwake_timeout"
+                android:title="@string/touchwake_timeout_title"
+                android:summary="@string/touchwake_timeout_summary"
+                android:max="60"
+                settings:min="0"
+                settings:unitsLeft=""
+                settings:unitsRight="Seconds"
+                android:defaultValue="5" />
+    </PreferenceCategory>
+
 </PreferenceScreen>
