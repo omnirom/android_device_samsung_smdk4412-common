@@ -17,6 +17,7 @@
     <string name="app_name">Advanced settings</string>
 
     <string name="defaults_button">Reset to default</string>
+    <string name="kernel_does_not_support">Kernel does not support</string>
 
     <!-- Screen Preference -->
     <string name="category_screen_title">Screen</string>
@@ -71,5 +72,12 @@
     <string name="spen_subcat_title">S-Pen</string>
     <string name="spen_power_save_title_head">Power saving mode</string>
     <string name="spen_power_save_summary_head">Disable stylus digitizer when S-Pen is in device</string>
+
+    <!-- Touchwake -->
+    <string name="touchwake_title">Touchwake</string>
+    <string name="touchwake_enable_title">Enable</string>
+    <string name="touchwake_enable_summary">Wake up device on screen touch shortly after it sleeps</string>
+    <string name="touchwake_timeout_title">Timeout</string>
+    <string name="touchwake_timeout_summary">Set timeout for touchwake</string>
 
 </resources>
