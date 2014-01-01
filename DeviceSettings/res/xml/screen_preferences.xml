@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:devicesettings="http://schemas.android.com/apk/res/org.omnirom.device" >
 
     <!-- Screen -->
     <PreferenceCategory
@@ -80,6 +81,28 @@
                 android:entries="@array/touchkey_timeout_entries"
                 android:entryValues="@array/touchkey_timeout_entries_values"
                 android:defaultValue="3" />
+    </PreferenceCategory>
+
+    <!-- Touchwake -->
+    <PreferenceCategory android:key="touchwake"
+            android:title="@string/touchwake_title">
+        <SwitchPreference
+                android:key="touchwake_enable"
+                android:title="@string/touchwake_enable_title"
+                android:summary="@string/touchwake_enable_summary"
+                android:persistent="true"
+                android:defaultValue="false" />
+        <org.omnirom.device.SeekBarPreference
+                android:key="touchwake_timeout"
+                android:title="@string/touchwake_timeout_title"
+                android:summary="@string/touchwake_timeout_summary"
+                android:max="30"
+                devicesettings:min="1"
+                devicesettings:unitsLeft=""
+                devicesettings:unitsRight=" Seconds"
+                android:persistent="true"
+                android:dependency="touchwake_enable"
+                android:defaultValue="5" />
     </PreferenceCategory>
 
 </PreferenceScreen>
