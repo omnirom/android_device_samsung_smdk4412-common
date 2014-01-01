@@ -72,4 +72,15 @@
     <string name="spen_power_save_title_head">Power saving mode</string>
     <string name="spen_power_save_summary_head">Disable stylus digitizer when S-Pen is in device</string>
 
+    <!-- Touchwake -->
+    <string name="touchwake_title">Touchwake</string>
+    <string name="touchwake_enable_title">Enable</string>
+    <string name="touchwake_enable_summary_off">Touchwake disabled</string>
+    <string name="touchwake_enable_summary_on">Touchwake enabled</string>
+    <string name="touchwake_timeout_title">Timeout</string>
+    <string name="touchwake_timeout_summary">Set timeout for touchwake</string>
+    <string name="touchwake_doubletap_title">Double tap to wake</string>
+    <string name="touchwake_doubletap_summary_off">Set touchwake timeout to 0</string>
+    <string name="touchwake_doubletap_summary_on">Set double tap speed</string>
+
 </resources>
