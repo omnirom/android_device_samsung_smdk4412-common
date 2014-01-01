@@ -23,16 +23,20 @@ import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceGroup;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
+import android.preference.SwitchPreference;
 import android.util.Log;
 
 import org.omnirom.device.R;
 
-public class ScreenFragmentActivity extends PreferenceFragment {
+public class ScreenFragmentActivity extends PreferenceFragment implements
+        OnPreferenceChangeListener {
 
     private static final String PREF_ENABLED = "1";
     private static final String TAG = "DeviceSettings_Screen";
@@ -46,9 +50,19 @@ public class ScreenFragmentActivity extends PreferenceFragment {
 
     private static boolean sSPenSupported;
     private static boolean sTouchkeySupport;
-
     private static final String FILE_TOUCHKEY_BRIGHTNESS = "/sys/class/sec/sec_touchkey/brightness";
     private static final String FILE_TOUCHKEY_DISABLE = "/sys/class/sec/sec_touchkey/force_disable";
+
+    private SwitchPreference mTouchwakeEnable;
+    private SeekBarPreference mTouchwakeTimeout;
+    private SeekBarPreference mTouchwakeDoubleTap;
+    private static final String TOUCHWAKE_CATEGORY = "category_power_menu";
+    private static final String KEY_TOUCHWAKE_ENABLE = "touchwake_enable";
+    private static final String KEY_TOUCHWAKE_TIMEOUT = "touchwake_timeout";
+    private static final String KEY_TOUCHWAKE_DOUBLETAP = "touchwake_doubletap";
+    private static final String FILE_TOUCHWAKE_ENABLE = "/sys/devices/virtual/misc/touchwake/enabled";
+    private static final String FILE_TOUCHWAKE_TIMEOUT = "/sys/devices/virtual/misc/touchwake/delay";
+    private static final String FILE_TOUCHWAKE_DOUBLETAP = "/sys/devices/virtual/misc/touchwake/doubletap_speed";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -89,6 +103,49 @@ public class ScreenFragmentActivity extends PreferenceFragment {
             mTouchKeyTimeout.setEnabled(false);
         }
 
+        /* Touchwake */
+
+        mTouchwakeEnable = (SwitchPreference) findPreference(KEY_TOUCHWAKE_ENABLE);
+        mTouchwakeTimeout = (SeekBarPreference) findPreference(KEY_TOUCHWAKE_TIMEOUT);
+        mTouchwakeDoubleTap = (SeekBarPreference) findPreference(KEY_TOUCHWAKE_DOUBLETAP);
+
+        if (!isSupported(FILE_TOUCHWAKE_ENABLE)) {
+            mTouchwakeEnable.setEnabled(false);
+            mTouchwakeEnable.setSummary(R.string.kernel_does_not_support);
+
+            mTouchwakeTimeout.setEnabled(false);
+            mTouchwakeTimeout.setSummary(R.string.kernel_does_not_support);
+
+            mTouchwakeDoubleTap.setEnabled(false);
+            mTouchwakeDoubleTap.setSummary(R.string.kernel_does_not_support);
+        } else {
+            int i1 = Integer.parseInt(Utils.readOneLine(FILE_TOUCHWAKE_ENABLE));
+            mTouchwakeEnable.setChecked(i1 != 0);
+            mTouchwakeEnable.setOnPreferenceChangeListener(this);
+
+            int i2a = Integer.parseInt(Utils.readOneLine(FILE_TOUCHWAKE_TIMEOUT));
+            int i2b = i2a / 1000;
+            mTouchwakeTimeout.setValue(i2b);
+            mTouchwakeTimeout.setOnPreferenceChangeListener(this);
+
+            if (!isSupported(FILE_TOUCHWAKE_DOUBLETAP)) {
+                mTouchwakeDoubleTap.setEnabled(false);
+                mTouchwakeDoubleTap.setSummary(R.string.kernel_does_not_support);
+            } else {
+                int i3 = Integer.parseInt(Utils.readOneLine(FILE_TOUCHWAKE_DOUBLETAP));
+                mTouchwakeDoubleTap.setValue(i3);
+                mTouchwakeDoubleTap.setOnPreferenceChangeListener(this);
+
+                if (i2b > 0) {
+                    mTouchwakeDoubleTap.setSummary(R.string.touchwake_doubletap_summary_off);
+                    mTouchwakeDoubleTap.setEnabled(false);
+                } else {
+                    mTouchwakeDoubleTap.setSummary(R.string.touchwake_doubletap_summary_on);
+                    mTouchwakeDoubleTap.setEnabled(true);
+                }
+            }
+        }
+
         /* S-Pen */
         String spenFilePath = res.getString(R.string.spen_sysfs_file);
         sSPenSupported = SPenPowerSavingMode.isSupported(spenFilePath);
@@ -119,6 +176,37 @@ public class ScreenFragmentActivity extends PreferenceFragment {
         return true;
     }
 
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
+        if (preference == mTouchwakeEnable) {
+            boolean b = (Boolean) newValue;
+            mTouchwakeEnable.setChecked(b);
+            Utils.writeValue(FILE_TOUCHWAKE_ENABLE, b);
+            return true;
+        } else if (preference == mTouchwakeTimeout) {
+            int i1 = (Integer) newValue;
+            mTouchwakeTimeout.setValue(i1);
+            int i = (i1 * 1000);
+            Utils.writeValue(FILE_TOUCHWAKE_TIMEOUT, (Integer.toString(i)));
+
+            if (isSupported(FILE_TOUCHWAKE_DOUBLETAP)) {
+                if (i1 > 0) {
+                    mTouchwakeDoubleTap.setSummary(R.string.touchwake_doubletap_summary_off);
+                    mTouchwakeDoubleTap.setEnabled(false);
+                } else if (i1 == 0) {
+                    mTouchwakeDoubleTap.setSummary(R.string.touchwake_doubletap_summary_on);
+                    mTouchwakeDoubleTap.setEnabled(true);
+                }
+            }
+            return true;
+        } else if (preference == mTouchwakeDoubleTap) {
+            int i = (Integer) newValue;
+            mTouchwakeDoubleTap.setValue(i);
+            Utils.writeValue(FILE_TOUCHWAKE_DOUBLETAP, (Integer.toString(i)));
+            return true;
+        }
+        return false;
+    }
+
     public static boolean isSupported(String FILE) {
         return Utils.fileExists(FILE);
     }
@@ -129,5 +217,18 @@ public class ScreenFragmentActivity extends PreferenceFragment {
 
         Utils.writeValue(FILE_TOUCHKEY_DISABLE, light ? "0" : "1");
         Utils.writeValue(FILE_TOUCHKEY_BRIGHTNESS, light ? "1" : "2");
+
+        if (isSupported(FILE_TOUCHWAKE_ENABLE)) {
+            boolean b = sharedPrefs.getBoolean(KEY_TOUCHWAKE_ENABLE, false);
+            Utils.writeValue(FILE_TOUCHWAKE_ENABLE, b);
+
+            int i1 = sharedPrefs.getInt(KEY_TOUCHWAKE_TIMEOUT, 1) * 1000;
+            Utils.writeValue(FILE_TOUCHWAKE_TIMEOUT, Integer.toString(i1));
+        }
+
+        if (!isSupported(FILE_TOUCHWAKE_DOUBLETAP)) {
+            int i2 = sharedPrefs.getInt(KEY_TOUCHWAKE_DOUBLETAP, 250);
+            Utils.writeValue(FILE_TOUCHWAKE_DOUBLETAP, Integer.toString(i2));
+        }
     }
 }
