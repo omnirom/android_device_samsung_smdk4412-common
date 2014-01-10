@@ -75,9 +75,13 @@ PRODUCT_PACKAGES := \
     lights.exynos4 \
     macloader \
     tinymix \
-    OmniTorch \
     SamsungServiceMode \
     DeviceSettings
+
+ifneq ($(TARGET_NO_CAM_FLASH) ,true)"
+PRODUCT_PACKAGES += \
+    OmniTorch
+endif
 
 # MFC API
 PRODUCT_PACKAGES += \
