@@ -75,9 +75,14 @@ PRODUCT_PACKAGES := \
     lights.exynos4 \
     macloader \
     tinymix \
-    OmniTorch \
     SamsungServiceMode \
     DeviceSettings
+
+ifneq ($(TARGET_HAS_CAM_FLASH) ,false)
+PRODUCT_PACKAGES += \
+    OmniTorch
+endif
+>>>>>>> 832bd42... smdk4412-common: Don't build torch for devices without flash
 
 # MFC API
 PRODUCT_PACKAGES += \
