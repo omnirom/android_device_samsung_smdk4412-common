@@ -155,7 +155,6 @@ BOARD_BATTERY_DEVICE_NAME := "battery"
 -include vendor/samsung/smdk4412-common/BoardConfigVendor.mk
 
 # TWRP
-RECOVERY_SD_CARD_ON_DATA := true
 BOARD_HAS_NO_REAL_SDCARD := true
 RECOVERY_GRAPHICS_USE_LINELENGTH := true
 HAVE_SELINUX := true
