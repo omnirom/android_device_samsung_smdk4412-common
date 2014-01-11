@@ -111,8 +111,8 @@ public class ScreenFragmentActivity extends PreferenceFragment implements
             mTouchwakeTimeout.setEnabled(false);
             mTouchwakeTimeout.setSummary(R.string.kernel_does_not_support);
         } else {
-            boolean b = Boolean.valueOf(Utils.readOneLine(FILE_TOUCHWAKE_ENABLE));
-            mTouchwakeEnable.setChecked(b);
+            int b = Integer.parseInt(Utils.readOneLine(FILE_TOUCHWAKE_ENABLE));
+            mTouchwakeEnable.setChecked(b != 0);
             mTouchwakeEnable.setOnPreferenceChangeListener(this);
 
             int i = Integer.parseInt(Utils.readOneLine(FILE_TOUCHWAKE_TIMEOUT));
