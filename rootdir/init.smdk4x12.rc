@@ -45,10 +45,6 @@ on fs
     chown radio system /efs
     chmod 0771 /efs
 
-# exfat module
-    insmod /system/lib/modules/exfat_core.ko
-    insmod /system/lib/modules/exfat_fs.ko
-
 on post-fs-data
      # we will remap this as /mnt/sdcard with the sdcard fuse tool
      mkdir /data/media 0775 media_rw media_rw
