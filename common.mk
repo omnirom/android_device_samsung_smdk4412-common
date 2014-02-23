@@ -79,6 +79,11 @@ PRODUCT_PACKAGES := \
     SamsungServiceMode \
     DeviceSettings
 
+# Charger
+PRODUCT_PACKAGES += \
+    charger \
+    charger_res_images
+
 # MFC API
 PRODUCT_PACKAGES += \
     libsecmfcdecapi \
