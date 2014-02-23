@@ -79,6 +79,14 @@ PRODUCT_PACKAGES := \
     SamsungServiceMode \
     DeviceSettings
 
+# Charger
+PRODUCT_PACKAGES += \
+    charger \
+    charger_res_images
+
+# Charging mode
+BOARD_CHARGER_RES := device/samsung/smdk4412-common/res/charger
+
 # MFC API
 PRODUCT_PACKAGES += \
     libsecmfcdecapi \
