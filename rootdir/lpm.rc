@@ -1,7 +1,9 @@
+
 on early-init
     start ueventd
 
 on init
+
     export PATH /sbin:/vendor/bin:/system/sbin:/system/bin:/system/xbin
     export LD_LIBRARY_PATH /vendor/lib:/system/lib
     export ANDROID_ROOT /system
@@ -19,7 +21,7 @@ on init
     mkdir /tmp
     mkdir /dbdata
     mkdir /mnt 0775 root root
-    #mount /tmp /tmp tmpfs   
+    #mount /tmp /tmp tmpfs
 
 on early-fs
     mount ext4 /dev/block/mmcblk0p9 /system ro wait noatime
@@ -28,7 +30,8 @@ on early-fs
 	mkdir /data/log 0777
 	chmod 0666 /dev/log/radio
 	chmod 0666 /dev/log/main
-	chmod 0666 /dev/log/event    
+	chmod 0666 /dev/log/event
+	chmod 0777 /smdk_charger
 
 on boot
 #	write /sys/class/sec/switch/usb_sel PDA
@@ -50,29 +53,6 @@ service debuggerd /system/bin/debuggerd
 service ueventd /sbin/ueventd
     critical
 
-service console /system/bin/sh
-    console
-
-service playlpm /system/bin/playlpm
+service battery_charger /note_charger
     user root
-
-service immvibed /system/bin/immvibed 
-    oneshot
-
-service lpmkey /system/bin/lpmkey
-    user root
-
-# adbd is controlled by the persist.service.adb.enable system property
-service adbd /sbin/adbd
-    disabled
-
-# adbd on at boot in emulator
-on property:ro.kernel.qemu=1
-    start adbd
-
-on property:persist.service.adb.enable=1
-    start adbd
-
-on property:persist.service.adb.enable=0
-    stop adbd
 
