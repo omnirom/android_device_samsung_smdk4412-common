@@ -137,16 +137,6 @@ BOARD_BLUEDROID_VENDOR_CONF := device/samsung/smdk4412-common/bluetooth/vnd_smdk
 # Vold
 TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/platform/s3c-usbgadget/gadget/lun%d/file"
 
-# Recovery
-BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/smdk4412-common/recovery/recovery_keys.c
-BOARD_CUSTOM_GRAPHICS := ../../../device/samsung/smdk4412-common/recovery/graphics.c
-BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_15x24.h\"
-BOARD_UMS_LUNFILE := "/sys/class/android_usb/android0/f_mass_storage/lun0/file"
-BOARD_USES_MMCUTILS := true
-BOARD_HAS_LARGE_FILESYSTEM := true
-BOARD_HAS_NO_MISC_PARTITION := true
-BOARD_HAS_NO_SELECT_BUTTON := true
-
 # Charging mode
 BOARD_CHARGING_MODE_BOOTING_LPM := /sys/class/power_supply/battery/batt_lp_charging
 BOARD_BATTERY_DEVICE_NAME := "battery"
@@ -154,18 +144,25 @@ BOARD_BATTERY_DEVICE_NAME := "battery"
 # inherit from the proprietary version
 -include vendor/samsung/smdk4412-common/BoardConfigVendor.mk
 
-# TWRP
-RECOVERY_SD_CARD_ON_DATA := true
-BOARD_HAS_NO_REAL_SDCARD := true
-RECOVERY_GRAPHICS_USE_LINELENGTH := true
+BOARD_HAS_LARGE_FILESYSTEM := true
 HAVE_SELINUX := true
-TW_INCLUDE_JB_CRYPTO := true
-TW_NO_REBOOT_BOOTLOADER := true
-TW_HAS_DOWNLOAD_MODE := true
+
+# TWRP specific build flags
 TW_INTERNAL_STORAGE_PATH := "/data/media"
 TW_INTERNAL_STORAGE_MOUNT_POINT := "data"
-TW_EXTERNAL_STORAGE_PATH := "/external_sd"
-TW_EXTERNAL_STORAGE_MOUNT_POINT := "external_sd"
-TW_MAX_BRIGHTNESS := 255
+TW_EXTERNAL_STORAGE_PATH := "/external_sdcard"
+TW_EXTERNAL_STORAGE_MOUNT_POINT := "external_sdcard"
+RECOVERY_SDCARD_ON_DATA := true
+BOARD_HAS_NO_REAL_SDCARD := true
+TWRP_EVENT_LOGGING := false
 SP1_NAME := "efs"
-SP1_DISPLAY_NAME := "EFS"
+SP1_BACKUP_METHOD := image
+SP1_MOUNTABLE := 0
+SP2_NAME := "modem"
+SP2_BACKUP_METHOD := image
+SP2_MOUNTABLE := 0
+TW_BRIGHTNESS_PATH := "/sys/devices/platform/s5p-dsim.0/s6evr02/backlight/panel/brightness"
+TW_MAX_BRIGHTNESS := 255
+TARGET_USERIMAGES_USE_EXT4 := true
+TARGET_USERIMAGES_USE_F2FS := true
+TW_INCLUDE_FB2PNG := true
