@@ -147,8 +147,9 @@ on post-fs-data
 
 # S-Pen
     chown system system /sys/class/sec/sec_epen/epen_saving_mode
-    chmod 660 /sys/class/sec/sec_epen/epen_saving_mode
-
+    chmod 0660 /sys/class/sec/sec_epen/epen_saving_mode
+    write /sys/class/sec/sec_epen/epen_saving_mode 1 
+	
 # Permissions for LCD
     chown system radio /sys/class/lcd/panel/lcd_power
     chown system radio /sys/class/lcd/panel/lcd_type
@@ -165,6 +166,7 @@ on post-fs-data
     chown system system /sys/class/mdnie/mdnie/negative
     write /sys/class/mdnie/mdnie/scenario 0
     write /sys/class/mdnie/mdnie/mode 0
+    write /sys/class/mdnie/mdnie/cabc 1 #enable dinamic auto backlight based on displayed contents 
 
 # Permissions for System Server and daemons.
     chown radio system /sys/android_power/state
@@ -297,11 +299,10 @@ on post-fs-data
 	chown system system /sys/class/leds/led_r/blink
 	chown system system /sys/class/leds/led_g/blink
 	chown system system /sys/class/leds/led_b/blink
-
 	chown system system /sys/class/sec/led/led_pattern
 	chown system system /sys/class/sec/led/led_blink
 	chown system system /sys/class/sec/led/led_br_lev
-
+	
 # <Sensors & NFC>
 # Input Events
     chown system radio /sys/class/input/input2/enable
