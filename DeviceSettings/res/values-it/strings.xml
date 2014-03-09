@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2012-2013 The CyanogenMod Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">Impostazioni avanzate</string>
+
+    <string name="defaults_button">Impostazioni predefinite</string>
+    <string name="kernel_does_not_support">Il kernel non lo supporta</string>
+
+    <!-- Screen Preference -->
+    <string name="category_screen_title">Schermo</string>
+    <string name="screen_colors_title">Colori</string>
+
+    <!-- Content adaptive backlight control -->
+    <string name="cabc_title_head">CABC</string>
+    <string name="cabc_summary_head">Abilita la retroilluminazione basata sul contenuto visualizzato</string>
+
+    <!-- mDNIe -->
+    <string name="mdnie_scenario_title_head">Scenario</string>
+    <string name="mdnie_scenario_summary_head">Imposta lo Scenario mDNIe</string>
+    <string name="mdnie_mode_title_head">Modalità</string>
+    <string name="mdnie_mode_summary_head">Imposta la modalità mDNIe</string>
+    <string name="mdnie_negative_title_head">Negativo</string>
+    <string name="mdnie_negative_summary_head">Abilita/Disabilita colori invertiti</string>
+
+    <!-- LED -->
+    <string name="led_subcat_title">LED di notifica</string>
+    <string name="led_fade_title_head">Dissolvenza LED</string>
+    <string name="led_fade_summary_head">Abilita la dissolvenza continua del LED</string>
+
+    <!-- Touchkey tuning -->
+    <string name="touchkey_subcat_title">Tasti touch</string>
+    <string name="touchkey_light_title_head">Retroilluminazione</string>
+    <string name="touchkey_light_summary_off">Abilita retroilluminazione</string>
+    <string name="touchkey_light_summary_on">Disabilita retroilluminazione</string>
+    <string name="touchkey_timeout_title_head">Timeout retroilluminazione</string>
+    <string name="touchkey_timeout_summary_head">Imposta timeout retroilluminazione</string>
+
+    <!-- Haptic Preference -->
+    <string name="category_haptic_title">Vibrazione</string>
+
+    <!-- VibratorTuning -->
+    <string name="vibrator_title">Vibrazione alla pressione</string>
+    <string name="vibrator_tuning_title">Intensità vibrazione</string>
+    <string name="vibrator_tuning_summary_head">Intensità della vibrazione di feedback</string>
+    <string name="vibrator_warning">Valori più alti di %1$d non sono consigliati</string>
+
+    <!-- Radio Preference -->
+    <string name="category_radio_title">Radio</string>
+    <string name="hspa_title_head">HSPA</string>
+    <string name="hspa_summary_head">Abilita HSDPA/HSUPA</string>
+
+    <!-- Audio Preference -->
+    <string name="category_audio_title">Audio</string>
+    <string name="dockaudio_subcat_title">Audio Dock</string>
+    <string name="use_dock_audio_title_head">Usa l\'audio della Dock</string>
+    <string name="use_dock_audio_summary_head">Usa audio passivo della Dock</string>
+
+    <!-- S-Pen -->
+    <string name="spen_subcat_title">S-Pen</string>
+    <string name="spen_power_save_title_head">Modalità risparmio energetico</string>
+    <string name="spen_power_save_summary_head">Disabilità digitizer quando la S-Pen è nel dispositivo</string>
+
+    <!-- Touchwake -->
+    <string name="touchwake_title">Touchwake</string>
+    <string name="touchwake_enable_title">Abilita</string>
+    <string name="touchwake_enable_summary">Risveglia il dispositivo con il tocco se è appena entrato stato spento lo schermo</string>
+    <string name="touchwake_timeout_title">Timeout</string>
+    <string name="touchwake_timeout_summary">Imposta timeout per Touchwake</string>
+
+</resources>
