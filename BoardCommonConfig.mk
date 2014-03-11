@@ -155,7 +155,7 @@ BOARD_BATTERY_DEVICE_NAME := "battery"
 -include vendor/samsung/smdk4412-common/BoardConfigVendor.mk
 
 # TWRP
-RECOVERY_SD_CARD_ON_DATA := true
+RECOVERY_SDCARD_ON_DATA := true
 BOARD_HAS_NO_REAL_SDCARD := true
 RECOVERY_GRAPHICS_USE_LINELENGTH := true
 HAVE_SELINUX := true
@@ -167,5 +167,4 @@ TW_INTERNAL_STORAGE_MOUNT_POINT := "data"
 TW_EXTERNAL_STORAGE_PATH := "/external_sd"
 TW_EXTERNAL_STORAGE_MOUNT_POINT := "external_sd"
 TW_MAX_BRIGHTNESS := 255
-SP1_NAME := "efs"
-SP1_DISPLAY_NAME := "EFS"
+TW_BRIGHTNESS_PATH := "/sys/devices/platform/s5p-dsim.0/s6e8aa0/backlight/panel/brightness"
