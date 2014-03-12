@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8b77b57d_8ac96d57",
+        "filename": "BoardCommonConfig.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1000183
+      },
+      "writtenOn": "2014-03-12T06:14:40Z",
+      "side": 1,
+      "message": "s6e8aa0 is the frame buffer driver in i9300/i9305 only, other smdk4412 devices have different fb drivers.",
+      "revId": "ea15e7ff4502ea515c0bb6c51764a2a7874f26a7",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    }
+  ]
+}
