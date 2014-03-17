@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8b77b57d_be5aeb4f",
+        "filename": "BoardCommonConfig.mk",
+        "patchSetId": 18
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1000711
+      },
+      "writtenOn": "2014-03-17T17:01:45Z",
+      "side": 1,
+      "message": "Mmh i forgot that in n80xx I\u0027ve moved module\u0027s sources, so we have to remove a ../ in the next line too, this might fix the compiling",
+      "parentUuid": "8b77b57d_7e7773d0",
+      "revId": "ce538fc169b2f6a2103ab91370b8614bd7af99d6",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8b77b57d_be810b96",
         "filename": "rootdir/lpm.rc",
         "patchSetId": 18
