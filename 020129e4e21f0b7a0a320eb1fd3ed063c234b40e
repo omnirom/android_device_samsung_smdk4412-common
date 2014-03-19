@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8b77b57d_f9dabd4e",
+        "filename": "libhealthd/healthd_board_exynos4.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000026
+      },
+      "writtenOn": "2014-03-19T12:32:45Z",
+      "side": 1,
+      "message": "what about the comment about this on jira? http://jira.omnirom.org/browse/OMNI-751 is this device specific? if yes just add some #ifdef around it",
+      "revId": "020129e4e21f0b7a0a320eb1fd3ed063c234b40e",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    }
+  ]
+}
