@@ -78,9 +78,9 @@ struct exynos_camera_preset exynos_camera_presets_smdk4x12[] = {
 			.preview_size_values = "960x720,1280x720,1184x666,960x640,704x576,640x480,352x288,320x240",
 			.preview_size = "960x720",
 			.preview_format_values = "yuv420sp,yuv420p,rgb565",
-			.preview_format = "yuv420sp",
+			.preview_format = "rgb565",
 			.preview_frame_rate_values = "30,20,15",
-			.preview_frame_rate = 30,
+			.preview_frame_rate = 20,
 			.preview_fps_range_values = "(15000,15000),(15000,30000),(30000,30000)",
 			.preview_fps_range = "15000,30000",
 
@@ -166,9 +166,9 @@ struct exynos_camera_preset exynos_camera_presets_smdk4x12[] = {
 			.preview_size_values = "1280x720,960x720,640x480,320x240,704x704,320x320",
 			.preview_size = "960x720",
 			.preview_format_values = "yuv420sp,yuv420p,rgb565",
-			.preview_format = "yuv420sp",
+			.preview_format = "rgb565",
 			.preview_frame_rate_values = "30,20,15,8",
-			.preview_frame_rate = 30,
+			.preview_frame_rate = 15,
 			.preview_fps_range_values = "(8000,8000),(15000,15000),(15000,30000),(30000,30000)",
 			.preview_fps_range = "15000,30000",
 
@@ -2682,6 +2682,7 @@ int exynos_camera_picture_callback(struct exynos_camera *exynos_camera,
 	struct exynos_camera_buffer *yuv_thumbnail_buffer = NULL;
 	int width, height;
 	int thumbnail_width, thumbnail_height;
+	time_t timestamp;
 	int rc;
 	int i;
 
@@ -2709,6 +2710,31 @@ int exynos_camera_picture_callback(struct exynos_camera *exynos_camera,
 	pthread_mutex_lock(&exynos_camera->picture_mutex);
 
 	if (!exynos_camera->picture_enabled && !exynos_camera->camera_fimc_is) {
+		if (exynos_camera->camera_capture_format == V4L2_PIX_FMT_INTERLEAVED && exynos_camera->zoom == 0 && exynos_camera->focus_mode == FOCUS_MODE_CONTINOUS_PICTURE) {
+			if (exynos_camera->capture_auto_focus_result == CAMERA_AF_STATUS_FAIL) {
+				// We don't want to take a picture out of focus, so wait a bit
+				timestamp = time(NULL);
+
+				if (exynos_camera->picture_focus_timestamp > 0) {
+					if ((timestamp - exynos_camera->picture_focus_timestamp) > 2) {
+						LOGE("%s: Picture will be taken out of focus", __func__);
+					} else {
+						pthread_mutex_unlock(&exynos_camera->picture_mutex);
+						return 0;
+					}
+				} else {
+					exynos_camera->picture_focus_timestamp = timestamp;
+					pthread_mutex_unlock(&exynos_camera->picture_mutex);
+					return 0;
+				}
+			} else if (exynos_camera->capture_auto_focus_result == CAMERA_AF_STATUS_IN_PROGRESS) {
+				LOGD("%s: Not asking for picture until auto focus is done", __func__);
+				pthread_mutex_unlock(&exynos_camera->picture_mutex);
+				return 0;
+			}
+		}
+
+		exynos_camera->picture_focus_timestamp = 0;
 
 		rc = exynos_v4l2_s_ctrl(exynos_camera, 0, V4L2_CID_CAMERA_CAPTURE, 0);
 		if (rc < 0) {
@@ -3709,6 +3735,7 @@ complete:
 
 void exynos_camera_recording_thread_stop(struct exynos_camera *exynos_camera)
 {
+	camera_memory_t *memory;
 	int i;
 
 	if (exynos_camera == NULL)
@@ -3720,6 +3747,8 @@ void exynos_camera_recording_thread_stop(struct exynos_camera *exynos_camera)
 		ALOGE("Recording thread was already stopped!");
 		return;
 	}
+
+	memory = exynos_camera->recording_memory;
 
 	if (exynos_camera->recording_listener != NULL) {
 		exynos_camera_capture_listener_unregister(exynos_camera, exynos_camera->recording_listener);
@@ -3748,6 +3777,11 @@ void exynos_camera_recording_thread_stop(struct exynos_camera *exynos_camera)
 
 	pthread_mutex_destroy(&exynos_camera->recording_mutex);
 	pthread_mutex_destroy(&exynos_camera->recording_lock_mutex);
+
+	if (memory != NULL && memory->release != NULL) {
+		memory->release(memory);
+		exynos_camera->recording_memory = NULL;
+	}
 }
 
 // Auto-focus

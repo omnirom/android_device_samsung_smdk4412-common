@@ -355,6 +355,7 @@ struct exynos_camera {
 	struct exynos_camera_buffer picture_jpeg_thumbnail_buffer;
 	struct exynos_camera_buffer picture_yuv_buffer;
 	struct exynos_camera_buffer picture_yuv_thumbnail_buffer;
+	time_t picture_focus_timestamp;
 
 	// Recording
 
