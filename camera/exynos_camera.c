@@ -78,9 +78,9 @@ struct exynos_camera_preset exynos_camera_presets_smdk4x12[] = {
 			.preview_size_values = "960x720,1280x720,1184x666,960x640,704x576,640x480,352x288,320x240",
 			.preview_size = "960x720",
 			.preview_format_values = "yuv420sp,yuv420p,rgb565",
-			.preview_format = "yuv420sp",
+			.preview_format = "rgb565",
 			.preview_frame_rate_values = "30,20,15",
-			.preview_frame_rate = 30,
+			.preview_frame_rate = 20,
 			.preview_fps_range_values = "(15000,15000),(15000,30000),(30000,30000)",
 			.preview_fps_range = "15000,30000",
 
@@ -166,9 +166,9 @@ struct exynos_camera_preset exynos_camera_presets_smdk4x12[] = {
 			.preview_size_values = "1280x720,960x720,640x480,320x240,704x704,320x320",
 			.preview_size = "960x720",
 			.preview_format_values = "yuv420sp,yuv420p,rgb565",
-			.preview_format = "yuv420sp",
+			.preview_format = "rgb565",
 			.preview_frame_rate_values = "30,20,15,8",
-			.preview_frame_rate = 30,
+			.preview_frame_rate = 15,
 			.preview_fps_range_values = "(8000,8000),(15000,15000),(15000,30000),(30000,30000)",
 			.preview_fps_range = "15000,30000",
 
@@ -3709,6 +3709,7 @@ complete:
 
 void exynos_camera_recording_thread_stop(struct exynos_camera *exynos_camera)
 {
+	camera_memory_t *memory;
 	int i;
 
 	if (exynos_camera == NULL)
@@ -3720,6 +3721,8 @@ void exynos_camera_recording_thread_stop(struct exynos_camera *exynos_camera)
 		ALOGE("Recording thread was already stopped!");
 		return;
 	}
+
+	memory = exynos_camera->recording_memory;
 
 	if (exynos_camera->recording_listener != NULL) {
 		exynos_camera_capture_listener_unregister(exynos_camera, exynos_camera->recording_listener);
@@ -3748,6 +3751,11 @@ void exynos_camera_recording_thread_stop(struct exynos_camera *exynos_camera)
 
 	pthread_mutex_destroy(&exynos_camera->recording_mutex);
 	pthread_mutex_destroy(&exynos_camera->recording_lock_mutex);
+
+	if (memory != NULL && memory->release != NULL) {
+		memory->release(memory);
+		exynos_camera->recording_memory = NULL;
+	}
 }
 
 // Auto-focus
