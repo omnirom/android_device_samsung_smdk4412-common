@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  Copyright (C) 2013 The OmniROM Project
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- Settings screen, dialog choice for 8 megapixels picture size [CHAR LIMIT=20] -->
+    <string name="pref_camera_picturesize_entry_8mp">8M pixels</string>
+    <!-- Settings screen, dialog choice for 7.1 megapixels picture size [CHAR LIMIT=15] -->
+    <string name="pref_camera_picturesize_entry_7_1mp">7.1M pixels (3:2)</string>
+    <!-- Settings screen, dialog choice for 6 megapixels picture size [CHAR LIMIT=15] -->
+    <string name="pref_camera_picturesize_entry_6mp">6M pixels</string>
+    <!-- Settings screen, dialog choice for 5 megapixels picture size [CHAR LIMIT=20] -->
+    <string name="pref_camera_picturesize_entry_5mp">5M pixels</string>
+    <!-- Settings screen, dialog choice for 3 megapixels picture size [CHAR LIMIT=20] -->
+    <string name="pref_camera_picturesize_entry_3mp">3M pixels</string>
+    <!-- Settings screen, dialog choice for 2.4 megapixels picture size [CHAR LIMIT=15] -->
+    <string name="pref_camera_picturesize_entry_2_4mp_wide">2.4M pixels (16:9)</string>
+    <!-- Settings screen, dialog choice for 1.9 megapixels picture size [CHAR LIMIT=15] -->
+    <string name="pref_camera_picturesize_entry_1_9mp">1.9M pixels</string>
+    <!-- Settings screen, dialog choice for 1.3 megapixels picture size [CHAR LIMIT=20] -->
+    <string name="pref_camera_picturesize_entry_1_3mp">1.3M pixels</string>
+    <!-- Settings screen, dialog choice for 1 megapixels picture size [CHAR LIMIT=20] -->
+    <string name="pref_camera_picturesize_entry_1mp">1M pixels</string>
+    <!-- Settings screen, dialog choice for XGA picture size [CHAR LIMIT=15] -->
+    <string name="pref_camera_picturesize_entry_xga">XGA</string>
+    <!-- Settings screen, dialog choice for SVGA picture size [CHAR LIMIT=15] -->
+    <string name="pref_camera_picturesize_entry_svga">SVGA</string>
+    <!-- Settings screen, dialog choice for VGA picture size [CHAR LIMIT=20] -->
+    <string name="pref_camera_picturesize_entry_vga">VGA</string>
+    <!-- Settings screen, dialog choice for WQVGA picture size [CHAR LIMIT=15] -->
+    <string name="pref_camera_picturesize_entry_wqvga">WQVGA</string>
+</resources>
