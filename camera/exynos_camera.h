@@ -93,22 +93,18 @@ struct exynos_camera_buffer {
 	int format;
 };
 
-struct exynos_camera_capture_listener {
-	struct list_head list;
-
-	int width;
-	int height;
-	int format;
-
-	int (*callback)(struct exynos_camera *exynos_camera, struct exynos_camera_buffer *buffers, int buffers_count);
-	int busy;
-};
-
 struct exynos_camera_mbus_resolution {
 	int width;
 	int height;
 	int mbus_width;
 	int mbus_height;
+};
+
+struct exynos_camera_videosnapshot_resolution {
+	int video_width;
+	int video_height;
+	int snapshot_width;
+	int snapshot_height;
 };
 
 struct exynos_camera_params {
@@ -143,6 +139,8 @@ struct exynos_camera_params {
 	char *focus_distances;
 	char *focus_areas;
 	int max_num_focus_areas;
+
+	int max_detected_faces;
 
 	int zoom_supported;
 	int smooth_zoom_supported;
@@ -205,6 +203,8 @@ struct exynos_camera_preset {
 	struct exynos_camera_params params;
 	struct exynos_camera_mbus_resolution *mbus_resolutions;
 	int mbus_resolutions_count;
+	struct exynos_camera_videosnapshot_resolution *videosnapshot_resolutions;
+	int videosnapshot_resolutions_count;
 };
 
 struct exynos_v4l2_node {
@@ -311,14 +311,12 @@ struct exynos_camera {
 	int capture_thread_enabled;
 
 	int capture_enabled;
-	struct exynos_camera_capture_listener *capture_listeners;
 	struct exynos_exif exif;
 	camera_memory_t *capture_memory;
 	int capture_memory_address;
 	int capture_memory_index;
 	void *capture_yuv_buffer;
 	void *capture_jpeg_buffer;
-	int capture_hybrid;
 	int capture_width;
 	int capture_height;
 	int capture_format;
@@ -326,15 +324,10 @@ struct exynos_camera {
 	int capture_buffer_length;
 
 	// Preview
-
-	pthread_t preview_thread;
-	pthread_mutex_t preview_mutex;
-	pthread_mutex_t preview_lock_mutex;
-	int preview_thread_running;
-	int preview_thread_enabled;
+	int preview_enabled;
+	int preview_stopping;
 
 	int preview_output_enabled;
-	struct exynos_camera_capture_listener *preview_listener;
 	struct preview_stream_ops *preview_window;
 	struct exynos_camera_buffer preview_buffer;
 	struct exynos_v4l2_output preview_output;
@@ -342,30 +335,25 @@ struct exynos_camera {
 	// Picture
 
 	pthread_t picture_thread;
-	pthread_mutex_t picture_mutex;
-	pthread_mutex_t picture_lock_mutex;
-	int picture_thread_running;
-	int picture_thread_enabled;
-
+	int picture_running;
 	int picture_enabled;
+
 	int picture_completed;
-	struct exynos_camera_capture_listener *picture_listener;
 	camera_memory_t *picture_memory;
 	struct exynos_camera_buffer picture_jpeg_buffer;
-	struct exynos_camera_buffer picture_jpeg_thumbnail_buffer;
 	struct exynos_camera_buffer picture_yuv_buffer;
-	struct exynos_camera_buffer picture_yuv_thumbnail_buffer;
+
+	// Face Detection
+	camera_frame_metadata_t mFaceData;
+	camera_memory_t *face_data;
+	int max_detected_faces;
 
 	// Recording
 
-	pthread_t recording_thread;
-	pthread_mutex_t recording_mutex;
-	pthread_mutex_t recording_lock_mutex;
-	int recording_thread_running;
-	int recording_thread_enabled;
+	int recording_running;
+	int recording_enabled;
 
 	int recording_output_enabled;
-	struct exynos_camera_capture_listener *recording_listener;
 	camera_memory_t *recording_memory;
 	int recording_memory_index;
 	struct exynos_camera_buffer recording_buffer;
@@ -377,6 +365,7 @@ struct exynos_camera {
 	// Auto-focus
 
 	int auto_focus_enabled;
+	int auto_focus_started;
 
 	// Camera params
 
@@ -391,6 +380,8 @@ struct exynos_camera {
 
 	struct exynos_camera_mbus_resolution *camera_mbus_resolutions;
 	int camera_mbus_resolutions_count;
+	struct exynos_camera_videosnapshot_resolution *camera_videosnapshot_resolutions;
+	int camera_videosnapshot_resolutions_count;
 
 	int camera_sensor_mode;
 	int fimc_is_mode;
@@ -465,46 +456,34 @@ int exynos_camera_params_apply(struct exynos_camera *exynos_camera, int force);
 
 // Capture
 int exynos_camera_capture(struct exynos_camera *exynos_camera);
-int exynos_camera_capture_thread_start(struct exynos_camera *exynos_camera);
-void exynos_camera_capture_thread_stop(struct exynos_camera *exynos_camera);
 int exynos_camera_capture_start(struct exynos_camera *exynos_camera);
 void exynos_camera_capture_stop(struct exynos_camera *exynos_camera);
 int exynos_camera_capture_setup(struct exynos_camera *exynos_camera);
-struct exynos_camera_capture_listener *exynos_camera_capture_listener_register(
-	struct exynos_camera *exynos_camera, int width, int height, int format,
-	int (*callback)(struct exynos_camera *exynos_camera, struct exynos_camera_buffer *buffers, int buffers_count));
-void exynos_camera_capture_listener_unregister(
-	struct exynos_camera *exynos_camera,
-	struct exynos_camera_capture_listener *listener);
 
 // Preview
 int exynos_camera_preview_output_start(struct exynos_camera *exynos_camera);
 void exynos_camera_preview_output_stop(struct exynos_camera *exynos_camera);
-int exynos_camera_preview_callback(struct exynos_camera *exynos_camera,
-	struct exynos_camera_buffer *buffers, int buffers_count);
 int exynos_camera_preview(struct exynos_camera *exynos_camera);
-int exynos_camera_preview_thread_start(struct exynos_camera *exynos_camera);
-void exynos_camera_preview_thread_stop(struct exynos_camera *exynos_camera);
+int exynos_camera_preview_start(struct exynos_camera *exynos_camera);
+void exynos_camera_preview_stop(struct exynos_camera *exynos_camera);
 
 // Picture
-int exynos_camera_picture_callback(struct exynos_camera *exynos_camera,
-	struct exynos_camera_buffer *buffers, int buffers_count);
-int exynos_camera_picture(struct exynos_camera *exynos_camera);
-int exynos_camera_picture_thread_start(struct exynos_camera *exynos_camera);
-void exynos_camera_picture_thread_stop(struct exynos_camera *exynos_camera);
+void *exynos_camera_picture(void *data);
+int exynos_camera_picture_start(struct exynos_camera *exynos_camera);
+void exynos_camera_picture_thread_start(struct exynos_camera *exynos_camera);
+void exynos_camera_picture_stop(struct exynos_camera *exynos_camera);
 
 // Recording
 int exynos_camera_recording_output_start(struct exynos_camera *exynos_camera);
 void exynos_camera_recording_output_stop(struct exynos_camera *exynos_camera);
-int exynos_camera_recording_callback(struct exynos_camera *exynos_camera,
-	struct exynos_camera_buffer *buffers, int buffers_count);
 void exynos_camera_recording_frame_release(struct exynos_camera *exynos_camera);
 int exynos_camera_recording(struct exynos_camera *exynos_camera);
-int exynos_camera_recording_thread_start(struct exynos_camera *exynos_camera);
-void exynos_camera_recording_thread_stop(struct exynos_camera *exynos_camera);
+int exynos_camera_recording_start(struct exynos_camera *exynos_camera);
+void exynos_camera_recording_stop(struct exynos_camera *exynos_camera);
 
 // Auto-focus
 int exynos_camera_auto_focus(struct exynos_camera *exynos_camera, int auto_focus_status);
+int exynos_camera_continuous_auto_focus(struct exynos_camera *exynos_camera, int auto_focus_status);
 int exynos_camera_auto_focus_start(struct exynos_camera *exynos_camera);
 void exynos_camera_auto_focus_finish(struct exynos_camera *exynos_camera);
 void exynos_camera_auto_focus_stop(struct exynos_camera *exynos_camera);
@@ -589,6 +568,8 @@ int exynos_v4l2_ioctl(struct exynos_camera *exynos_camera, int exynos_v4l2_id,
 int exynos_v4l2_poll(struct exynos_camera *exynos_camera, int exynos_v4l2_id);
 int exynos_v4l2_qbuf(struct exynos_camera *exynos_camera, int exynos_v4l2_id,
 	int type, int memory, int index, unsigned long userptr);
+int exynos_v4l2_s_ext_ctrl_face_detection(struct exynos_camera *exynos_camera,
+	int id, void *value);
 int exynos_v4l2_qbuf_cap(struct exynos_camera *exynos_camera, int exynos_v4l2_id,
 	int index);
 int exynos_v4l2_qbuf_out(struct exynos_camera *exynos_camera, int exynos_v4l2_id,
