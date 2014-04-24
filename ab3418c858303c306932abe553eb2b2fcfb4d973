@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8b77b57d_2e169b4e",
+        "filename": "configs/media_profiles.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1000117
+      },
+      "writtenOn": "2014-04-24T13:22:14Z",
+      "side": 1,
+      "message": "Why ?",
+      "revId": "ab3418c858303c306932abe553eb2b2fcfb4d973",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    }
+  ]
+}
