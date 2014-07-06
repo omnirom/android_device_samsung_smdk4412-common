@@ -37,12 +37,22 @@
 
 #include "exynos_camera.h"
 
+static int v4l2_open_fds[EXYNOS_CAMERA_MAX_V4L2_NODES_COUNT];
+
 int exynos_v4l2_init(struct exynos_camera *exynos_camera)
 {
 	int i;
 
-	for (i = 0; i < EXYNOS_CAMERA_MAX_V4L2_NODES_COUNT; i++)
+	for (i = 0; i < EXYNOS_CAMERA_MAX_V4L2_NODES_COUNT; i++) {
 		exynos_camera->v4l2_fds[i] = -1;
+
+		if (v4l2_open_fds[i] >= 0) {
+			ALOGD("%s Closing v4l2_open_fds[%d]", __func__, i);
+			close(v4l2_open_fds[i]);
+		}
+
+		v4l2_open_fds[i] = -1;
+	}
 
 	return 0;
 }
@@ -109,7 +119,7 @@ int exynos_v4l2_open(struct exynos_camera *exynos_camera, int exynos_v4l2_id)
 		return -1;
 	}
 
-	exynos_camera->v4l2_fds[index] = fd;
+	v4l2_open_fds[index] = exynos_camera->v4l2_fds[index] = fd;
 
 	return 0;
 }
