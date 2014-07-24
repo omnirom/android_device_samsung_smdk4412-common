@@ -64,6 +64,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES := \
     audio.a2dp.default \
     audio.primary.smdk4x12 \
+    audio.r_submix.default \
     audio.usb.default \
     com.android.future.usb.accessory \
     gralloc.exynos4 \
