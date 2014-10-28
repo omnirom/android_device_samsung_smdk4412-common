@@ -2365,7 +2365,7 @@ int exynos_camera_preview(struct exynos_camera *exynos_camera)
 
 	if (exynos_camera->preview_window != NULL && exynos_camera->gralloc != NULL) {
 		exynos_camera->preview_window->dequeue_buffer(exynos_camera->preview_window, &window_buffer, &window_stride);
-		exynos_camera->gralloc->lock(exynos_camera->gralloc, *window_buffer, GRALLOC_USAGE_SW_WRITE_OFTEN, 0, 0, width, height, &window_data);
+		exynos_camera->gralloc->lock(exynos_camera->gralloc, *window_buffer, GRALLOC_USAGE_YUV_ADDR | GRALLOC_USAGE_SW_WRITE_OFTEN, 0, 0, width, height, &window_data);
 
 		if (window_data == NULL) {
 			ALOGE("%s: Unable to lock gralloc", __func__);
@@ -3256,7 +3256,7 @@ int exynos_camera_set_preview_window(struct camera_device *dev,
 		goto error;
 	}
 
-	rc = w->set_usage(w, GRALLOC_USAGE_SW_WRITE_OFTEN);
+	rc = w->set_usage(w, GRALLOC_USAGE_CAMERA | GRALLOC_USAGE_HW_FIMC1 | GRALLOC_USAGE_EXTERNAL_DISP | GRALLOC_USAGE_SW_WRITE_OFTEN);
 	if (rc) {
 		ALOGE("%s: Unable to set usage", __func__);
 		goto error;
