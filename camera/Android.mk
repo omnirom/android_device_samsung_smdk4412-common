@@ -32,7 +32,8 @@ LOCAL_SRC_FILES := \
 
 LOCAL_C_INCLUDES := \
 	$(LOCAL_PATH)/include \
-	hardware/samsung/exynos4/hal/include
+	hardware/samsung/exynos4/hal/include \
+	system/media/camera/include \
 
 LOCAL_SHARED_LIBRARIES := libutils libcutils liblog libcamera_client libhardware
 LOCAL_PRELINK_MODULE := false
