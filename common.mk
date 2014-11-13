@@ -67,17 +67,22 @@ PRODUCT_PACKAGES := \
     audio.r_submix.default \
     audio.usb.default \
     com.android.future.usb.accessory \
+    dhcpcd.conf \
     gralloc.exynos4 \
+    hostapd \
+    hostapd_default.conf \
     hwcomposer.exynos4 \
     libfimg \
     libnetcmdiface \
     libsecion \
     libsync \
+    libwpa_client \
     lights.exynos4 \
     macloader \
     tinymix \
     SamsungServiceMode \
-    DeviceSettings
+    DeviceSettings \
+    wpa_supplicant
 
 ifneq ($(TARGET_NO_CAM_FLASH) ,true)
 PRODUCT_PACKAGES += \
