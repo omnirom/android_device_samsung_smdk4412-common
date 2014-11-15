@@ -1,0 +1,1 @@
+allow appdomain fs_type:filesystem ~getattr; 

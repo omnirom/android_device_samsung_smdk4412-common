@@ -154,6 +154,13 @@ BOARD_BATTERY_DEVICE_NAME := "battery"
 # Override healthd HAL
 BOARD_HAL_STATIC_LIBRARIES := libhealthd.exynos4
 
+BOARD_SEPOLICY_DIRS += \
+	device/samsung/smdk4412-common/sepolicy
+
+BOARD_SEPOLICY_REPLACE += \
+	domain.te \
+	app.te
+
 # inherit from the proprietary version
 -include vendor/samsung/smdk4412-common/BoardConfigVendor.mk
 
