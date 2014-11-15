@@ -1,0 +1,3 @@
+#Fix recovery building
+#Fix error: libsepol.check_assertion_helper: neverallow on line 297 of external/sepolicy/domain.te (or line 8732 of policy.conf) violated by allow vold vfat:filesystem { relabelto }; 
+allow domain {fs_type -contextmount_type}:filesystem relabelto;
