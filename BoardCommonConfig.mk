@@ -108,6 +108,7 @@ BOARD_USE_CSC_FIMC := false
 
 # RIL
 BOARD_MOBILEDATA_INTERFACE_NAME := "pdp0"
+BOARD_NEEDS_SEC_RIL_WORKAROUND := true
 
 # Wifi
 BOARD_WLAN_DEVICE                := bcmdhd
