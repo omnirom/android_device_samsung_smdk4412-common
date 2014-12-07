@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0b32e5d2_edbda1d1",
+        "filename": "rootdir/init.smdk4x12.rc",
+        "patchSetId": 1
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 1000515
+      },
+      "writtenOn": "2014-12-07T04:32:06Z",
+      "side": 1,
+      "message": "I think eth0 will not be used as an interface.",
+      "range": {
+        "startLine": 486,
+        "startChar": 0,
+        "endLine": 486,
+        "endChar": 46
+      },
+      "revId": "b011ac17d6e82240d8ba4833dcd61405dfb51a4b",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b32e5d2_0dd3d532",
+        "filename": "rootdir/init.smdk4x12.rc",
+        "patchSetId": 1
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 1000515
+      },
+      "writtenOn": "2014-12-07T04:32:06Z",
+      "side": 1,
+      "message": "same here",
+      "revId": "b011ac17d6e82240d8ba4833dcd61405dfb51a4b",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    }
+  ]
+}
