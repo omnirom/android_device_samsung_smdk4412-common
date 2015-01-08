@@ -2365,7 +2365,7 @@ int exynos_camera_preview(struct exynos_camera *exynos_camera)
 
 	if (exynos_camera->preview_window != NULL && exynos_camera->gralloc != NULL) {
 		exynos_camera->preview_window->dequeue_buffer(exynos_camera->preview_window, &window_buffer, &window_stride);
-		exynos_camera->gralloc->lock(exynos_camera->gralloc, *window_buffer, GRALLOC_USAGE_SW_WRITE_OFTEN, 0, 0, width, height, &window_data);
+		exynos_camera->gralloc->lock(exynos_camera->gralloc, *window_buffer, GRALLOC_USAGE_YUV_ADDR | GRALLOC_USAGE_SW_WRITE_OFTEN, 0, 0, width, height, &window_data);
 
 		if (window_data == NULL) {
 			ALOGE("%s: Unable to lock gralloc", __func__);
@@ -3132,6 +3132,10 @@ int exynos_camera_continuous_auto_focus(struct exynos_camera *exynos_camera, int
 	if (exynos_camera == NULL)
 		return -EINVAL;
 
+	/* Report MSG_FOCUS_MOVE only in continuous focus modes */
+	if (exynos_camera->focus_mode != FOCUS_MODE_CONTINOUS_VIDEO && exynos_camera->focus_mode != FOCUS_MODE_CONTINOUS_PICTURE)
+		return 0;
+
 	switch (auto_focus_status) {
 		case CAMERA_AF_STATUS_IN_PROGRESS:
 			if (EXYNOS_CAMERA_MSG_ENABLED(CAMERA_MSG_FOCUS_MOVE) && EXYNOS_CAMERA_CALLBACK_DEFINED(notify) && !exynos_camera->callback_lock)
@@ -3209,12 +3213,12 @@ void exynos_camera_auto_focus_stop(struct exynos_camera *exynos_camera)
 
 	ALOGD("%s()", __func__);
 
-	rc = exynos_v4l2_s_ctrl(exynos_camera, 0, V4L2_CID_CAMERA_SET_AUTO_FOCUS, AUTO_FOCUS_OFF);
-	if (rc < 0)
-		ALOGE("%s: Unable to set auto-focus off", __func__);
-
-	if (exynos_camera->auto_focus_enabled)
-		exynos_camera_auto_focus_finish(exynos_camera);
+	if (exynos_camera->auto_focus_enabled) {
+		rc = exynos_v4l2_s_ctrl(exynos_camera, 0, V4L2_CID_CAMERA_SET_AUTO_FOCUS, AUTO_FOCUS_OFF);
+		if (rc < 0)
+			ALOGE("%s: Unable to set auto-focus off", __func__);
+			exynos_camera_auto_focus_finish(exynos_camera);
+	}
 
 }
 
@@ -3256,7 +3260,7 @@ int exynos_camera_set_preview_window(struct camera_device *dev,
 		goto error;
 	}
 
-	rc = w->set_usage(w, GRALLOC_USAGE_SW_WRITE_OFTEN);
+	rc = w->set_usage(w, GRALLOC_USAGE_CAMERA | GRALLOC_USAGE_HW_FIMC1 | GRALLOC_USAGE_EXTERNAL_DISP | GRALLOC_USAGE_SW_WRITE_OFTEN);
 	if (rc) {
 		ALOGE("%s: Unable to set usage", __func__);
 		goto error;
