@@ -120,6 +120,8 @@ BOARD_USES_LEGACY_MMAP := true
 
 # RIL
 BOARD_MOBILEDATA_INTERFACE_NAME := "pdp0"
+BOARD_RIL_CLASS := ../../../hardware/samsung/exynos4/ril
+#BOARD_PROVIDES_LIBRIL and BOARD_MODEM_TYPE are still in device specific makefile
 
 # Wifi
 BOARD_WLAN_DEVICE                := bcmdhd
