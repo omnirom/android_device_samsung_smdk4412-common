@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b22818b_8bffb1ab",
+        "filename": "rootdir/init.smdk4x12.rc",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000515
+      },
+      "writtenOn": "2015-02-06T16:47:06Z",
+      "side": 1,
+      "message": "I think we need to use /charger instead /sbin/healthd",
+      "revId": "e5d652bc0d4bd56eee36f3aa49ffccda79d73042",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    }
+  ]
+}
