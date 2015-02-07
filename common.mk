@@ -67,6 +67,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/gps.conf:system/etc/gps.conf
 
+# RIL
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.telephony.ril_class=SamsungExynos4RIL
+
 # Packages
 PRODUCT_PACKAGES += \
     audio.a2dp.default \
