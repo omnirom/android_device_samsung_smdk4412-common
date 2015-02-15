@@ -45,7 +45,8 @@ PRODUCT_COPY_FILES += \
 
 # Netflix hack
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/configs/98netflix:system/etc/init.d/98netflix
+    $(COMMON_PATH)/configs/98netflix:system/etc/init.d/98netflix \
+    $(COMMON_PATH)/configs/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml
 
 # Wifi
 PRODUCT_COPY_FILES += \
