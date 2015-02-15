@@ -45,7 +45,7 @@ PRODUCT_COPY_FILES += \
 
 # Netflix hack
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/configs/98netflix:system/etc/init.d/98netflix
+    $(COMMON_PATH)/configs/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml
 
 # Wifi
 PRODUCT_COPY_FILES += \
@@ -111,8 +111,9 @@ PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml \
     $(COMMON_PATH)/configs/media_codecs.xml:system/etc/media_codecs.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml
+    frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml
+# we overlay this file (see netflix hack above)
+#   frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml
 
 # Show SELinux status in about phone
 PRODUCT_PROPERTY_OVERRIDES += \
