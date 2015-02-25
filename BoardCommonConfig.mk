@@ -83,6 +83,9 @@ BOARD_USES_LEGACY_ACQUIRE_WVM := true
 # Bionic non pie support
 TARGET_ENABLE_NON_PIE_SUPPORT := true
 
+# PIE
+TARGET_NEEDS_NON_PIE_SUPPORT := true
+
 # FIMG Acceleration
 BOARD_USES_FIMGAPI := true
 BOARD_USES_SKIA_FIMGAPI := true
