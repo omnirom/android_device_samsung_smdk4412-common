@@ -75,7 +75,6 @@ PRODUCT_PACKAGES += \
     audio.usb.default \
     com.android.future.usb.accessory \
     gralloc.exynos4 \
-    hwcomposer.exynos4 \
     libfimg \
     libnetcmdiface \
     libsecion \
@@ -85,6 +84,13 @@ PRODUCT_PACKAGES += \
     tinymix \
     SamsungServiceMode \
     DeviceSettings
+
+#Hardware composer
+PRODUCT_PACKAGES += \
+    libExynosHWCService \
+    libExynosIPService \
+    os_libUMP \
+    hwcomposer.exynos4
 
 ifneq ($(TARGET_NO_CAM_FLASH) ,true)
 PRODUCT_PACKAGES += \
