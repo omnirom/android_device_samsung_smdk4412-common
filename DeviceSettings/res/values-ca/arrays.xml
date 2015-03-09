@@ -16,42 +16,42 @@
  -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string-array name="mdnie_scenario_entries">
-    <item>OmniROM (Défaut)</item>
-    <item>UI</item>
-    <item>Vidéo</item>
-    <item>Vidéo chaude</item>
-    <item>Vidéo froide</item>
-    <item>Caméra</item>
-    <item>Navigation</item>
-    <item>Galerie</item>
+    <item>CyanogenMod (per defecte)</item>
+    <item>IU</item>
+    <item>Vídeo</item>
+    <item>Vídeo càlid</item>
+    <item>Vídeo fred</item>
+    <item>Càmera</item>
+    <item>Navegació</item>
+    <item>Galeria</item>
     <item>VT</item>
   </string-array>
   <string-array name="mdnie_mode_entries">
-    <item>Dynamique (Défaut)</item>
-    <item>Standard</item>
-    <item>Naturel</item>
-    <item>Vidéo</item>
+    <item>Dinàmic (per defecte)</item>
+    <item>Estàndard</item>
+    <item>Natural</item>
+    <item>Pel·lícula</item>
   </string-array>
   <string-array name="mdnie_negative_entries">
     <item>Normal</item>
-    <item>Inversé</item>
+    <item>Invertit</item>
   </string-array>
   <string-array name="touchkey_timeout_entries">
-    <item>Désactivé</item>
-    <item>1 seconde</item>
-    <item>2 secondes</item>
-    <item>3 secondes (Défaut)</item>
-    <item>4 secondes</item>
-    <item>5 secondes</item>
-    <item>6 secondes</item>
+    <item>Mai</item>
+    <item>1 segon</item>
+    <item>2 segons</item>
+    <item>3 segons (per defecte)</item>
+    <item>4 segons</item>
+    <item>5 segons</item>
+    <item>6 segons</item>
   </string-array>
   <string-array name="led_fade_entries">
-    <item>Clignotante</item>
-    <item>Progressive</item>
+    <item>Parpelleig</item>
+    <item>Esvaïment</item>
   </string-array>
   <string-array name="hspa_entries">
-    <item>UMTS seulement</item>
-    <item>HSDPA seulement</item>
+    <item>Només UMTS</item>
+    <item>Només HSDPA</item>
     <item>HSDPA + HSUPA</item>
   </string-array>
 </resources>

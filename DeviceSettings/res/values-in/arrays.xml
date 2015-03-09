@@ -16,42 +16,42 @@
  -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string-array name="mdnie_scenario_entries">
-    <item>OmniROM (Défaut)</item>
+    <item>CyanogenMod (Standar)</item>
     <item>UI</item>
-    <item>Vidéo</item>
-    <item>Vidéo chaude</item>
-    <item>Vidéo froide</item>
-    <item>Caméra</item>
-    <item>Navigation</item>
-    <item>Galerie</item>
+    <item>Video</item>
+    <item>Video Hangat</item>
+    <item>Video Dingin</item>
+    <item>Kamera</item>
+    <item>Navigasi</item>
+    <item>Galeri</item>
     <item>VT</item>
   </string-array>
   <string-array name="mdnie_mode_entries">
-    <item>Dynamique (Défaut)</item>
-    <item>Standard</item>
-    <item>Naturel</item>
-    <item>Vidéo</item>
+    <item>Dinamis (Standar)</item>
+    <item>Standar</item>
+    <item>Alami</item>
+    <item>Film</item>
   </string-array>
   <string-array name="mdnie_negative_entries">
     <item>Normal</item>
-    <item>Inversé</item>
+    <item>Terbalik</item>
   </string-array>
   <string-array name="touchkey_timeout_entries">
-    <item>Désactivé</item>
-    <item>1 seconde</item>
-    <item>2 secondes</item>
-    <item>3 secondes (Défaut)</item>
-    <item>4 secondes</item>
-    <item>5 secondes</item>
-    <item>6 secondes</item>
+    <item>Tidak pernah</item>
+    <item>1 detik</item>
+    <item>2 detik</item>
+    <item>3 detik (Standar)</item>
+    <item>4 detik</item>
+    <item>5 detik</item>
+    <item>6 detik</item>
   </string-array>
   <string-array name="led_fade_entries">
-    <item>Clignotante</item>
-    <item>Progressive</item>
+    <item>Berkedip</item>
+    <item>Memudar</item>
   </string-array>
   <string-array name="hspa_entries">
-    <item>UMTS seulement</item>
-    <item>HSDPA seulement</item>
+    <item>Hanya UMTS</item>
+    <item>Hanya HSDPA</item>
     <item>HSDPA + HSUPA</item>
   </string-array>
 </resources>
