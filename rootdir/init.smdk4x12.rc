@@ -112,6 +112,7 @@ on post-fs-data
     chown system radio /sys/class/camera/front/front_camtype
     write /data/ISP_CV 1
     chmod 0622 /data/ISP_CV
+    restorecon /data/ISP_CV
 
 # Permissions for bluetooth
     setprop ro.bt.bdaddr_path "/efs/bluetooth/bt_addr"
