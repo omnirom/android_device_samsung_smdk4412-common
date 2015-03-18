@@ -15,10 +15,13 @@
      limitations under the License.
  -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="app_name">Ustawienia zaawansowane</string>
-  <string name="kernel_does_not_support">Jądro nie obsługuje</string>
-  <string name="category_screen_title">Ekran</string>
-  <string name="screen_colors_title">Kolory</string>
-  <string name="cabc_title_head">CABC</string>
-  <string name="mdnie_mode_title_head">Tryb</string>
+  <string-array name="touchkey_timeout_entries">
+    <item>Never</item>
+    <item>1 sekunda</item>
+    <item>2 seconds</item>
+    <item>3 seconds (Default)</item>
+    <item>4 seconds</item>
+    <item>5 seconds</item>
+    <item>6 seconds</item>
+  </string-array>
 </resources>
