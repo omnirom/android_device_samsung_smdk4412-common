@@ -80,6 +80,9 @@ BOARD_EGL_NEEDS_LEGACY_FB := true
 # enable fix for missing signature in libstagefright's MediaBufferGroup::acquire_buffer()
 BOARD_USES_LEGACY_ACQUIRE_WVM := true
 
+# Bionic 64/32 bit mmap fix
+BOARD_USES_LEGACY_MMAP := true
+
 # Bionic non pie support
 TARGET_ENABLE_NON_PIE_SUPPORT := true
 
