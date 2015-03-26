@@ -76,6 +76,10 @@ BOARD_USES_SKIAHWJPEG := true
 COMMON_GLOBAL_CFLAGS += -DSEC_HWJPEG_G2D -DFORCE_SCREENSHOT_CPU_PATH -DWORKAROUND_BUG_10194508
 BOARD_EGL_NEEDS_LEGACY_FB := true
 
+# Widevine
+# enable fix for missing signature in libstagefright's MediaBufferGroup::acquire_buffer()
+BOARD_USES_LEGACY_ACQUIRE_WVM := true
+
 # Bionic non pie support
 TARGET_ENABLE_NON_PIE_SUPPORT := true
 
