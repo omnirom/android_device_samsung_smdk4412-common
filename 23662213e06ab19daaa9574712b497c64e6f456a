@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b22818b_903987cd",
+        "filename": "common.mk",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1001140
+      },
+      "writtenOn": "2015-03-31T10:08:51Z",
+      "side": 1,
+      "message": "This should be removed if we want to use the prop HWC llibrary, right?",
+      "revId": "23662213e06ab19daaa9574712b497c64e6f456a",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    }
+  ]
+}
