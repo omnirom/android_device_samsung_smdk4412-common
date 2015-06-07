@@ -63,8 +63,8 @@ public class DeviceSettings extends FragmentActivity {
                 ScreenFragment.class, null);
         tabsAdapter.addTab(res.getString(R.string.category_haptic_title),
                 HapticFragment.class, null);
-        tabsAdapter.addTab(res.getString(R.string.category_audio_title),
-                AudioFragment.class, null);
+        // tabsAdapter.addTab(res.getString(R.string.category_audio_title),
+        //        AudioFragment.class, null);
     }
 
     @Override
