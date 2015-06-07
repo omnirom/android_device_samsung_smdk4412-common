@@ -27,6 +27,7 @@ import android.preference.PreferenceManager;
 
 public class mDNIeScenario extends ListPreference implements OnPreferenceChangeListener {
 
+    public static final String KEY_MDNIE_SCENARIO = "mdnie_scenario";
     private static String FILE = null;
 
     public mDNIeScenario(Context context, AttributeSet attrs) {
@@ -50,7 +51,7 @@ public class mDNIeScenario extends ListPreference implements OnPreferenceChangeL
         }
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-        Utils.writeValue(FILE, sharedPrefs.getString(DeviceSettings.KEY_MDNIE_SCENARIO, "0"));
+        Utils.writeValue(FILE, sharedPrefs.getString(KEY_MDNIE_SCENARIO, "0"));
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {

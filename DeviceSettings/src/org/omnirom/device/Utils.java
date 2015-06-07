@@ -32,8 +32,8 @@ import android.content.Context;
 public class Utils {
 
     private static final String TAG = "DeviceSettings_Utils";
-    private static final String TAG_READ = "DeviceSettings_Utils_Read";
-    private static final String TAG_WRITE = "DeviceSettings_Utils_Write";
+    private static final String TAG_READ = "DeviceSettings_Utils_R";
+    private static final String TAG_WRITE = "DeviceSettings_Utils_W";
 
     // Read value from sysfs interface
     public static String readOneLine(String sFile) {

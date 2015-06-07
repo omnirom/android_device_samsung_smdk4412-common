@@ -27,6 +27,7 @@ import android.preference.PreferenceManager;
 
 public class Hspa extends ListPreference implements OnPreferenceChangeListener {
 
+    public static final String KEY_HSPA = "hspa";
     private static final String FILE = "/system/app/SamsungServiceMode.apk";
     private Context mCtx;
 
@@ -50,7 +51,7 @@ public class Hspa extends ListPreference implements OnPreferenceChangeListener {
         }
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-        sendIntent(context, sharedPrefs.getString(DeviceSettings.KEY_HSPA, "23"));
+        sendIntent(context, sharedPrefs.getString(KEY_HSPA, "23"));
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -59,7 +60,7 @@ public class Hspa extends ListPreference implements OnPreferenceChangeListener {
     }
 
     private static void sendIntent(Context context, String value) {
-        Intent i = new Intent("com.omnirom.SamsungServiceMode.EXECUTE");
+        Intent i = new Intent("org.omnirom.SamsungServiceMode.EXECUTE");
         i.putExtra("sub_type", 20); // HSPA Setting
         i.putExtra("data", value);
         context.sendBroadcast(i);

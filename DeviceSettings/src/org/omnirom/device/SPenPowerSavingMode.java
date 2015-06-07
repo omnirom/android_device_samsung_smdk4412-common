@@ -17,7 +17,6 @@
 package org.omnirom.device;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.AttributeSet;
 import android.preference.CheckBoxPreference;
@@ -27,6 +26,8 @@ import android.preference.PreferenceManager;
 
 public class SPenPowerSavingMode extends CheckBoxPreference implements OnPreferenceChangeListener {
 
+    public static final String KEY_CATEGORY_SPEN = "category_spen";
+    public static final String KEY_SPEN_POWER_SAVING_MODE = "spen_power_saving";
     private static String FILE_PATH = null;
 
     public SPenPowerSavingMode(Context context, AttributeSet attrs) {
@@ -51,7 +52,7 @@ public class SPenPowerSavingMode extends CheckBoxPreference implements OnPrefere
         }
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-        Utils.writeValue(FILE_PATH, sharedPrefs.getBoolean(DeviceSettings.KEY_SPEN_POWER_SAVING_MODE, false) ? "1" : "0");
+        Utils.writeValue(FILE_PATH, sharedPrefs.getBoolean(KEY_SPEN_POWER_SAVING_MODE, false) ? "1" : "0");
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {

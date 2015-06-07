@@ -16,7 +16,6 @@
 
 package org.omnirom.device;
 
-import java.io.IOException;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.content.SharedPreferences;
@@ -27,12 +26,13 @@ import android.preference.PreferenceManager;
 
 public class LedFade extends ListPreference implements OnPreferenceChangeListener {
 
+    public static final String KEY_LED_FADE = "led_fade";
+    private static final String FILE = "/sys/class/sec/led/led_fade";
+
     public LedFade(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.setOnPreferenceChangeListener(this);
     }
-
-    private static final String FILE = "/sys/class/sec/led/led_fade";
 
     public static boolean isSupported() {
         return Utils.fileExists(FILE);
@@ -48,7 +48,7 @@ public class LedFade extends ListPreference implements OnPreferenceChangeListene
         }
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-        Utils.writeValue(FILE, sharedPrefs.getString(DeviceSettings.KEY_LED_FADE, "1"));
+        Utils.writeValue(FILE, sharedPrefs.getString(KEY_LED_FADE, "1"));
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {

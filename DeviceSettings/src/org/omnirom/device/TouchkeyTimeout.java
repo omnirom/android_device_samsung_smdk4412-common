@@ -16,7 +16,6 @@
 
 package org.omnirom.device;
 
-import java.io.IOException;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.content.SharedPreferences;
@@ -26,6 +25,8 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceManager;
 
 public class TouchkeyTimeout extends ListPreference implements OnPreferenceChangeListener {
+
+    public static final String KEY_TOUCHKEY_TIMEOUT = "touchkey_timeout";
 
     public TouchkeyTimeout(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -48,7 +49,7 @@ public class TouchkeyTimeout extends ListPreference implements OnPreferenceChang
         }
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-        Utils.writeValue(FILE_TOUCHKEY_TIMEOUT, sharedPrefs.getString(DeviceSettings.KEY_TOUCHKEY_TIMEOUT, "3"));
+        Utils.writeValue(FILE_TOUCHKEY_TIMEOUT, sharedPrefs.getString(KEY_TOUCHKEY_TIMEOUT, "3"));
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {

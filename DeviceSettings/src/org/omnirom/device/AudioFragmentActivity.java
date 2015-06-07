@@ -24,17 +24,14 @@ import android.os.Bundle;
 import android.os.UserHandle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
-import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.util.Log;
 
-import org.omnirom.device.R;
-
 public class AudioFragmentActivity extends PreferenceFragment {
 
-    private static final String PREF_ENABLED = "1";
+    public static final String KEY_USE_DOCK_AUDIO = "dock_audio";
     private static final String TAG = "DeviceSettings_Audio";
 
     @Override
@@ -42,20 +39,18 @@ public class AudioFragmentActivity extends PreferenceFragment {
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.audio_preferences);
-        PreferenceScreen prefSet = getPreferenceScreen();
     }
 
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
-
         String boxValue;
         String key = preference.getKey();
 
         Log.w(TAG, "key: " + key);
 
-        if (key.compareTo(DeviceSettings.KEY_USE_DOCK_AUDIO) == 0) {
+        if (key.compareTo(KEY_USE_DOCK_AUDIO) == 0) {
             boxValue = (((CheckBoxPreference)preference).isChecked() ? "1" : "0");
-            Intent i = new Intent("com.omnirom.settings.SamsungDock");
+            Intent i = new Intent("org.omnirom.settings.SamsungDock");
             i.putExtra("data", boxValue);
             ActivityManagerNative.broadcastStickyIntent(i, null, UserHandle.USER_ALL);
         }
@@ -64,8 +59,8 @@ public class AudioFragmentActivity extends PreferenceFragment {
 
     public static void restore(Context context) {
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-        boolean dockAudio = sharedPrefs.getBoolean(DeviceSettings.KEY_USE_DOCK_AUDIO, false);
-        Intent i = new Intent("com.omnirom.settings.SamsungDock");
+        boolean dockAudio = sharedPrefs.getBoolean(KEY_USE_DOCK_AUDIO, false);
+        Intent i = new Intent("org.omnirom.settings.SamsungDock");
         i.putExtra("data", (dockAudio? "1" : "0"));
         ActivityManagerNative.broadcastStickyIntent(i, null, UserHandle.USER_ALL);
     }

@@ -26,6 +26,7 @@ import android.util.AttributeSet;
 
 public class CABC extends CheckBoxPreference implements OnPreferenceChangeListener {
 
+    public static final String KEY_CABC = "cabc";
     private static String FILE = null;
 
     public CABC(Context context, AttributeSet attrs) {
@@ -49,7 +50,7 @@ public class CABC extends CheckBoxPreference implements OnPreferenceChangeListen
         }
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-        Utils.writeValue(FILE, sharedPrefs.getBoolean(DeviceSettings.KEY_CABC, true) ? "1" : "0");
+        Utils.writeValue(FILE, sharedPrefs.getBoolean(KEY_CABC, true) ? "1" : "0");
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {

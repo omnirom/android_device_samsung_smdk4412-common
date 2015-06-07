@@ -21,45 +21,32 @@ import android.content.res.Resources;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
-import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
-import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
-import android.preference.PreferenceGroup;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
 import android.util.Log;
 
-import org.omnirom.device.R;
-
 public class ScreenFragmentActivity extends PreferenceFragment implements
         OnPreferenceChangeListener {
 
-    private static final String PREF_ENABLED = "1";
     private static final String TAG = "DeviceSettings_Screen";
-    private CABC mCABC;
-    private mDNIeScenario mmDNIeScenario;
-    private mDNIeMode mmDNIeMode;
-    // private mDNIeNegative mmDNIeNegative;
-    private LedFade mLedFade;
-    private CheckBoxPreference mTouchKey;
-    private TouchkeyTimeout mTouchKeyTimeout;
 
-    private static boolean sSPenSupported;
-    private static boolean sTouchkeySupport;
-    private static final String FILE_TOUCHKEY_BRIGHTNESS = "/sys/class/sec/sec_touchkey/brightness";
-    private static final String FILE_TOUCHKEY_DISABLE = "/sys/class/sec/sec_touchkey/force_disable";
-
-    private SwitchPreference mTouchwakeEnable;
-    private SeekBarPreference mTouchwakeTimeout;
-    private static final String TOUCHWAKE_CATEGORY = "category_power_menu";
+    private static final String KEY_TOUCHKEY_LIGHT = "touchkey_light";
     private static final String KEY_TOUCHWAKE_ENABLE = "touchwake_enable";
     private static final String KEY_TOUCHWAKE_TIMEOUT = "touchwake_timeout";
     private static final String FILE_TOUCHWAKE_ENABLE = "/sys/devices/virtual/misc/touchwake/enabled";
     private static final String FILE_TOUCHWAKE_TIMEOUT = "/sys/devices/virtual/misc/touchwake/delay";
+
+    private static final String FILE_TOUCHKEY_BRIGHTNESS = "/sys/class/sec/sec_touchkey/brightness";
+    private static final String FILE_TOUCHKEY_DISABLE = "/sys/class/sec/sec_touchkey/force_disable";
+
+    private TouchkeyTimeout mTouchKeyTimeout;
+    private SwitchPreference mTouchwakeEnable;
+    private SeekBarPreference mTouchwakeTimeout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,32 +57,32 @@ public class ScreenFragmentActivity extends PreferenceFragment implements
         Resources res = getResources();
 
         /* CABC */
-        mCABC = (CABC) findPreference(DeviceSettings.KEY_CABC);
-        mCABC.setEnabled(CABC.isSupported(res.getString(R.string.mdnie_cabc_sysfs_file)));
+        CABC cabc = (CABC) findPreference(CABC.KEY_CABC);
+        cabc.setEnabled(CABC.isSupported(res.getString(R.string.mdnie_cabc_sysfs_file)));
 
         /* mDNIe */
-        mmDNIeScenario = (mDNIeScenario) findPreference(DeviceSettings.KEY_MDNIE_SCENARIO);
-        mmDNIeScenario.setEnabled(mDNIeScenario.isSupported(res.getString(R.string.mdnie_scenario_sysfs_file)));
+        mDNIeScenario scenario = (mDNIeScenario) findPreference(mDNIeScenario.KEY_MDNIE_SCENARIO);
+        scenario.setEnabled(mDNIeScenario.isSupported(res.getString(R.string.mdnie_scenario_sysfs_file)));
 
-        mmDNIeMode = (mDNIeMode) findPreference(DeviceSettings.KEY_MDNIE_MODE);
-        mmDNIeMode.setEnabled(mDNIeMode.isSupported(res.getString(R.string.mdnie_mode_sysfs_file)));
+        mDNIeMode mode = (mDNIeMode) findPreference(mDNIeMode.KEY_MDNIE_MODE);
+        mode.setEnabled(mDNIeMode.isSupported(res.getString(R.string.mdnie_mode_sysfs_file)));
 
-        // mmDNIeNegative = (mDNIeNegative) findPreference(DeviceSettings.KEY_MDNIE_NEGATIVE);
-        // mmDNIeNegative.setEnabled(mDNIeNegative.isSupported(res.getString(R.string.mdnie_negative_sysfs_file)));
+        // mDNIeNegative negative = (mDNIeNegative) findPreference(mDNIeNegative.KEY_MDNIE_NEGATIVE);
+        // negative.setEnabled(mDNIeNegative.isSupported(res.getString(R.string.mdnie_negative_sysfs_file)));
 
         /* LED */
-        mLedFade = (LedFade) findPreference(DeviceSettings.KEY_LED_FADE);
-        mLedFade.setEnabled(LedFade.isSupported());
+        LedFade ledFade = (LedFade) findPreference(LedFade.KEY_LED_FADE);
+        ledFade.setEnabled(LedFade.isSupported());
 
         /* Touchkey */
-        sTouchkeySupport = res.getBoolean(R.bool.has_touchkey);
-        mTouchKey = (CheckBoxPreference)preferenceScreen.findPreference(DeviceSettings.KEY_TOUCHKEY_LIGHT);
-        mTouchKey.setEnabled(sTouchkeySupport);
+        boolean touchkeySupport = res.getBoolean(R.bool.has_touchkey);
+        CheckBoxPreference touchKey = (CheckBoxPreference) preferenceScreen.findPreference(KEY_TOUCHKEY_LIGHT);
+        touchKey.setEnabled(touchkeySupport);
 
-        mTouchKeyTimeout = (TouchkeyTimeout)preferenceScreen.findPreference(DeviceSettings.KEY_TOUCHKEY_TIMEOUT);
+        mTouchKeyTimeout = (TouchkeyTimeout)preferenceScreen.findPreference(TouchkeyTimeout.KEY_TOUCHKEY_TIMEOUT);
 
-        if (mTouchKey.isChecked() && mTouchKey.isEnabled()) {
-            mTouchKeyTimeout.setEnabled(mTouchKeyTimeout.isSupported());
+        if (touchKey.isChecked() && touchKey.isEnabled()) {
+            mTouchKeyTimeout.setEnabled(TouchkeyTimeout.isSupported());
         } else {
             mTouchKeyTimeout.setEnabled(false);
         }
@@ -121,26 +108,25 @@ public class ScreenFragmentActivity extends PreferenceFragment implements
         }
 
         /* S-Pen */
-        String spenFilePath = res.getString(R.string.spen_sysfs_file);
-        sSPenSupported = SPenPowerSavingMode.isSupported(spenFilePath);
+        String sPenFilePath = res.getString(R.string.spen_sysfs_file);
+        boolean sPenSupported = SPenPowerSavingMode.isSupported(sPenFilePath);
 
-        PreferenceCategory spenCategory = (PreferenceCategory) findPreference(DeviceSettings.KEY_CATEGORY_SPEN);
-        if (!sSPenSupported) {
-            preferenceScreen.removePreference(spenCategory);
+        PreferenceCategory sPenCategory = (PreferenceCategory) findPreference(SPenPowerSavingMode.KEY_CATEGORY_SPEN);
+        if (!sPenSupported) {
+            preferenceScreen.removePreference(sPenCategory);
         }
     }
 
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
-
         String key = preference.getKey();
         Log.w(TAG, "key: " + key);
 
-        if (key.compareTo(DeviceSettings.KEY_TOUCHKEY_LIGHT) == 0) {
+        if (key.compareTo(KEY_TOUCHKEY_LIGHT) == 0) {
             if (((CheckBoxPreference)preference).isChecked()) {
                 Utils.writeValue(FILE_TOUCHKEY_DISABLE, "0");
                 Utils.writeValue(FILE_TOUCHKEY_BRIGHTNESS, "1");
-                mTouchKeyTimeout.setEnabled(mTouchKeyTimeout.isSupported());
+                mTouchKeyTimeout.setEnabled(TouchkeyTimeout.isSupported());
             } else {
                 Utils.writeValue(FILE_TOUCHKEY_DISABLE, "1");
                 Utils.writeValue(FILE_TOUCHKEY_BRIGHTNESS, "2");
@@ -175,8 +161,17 @@ public class ScreenFragmentActivity extends PreferenceFragment implements
     }
 
     public static void restore(Context context) {
+        CABC.restore(context);
+        LedFade.restore(context);
+        mDNIeScenario.restore(context);
+        mDNIeMode.restore(context);
+        // mDNIeNegative.restore(context);
+        SPenPowerSavingMode.restore(context);
+        TouchkeyTimeout.restore(context);
+
+        /* Touchwake */
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-        boolean light = sharedPrefs.getBoolean(DeviceSettings.KEY_TOUCHKEY_LIGHT, true);
+        boolean light = sharedPrefs.getBoolean(KEY_TOUCHKEY_LIGHT, true);
 
         Utils.writeValue(FILE_TOUCHKEY_DISABLE, light ? "0" : "1");
         Utils.writeValue(FILE_TOUCHKEY_BRIGHTNESS, light ? "1" : "2");

@@ -17,7 +17,6 @@
 package org.omnirom.device;
 
 import android.content.Context;
-
 import android.content.SharedPreferences;
 import android.util.AttributeSet;
 import android.preference.Preference;
@@ -27,6 +26,7 @@ import android.preference.PreferenceManager;
 
 public class mDNIeMode extends ListPreference implements OnPreferenceChangeListener {
 
+    public static final String KEY_MDNIE_MODE = "mdnie_mode";
     private static String FILE = null;
 
     public mDNIeMode(Context context, AttributeSet attrs) {
@@ -50,7 +50,7 @@ public class mDNIeMode extends ListPreference implements OnPreferenceChangeListe
         }
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-        Utils.writeValue(FILE, sharedPrefs.getString(DeviceSettings.KEY_MDNIE_MODE, "0"));
+        Utils.writeValue(FILE, sharedPrefs.getString(KEY_MDNIE_MODE, "0"));
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {

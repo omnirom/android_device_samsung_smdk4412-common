@@ -18,26 +18,15 @@ package org.omnirom.device;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.CheckBoxPreference;
-import android.preference.ListPreference;
 import android.preference.Preference;
-import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.util.Log;
 
-import org.omnirom.device.R;
-
 public class RadioFragmentActivity extends PreferenceFragment {
 
-    private static final String PREF_ENABLED = "1";
     private static final String TAG = "DeviceSettings_Radio";
-
-    private static boolean sHspa;
-    private Hspa mHspa;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,18 +34,15 @@ public class RadioFragmentActivity extends PreferenceFragment {
 
         addPreferencesFromResource(R.xml.radio_preferences);
 
-        PreferenceScreen prefSet = getPreferenceScreen();
-        Resources res = getResources();
-        sHspa = res.getBoolean(R.bool.has_hspa);
+        Hspa hspa = (Hspa) findPreference(Hspa.KEY_HSPA);
 
-        mHspa = (Hspa) findPreference(DeviceSettings.KEY_HSPA);
-        mHspa.setEnabled(sHspa);
+        Resources res = getResources();
+        boolean hasHspa = res.getBoolean(R.bool.has_hspa);
+        hspa.setEnabled(hasHspa);
     }
 
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
-
-        String boxValue;
         String key = preference.getKey();
 
         Log.w(TAG, "key: " + key);
@@ -64,11 +50,7 @@ public class RadioFragmentActivity extends PreferenceFragment {
         return true;
     }
 
-    public static boolean isSupported(String FILE) {
-        return Utils.fileExists(FILE);
-    }
-
     public static void restore(Context context) {
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+        Hspa.restore(context);
     }
 }

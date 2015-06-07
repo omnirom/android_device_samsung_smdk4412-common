@@ -20,7 +20,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
 import android.graphics.LightingColorFilter;
 import android.graphics.drawable.Drawable;
@@ -37,7 +36,6 @@ import android.widget.TextView;
 import android.widget.Button;
 
 import java.lang.Math;
-import java.text.DecimalFormat;
 
 /**
  * Special preference type that allows configuration of vibrator intensity settings on Samsung devices
@@ -54,7 +52,6 @@ public class VibratorTuningPreference extends DialogPreference implements SeekBa
     private Context mContext;
     private SeekBar mSeekBar;
     private TextView mValue;
-    private TextView mWarning;
     private String mOriginalValue;
     private Drawable mProgressDrawable;
     private Drawable mProgressThumb;
@@ -88,10 +85,10 @@ public class VibratorTuningPreference extends DialogPreference implements SeekBa
 
         mSeekBar = (SeekBar) view.findViewById(R.id.vibrator_seekbar);
         mValue = (TextView) view.findViewById(R.id.vibrator_value);
-        mWarning = (TextView) view.findViewById(R.id.textWarn);
+        TextView warning = (TextView) view.findViewById(R.id.textWarn);
 
         String strWarnMsg = getContext().getResources().getString(R.string.vibrator_warning, strengthToPercent(WARNING_THRESHOLD));
-        mWarning.setText(strWarnMsg);
+        warning.setText(strWarnMsg);
 
         Drawable progressDrawable = mSeekBar.getProgressDrawable();
         if (progressDrawable instanceof LayerDrawable) {
@@ -110,7 +107,7 @@ public class VibratorTuningPreference extends DialogPreference implements SeekBa
         int percent = settings.getInt("percent", strengthToPercent(DEFAULT_VALUE));
 
         mSeekBar.setOnSeekBarChangeListener(this);
-        mSeekBar.setProgress(Integer.valueOf(percent));
+        mSeekBar.setProgress(percent);
     }
 
     @Override
