@@ -24,7 +24,7 @@ public class Startup extends BroadcastReceiver {
 
     @Override
     public void onReceive(final Context context, final Intent bootintent) {
-        AudioFragmentActivity.restore(context);
+        // AudioFragmentActivity.restore(context);
         HapticFragmentActivity.restore(context);
         RadioFragmentActivity.restore(context);
         ScreenFragmentActivity.restore(context);
