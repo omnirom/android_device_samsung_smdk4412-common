@@ -20,7 +20,7 @@
 
     <!-- Vibrator Tuning -->
     <bool name="has_vibrator_tuning">true</bool>
-    <string name="vibrator_sysfs_file" translatable="false">"/sys/vibrator/pwm_val"</string>
+    <string name="vibrator_sysfs_file" translatable="false">"/sys/class/timed_output/vibrator/pwm_value"</string>
     <string name="intensity_max_value" translatable="false">100</string>
     <string name="intensity_warning_threshold" translatable="false">75</string>
     <string name="intensity_default_value" translatable="false">50</string>
