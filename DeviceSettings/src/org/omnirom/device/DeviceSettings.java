@@ -56,8 +56,8 @@ public class DeviceSettings extends FragmentActivity {
                 ScreenFragmentActivity.class, null);
         mTabsAdapter.addTab(bar.newTab().setText(R.string.category_haptic_title),
                 HapticFragmentActivity.class, null);
-        mTabsAdapter.addTab(bar.newTab().setText(R.string.category_audio_title),
-                AudioFragmentActivity.class, null);
+        // mTabsAdapter.addTab(bar.newTab().setText(R.string.category_audio_title),
+        //         AudioFragmentActivity.class, null);
 
         if (savedInstanceState != null) {
             bar.setSelectedNavigationItem(savedInstanceState.getInt("tab", 0));
