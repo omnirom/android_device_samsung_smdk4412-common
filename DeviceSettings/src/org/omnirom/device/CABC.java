@@ -26,6 +26,7 @@ import android.util.AttributeSet;
 
 public class CABC extends CheckBoxPreference implements OnPreferenceChangeListener {
 
+    public static final String KEY_CABC = "cabc";
     private static String FILE = null;
 
     public CABC(Context context, AttributeSet attrs) {
@@ -34,8 +35,11 @@ public class CABC extends CheckBoxPreference implements OnPreferenceChangeListen
         FILE = context.getResources().getString(R.string.mdnie_cabc_sysfs_file);
     }
 
-    public static boolean isSupported(String filePath) {
-        return Utils.fileExists(filePath);
+    public static boolean isSupported(Context context) {
+        if (FILE == null) {
+            FILE = context.getResources().getString(R.string.mdnie_cabc_sysfs_file);
+        }
+        return Utils.fileExists(FILE);
     }
 
     /**
@@ -43,15 +47,15 @@ public class CABC extends CheckBoxPreference implements OnPreferenceChangeListen
      * @param context       The context to read the SharedPreferences from
      */
     public static void restore(Context context) {
-        FILE = context.getResources().getString(R.string.mdnie_cabc_sysfs_file);
-        if (!isSupported(FILE)) {
+        if (!isSupported(context)) { // also sets FILE
             return;
         }
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-        Utils.writeValue(FILE, sharedPrefs.getBoolean(DeviceSettings.KEY_CABC, true) ? "1" : "0");
+        Utils.writeValue(FILE, sharedPrefs.getBoolean(KEY_CABC, true) ? "1" : "0");
     }
 
+    @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         Utils.writeValue(FILE, (Boolean)newValue ? "1" : "0");
         return true;

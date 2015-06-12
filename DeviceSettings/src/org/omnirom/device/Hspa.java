@@ -28,6 +28,7 @@ import android.preference.PreferenceManager;
 
 public class Hspa extends ListPreference implements OnPreferenceChangeListener {
 
+    public static final String KEY_HSPA = "hspa";
     private static final String SERVICE_MODE_PACKAGE = "org.omnirom.samsungservicemode";
     private Context mCtx;
 
@@ -38,6 +39,8 @@ public class Hspa extends ListPreference implements OnPreferenceChangeListener {
     }
 
     public static boolean isSupported(Context context) {
+        boolean hasHspa = context.getResources().getBoolean(R.bool.has_hspa);
+
         boolean hasServiceMode;
         PackageManager pm = context.getPackageManager();
         try {
@@ -47,7 +50,7 @@ public class Hspa extends ListPreference implements OnPreferenceChangeListener {
             hasServiceMode = false;
         }
 
-        return hasServiceMode;
+        return (hasServiceMode && hasHspa);
     }
 
     /**
@@ -60,9 +63,10 @@ public class Hspa extends ListPreference implements OnPreferenceChangeListener {
         }
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-        sendIntent(context, sharedPrefs.getString(DeviceSettings.KEY_HSPA, "23"));
+        sendIntent(context, sharedPrefs.getString(KEY_HSPA, "23")); // HSDPA + HSUPA
     }
 
+    @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         sendIntent(mCtx, (String) newValue);
         return true;

@@ -27,7 +27,6 @@
     <string name="intensity_min_value" translatable="false">0</string>
 
     <!-- S-Pen -->
-    <string name="spen_sysfs_file" translatable="false">"/sys/class/sec/sec_epen"</string>
     <string name="spen_powersaving_sysfs_file" translatable="false">"/sys/class/sec/sec_epen/epen_saving_mode"</string>
 
     <!-- HSPA -->
@@ -35,11 +34,21 @@
 
     <!-- Touchkey -->
     <bool name="has_touchkey">true</bool>
+    <string name="touchkey_brightness_sysfs_file" translatable="false">"/sys/class/sec/sec_touchkey/brightness"</string>
+    <string name="touchkey_disable_sysfs_file" translatable="false">"/sys/class/sec/sec_touchkey/force_disable"</string>
+    <string name="touckeytimeout_sysfs_file" translatable="false">"/sys/class/sec/sec_touchkey/timeout"</string>
 
     <!-- MDNIE -->
     <string name="mdnie_cabc_sysfs_file" translatable="false">"/sys/class/lcd/panel/power_reduce"</string>
     <string name="mdnie_scenario_sysfs_file" translatable="false">"/sys/class/mdnie/mdnie/scenario"</string>
     <string name="mdnie_mode_sysfs_file" translatable="false">"/sys/class/mdnie/mdnie/mode"</string>
     <string name="mdnie_negative_sysfs_file" translatable="false">"/sys/class/mdnie/mdnie/negative"</string>
+
+    <!-- LED -->
+    <string name="led_fade_sysfs_file" translatable="false">"/sys/class/sec/led/led_fade"</string>
+
+    <!-- Touchwake -->
+    <string name="touchwake_sysfs_file">"/sys/devices/virtual/misc/touchwake/enabled"</string>
+    <string name="touchwaketimeout_sysfs_file">"/sys/devices/virtual/misc/touchwake/delay"</string>
 
 </resources>
