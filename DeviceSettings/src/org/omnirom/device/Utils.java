@@ -32,8 +32,8 @@ import android.content.Context;
 public class Utils {
 
     private static final String TAG = "DeviceSettings_Utils";
-    private static final String TAG_READ = "DeviceSettings_Utils_Read";
-    private static final String TAG_WRITE = "DeviceSettings_Utils_Write";
+    private static final String TAG_READ = "DeviceSettings_Utils_R";
+    private static final String TAG_WRITE = "DeviceSettings_Utils_W";
 
     // Read value from sysfs interface
     public static String readOneLine(String sFile) {
@@ -153,7 +153,8 @@ public class Utils {
         final AlertDialog alertDialog = new AlertDialog.Builder(ctx).create();
         alertDialog.setTitle(title);
         alertDialog.setMessage(message);
-        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+           @Override
            public void onClick(DialogInterface dialog, int which) {
               alertDialog.dismiss();
            }

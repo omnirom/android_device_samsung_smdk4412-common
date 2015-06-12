@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:devicesettings="http://schemas.android.com/apk/res/org.omnirom.device" >
 
@@ -61,14 +61,15 @@
         <org.omnirom.device.SPenPowerSavingMode
                 android:key="spen_power_save"
                 android:title="@string/spen_power_save_title_head"
-                android:summary="@string/spen_power_save_summary_head" />
+                android:summary="@string/spen_power_save_summary_head"
+                android:defaultValue="false" />
     </PreferenceCategory>
 
     <!-- Touchkeys -->
     <PreferenceCategory
             android:title="@string/touchkey_subcat_title">
         <!-- Touchkey backlight -->
-        <CheckBoxPreference
+        <org.omnirom.device.Touchkey
                 android:key="touchkey_light"
                 android:title="@string/touchkey_light_title_head"
                 android:summaryOff="@string/touchkey_light_summary_off"
@@ -76,6 +77,7 @@
                 android:defaultValue="true" />
         <org.omnirom.device.TouchkeyTimeout
                 android:key="touchkey_timeout"
+                android:dependency="touchkey_light"
                 android:title="@string/touchkey_timeout_title_head"
                 android:summary="@string/touchkey_timeout_summary_head"
                 android:entries="@array/touchkey_timeout_entries"
@@ -86,13 +88,13 @@
     <!-- Touchwake -->
     <PreferenceCategory android:key="touchwake"
             android:title="@string/touchwake_title">
-        <SwitchPreference
+        <org.omnirom.device.TouchWake
                 android:key="touchwake_enable"
                 android:title="@string/touchwake_enable_title"
                 android:summary="@string/touchwake_enable_summary"
                 android:persistent="true"
                 android:defaultValue="false" />
-        <org.omnirom.device.SeekBarPreference
+        <org.omnirom.device.TouchWakeTimeout
                 android:key="touchwake_timeout"
                 android:title="@string/touchwake_timeout_title"
                 android:summary="@string/touchwake_timeout_summary"

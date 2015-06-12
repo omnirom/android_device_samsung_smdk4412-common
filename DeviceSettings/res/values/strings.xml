@@ -16,9 +16,6 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">Advanced settings</string>
 
-    <string name="defaults_button">Reset to default</string>
-    <string name="kernel_does_not_support">Kernel does not support</string>
-
     <!-- Screen Preference -->
     <string name="category_screen_title">Screen</string>
     <string name="screen_colors_title">Colors</string>
@@ -56,6 +53,7 @@
     <string name="vibrator_tuning_title">Vibration strength</string>
     <string name="vibrator_tuning_summary_head">Adjust the strength of the vibration feedback</string>
     <string name="vibrator_warning">Values higher than %1$d are not recommended</string>
+    <string name="defaults_button">Reset to default</string>
 
     <!-- Radio Preference -->
     <string name="category_radio_title">Radio</string>

@@ -30,8 +30,6 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
-import org.omnirom.device.R;
-
 public class SeekBarPreference extends Preference implements OnSeekBarChangeListener {
 
     private final String TAG = getClass().getName();
@@ -83,12 +81,12 @@ public class SeekBarPreference extends Preference implements OnSeekBarChangeList
             Log.e(TAG, "Invalid interval value", e);
         }
     }
-    
+
     private String getAttributeStringValue(AttributeSet attrs, String namespace, String name, String defaultValue) {
         String value = attrs.getAttributeValue(namespace, name);
         if(value == null)
             value = defaultValue;
-        
+
         return value;
     }
 
@@ -104,7 +102,8 @@ public class SeekBarPreference extends Preference implements OnSeekBarChangeList
 
     @Override
     protected View onCreateView(ViewGroup parent){
-        
+        super.onCreateView(parent);
+
         RelativeLayout layout =  null;
         try {
             LayoutInflater mInflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -117,7 +116,7 @@ public class SeekBarPreference extends Preference implements OnSeekBarChangeList
         }
         return layout;
     }
-    
+
     @Override
     public void onBindView(View view) {
         super.onBindView(view);
@@ -126,7 +125,7 @@ public class SeekBarPreference extends Preference implements OnSeekBarChangeList
             // move our seekbar to the new view we've been given
             ViewParent oldContainer = mSeekBar.getParent();
             ViewGroup newContainer = (ViewGroup) view.findViewById(R.id.seekBarPrefBarContainer);
-            
+
             if (oldContainer != newContainer) {
                 // remove the seekbar from the old view
                 if (oldContainer != null) {
@@ -134,7 +133,7 @@ public class SeekBarPreference extends Preference implements OnSeekBarChangeList
                 }
                 // remove the existing seekbar (there may not be one) and add ours
                 newContainer.removeAllViews();
-                newContainer.addView(mSeekBar, ViewGroup.LayoutParams.FILL_PARENT,
+                newContainer.addView(mSeekBar, ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT);
             }
         }
@@ -166,7 +165,7 @@ public class SeekBarPreference extends Preference implements OnSeekBarChangeList
             Log.e(TAG, "Error updating seek bar preference", e);
         }
     }
-    
+
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         int newValue = progress + mMinValue;
@@ -175,12 +174,12 @@ public class SeekBarPreference extends Preference implements OnSeekBarChangeList
         else if(newValue < mMinValue)
             newValue = mMinValue;
         else if(mInterval != 1 && newValue % mInterval != 0)
-            newValue = Math.round(((float)newValue)/mInterval)*mInterval;  
-        
+            newValue = Math.round(((float)newValue)/mInterval)*mInterval;
+
         // change rejected, revert to the previous value
         if(!callChangeListener(newValue)){
-            seekBar.setProgress(mCurrentValue - mMinValue); 
-            return; 
+            seekBar.setProgress(mCurrentValue - mMinValue);
+            return;
         }
         // change accepted, store it
         mCurrentValue = newValue;
@@ -196,7 +195,7 @@ public class SeekBarPreference extends Preference implements OnSeekBarChangeList
         notifyChanged();
     }
 
-    @Override 
+    @Override
     protected Object onGetDefaultValue(TypedArray ta, int index){
         int defaultValue = ta.getInt(index, DEFAULT_VALUE);
         return defaultValue;
