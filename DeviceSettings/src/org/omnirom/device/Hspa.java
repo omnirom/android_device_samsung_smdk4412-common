@@ -25,19 +25,28 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 public class Hspa extends ListPreference implements OnPreferenceChangeListener {
 
-    private static final String SERVICE_MODE_PACKAGE = "org.omnirom.samsungservicemode";
+    public static final String KEY_HSPA = "hspa";
+    private static String SERVICE_MODE_PACKAGE = null;
     private Context mCtx;
 
     public Hspa(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.setOnPreferenceChangeListener(this);
+        SERVICE_MODE_PACKAGE = context.getString(R.string.service_mode_package);
         mCtx = context;
     }
 
     public static boolean isSupported(Context context) {
+        if (SERVICE_MODE_PACKAGE == null) {
+            SERVICE_MODE_PACKAGE = context.getString(R.string.service_mode_package);
+        }
+
+        boolean hasHspa = context.getResources().getBoolean(R.bool.has_hspa);
+
         boolean hasServiceMode;
         PackageManager pm = context.getPackageManager();
         try {
@@ -45,9 +54,10 @@ public class Hspa extends ListPreference implements OnPreferenceChangeListener {
             hasServiceMode = true;
         } catch (PackageManager.NameNotFoundException e) {
             hasServiceMode = false;
+            Log.e(DeviceSettings.LOGTAG, "SamsungServiceMode package not found");
         }
 
-        return hasServiceMode;
+        return (hasServiceMode && hasHspa);
     }
 
     /**
@@ -60,16 +70,17 @@ public class Hspa extends ListPreference implements OnPreferenceChangeListener {
         }
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-        sendIntent(context, sharedPrefs.getString(DeviceSettings.KEY_HSPA, "23"));
+        sendIntent(context, sharedPrefs.getString(KEY_HSPA, "23")); // HSDPA + HSUPA
     }
 
+    @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         sendIntent(mCtx, (String) newValue);
         return true;
     }
 
     private static void sendIntent(Context context, String value) {
-        Intent i = new Intent("org.omnirom.SamsungServiceMode.EXECUTE");
+        Intent i = new Intent(context.getString(R.string.service_mode_intent_execute));
         i.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
         i.putExtra("sub_type", 20); // HSPA Setting
         i.putExtra("data", value);

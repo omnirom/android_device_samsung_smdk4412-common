@@ -31,10 +31,6 @@ import android.content.Context;
 
 public class Utils {
 
-    private static final String TAG = "DeviceSettings_Utils";
-    private static final String TAG_READ = "DeviceSettings_Utils_Read";
-    private static final String TAG_WRITE = "DeviceSettings_Utils_Write";
-
     // Read value from sysfs interface
     public static String readOneLine(String sFile) {
         BufferedReader brBuffer;
@@ -45,18 +41,18 @@ public class Utils {
             try {
                 sLine = brBuffer.readLine();
             } finally {
-                Log.w(TAG_READ, "file " + sFile + ": " + sLine);
+                Log.w(DeviceSettings.LOGTAG, "read line from file " + sFile + ": " + sLine);
                 brBuffer.close();
             }
         } catch (Exception e) {
-            Log.e(TAG_READ, "IO Exception when reading /sys/ file", e);
+            Log.e(DeviceSettings.LOGTAG, "IO Exception when reading /sys/ file", e);
         }
         return sLine;
     }
 
     /**
      * Write a string value to the specified file.
-     * 
+     *
      * @param filename The filename
      * @param value The value
      */
@@ -68,66 +64,35 @@ public class Utils {
             fos.flush();
             // fos.getFD().sync();
         } catch (FileNotFoundException ex) {
-            Log.w(TAG, "file " + filename + " not found: " + ex);
+            Log.e(DeviceSettings.LOGTAG, "file " + filename + " not found: " + ex);
         } catch (SyncFailedException ex) {
-            Log.w(TAG, "file " + filename + " sync failed: " + ex);
+            Log.e(DeviceSettings.LOGTAG, "file " + filename + " sync failed: " + ex);
         } catch (IOException ex) {
-            Log.w(TAG, "IOException trying to sync " + filename + ": " + ex);
+            Log.e(DeviceSettings.LOGTAG, "IOException trying to sync " + filename + ": " + ex);
         } catch (RuntimeException ex) {
-            Log.w(TAG, "exception while syncing file: ", ex);
+            Log.e(DeviceSettings.LOGTAG, "exception while syncing file: ", ex);
         } finally {
             if (fos != null) {
                 try {
-                    Log.w(TAG_WRITE, "file " + filename + ": " + value);
+                    Log.w(DeviceSettings.LOGTAG, "wrote to file " + filename + ": " + value);
                     fos.close();
                 } catch (IOException ex) {
-                    Log.w(TAG, "IOException while closing synced file: ", ex);
+                    Log.e(DeviceSettings.LOGTAG, "IOException while closing synced file: ", ex);
                 } catch (RuntimeException ex) {
-                    Log.w(TAG, "exception while closing file: ", ex);
+                    Log.e(DeviceSettings.LOGTAG, "exception while closing file: ", ex);
                 }
             }
         }
-
     }
 
     /**
-     * Write a string value to the specified file.
-     * 
+     * Write a boolean value to the specified file.
+     *
      * @param filename The filename
      * @param value The value
      */
     public static void writeValue(String filename, Boolean value) {
-        FileOutputStream fos = null;
-        String sEnvia;
-        try {
-            fos = new FileOutputStream(new File(filename), false);
-            if (value)
-                sEnvia = "1";
-            else
-                sEnvia = "0";
-            fos.write(sEnvia.getBytes());
-            fos.flush();
-            // fos.getFD().sync();
-        } catch (FileNotFoundException ex) {
-            Log.w(TAG, "file " + filename + " not found: " + ex);
-        } catch (SyncFailedException ex) {
-            Log.w(TAG, "file " + filename + " sync failed: " + ex);
-        } catch (IOException ex) {
-            Log.w(TAG, "IOException trying to sync " + filename + ": " + ex);
-        } catch (RuntimeException ex) {
-            Log.w(TAG, "exception while syncing file: ", ex);
-        } finally {
-            if (fos != null) {
-                try {
-                    Log.w(TAG_WRITE, "file " + filename + ": " + value);
-                    fos.close();
-                } catch (IOException ex) {
-                    Log.w(TAG, "IOException while closing synced file: ", ex);
-                } catch (RuntimeException ex) {
-                    Log.w(TAG, "exception while closing file: ", ex);
-                }
-            }
-        }
+        writeValue(filename, value ? "1" : "0");
     }
 
     /**
@@ -146,14 +111,20 @@ public class Utils {
      * @return              Whether the file exists or not
      */
     public static boolean fileExists(String filename) {
-        return new File(filename).exists();
+        boolean exists = new File(filename).exists();
+        if (!exists) {
+            Log.e(DeviceSettings.LOGTAG, "file " + filename + " does not exist");
+        }
+
+        return exists;
     }
 
     public static void showDialog(Context ctx, String title, String message) {
         final AlertDialog alertDialog = new AlertDialog.Builder(ctx).create();
         alertDialog.setTitle(title);
         alertDialog.setMessage(message);
-        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+           @Override
            public void onClick(DialogInterface dialog, int which) {
               alertDialog.dismiss();
            }

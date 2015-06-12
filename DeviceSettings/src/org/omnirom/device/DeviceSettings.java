@@ -28,36 +28,19 @@ import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
 
-import org.omnirom.device.R;
-
 import java.util.ArrayList;
 
 public class DeviceSettings extends FragmentActivity {
 
-    public static final String SHARED_PREFERENCES_BASENAME = "com.omnirom.settings.device";
-    public static final String ACTION_UPDATE_PREFERENCES = "com.omnirom.settings.device.UPDATE";
-    public static final String KEY_CABC = "cabc";
-    public static final String KEY_MDNIE_SCENARIO = "mdnie_scenario";
-    public static final String KEY_MDNIE_MODE = "mdnie_mode";
-    public static final String KEY_MDNIE_NEGATIVE = "mdnie_negative";
-    public static final String KEY_LED_FADE = "led_fade";
-    public static final String KEY_TOUCHKEY_LIGHT = "touchkey_light";
-    public static final String KEY_TOUCHKEY_TIMEOUT = "touchkey_timeout";
-    public static final String KEY_HSPA = "hspa";
-    public static final String KEY_USE_DOCK_AUDIO = "dock_audio";
-    public static final String KEY_CATEGORY_SPEN = "category_spen";
-    public static final String KEY_SPEN_POWER_SAVING_MODE = "spen_power_save";
-
-    ViewPager mViewPager;
-    TabsAdapter mTabsAdapter;
+    public static final String LOGTAG = "DeviceSettings";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mViewPager = new ViewPager(this);
-        mViewPager.setId(R.id.viewPager);
-        setContentView(mViewPager);
+        ViewPager viewPager = new ViewPager(this);
+        viewPager.setId(R.id.viewPager);
+        setContentView(viewPager);
 
         final ActionBar bar = getActionBar();
         bar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -65,14 +48,14 @@ public class DeviceSettings extends FragmentActivity {
         bar.setTitle(R.string.app_name);
         bar.setDisplayHomeAsUpEnabled(true);
 
-        mTabsAdapter = new TabsAdapter(this, mViewPager);
-        mTabsAdapter.addTab(bar.newTab().setText(R.string.category_radio_title),
+        TabsAdapter tabsAdapter = new TabsAdapter(this, viewPager);
+        tabsAdapter.addTab(bar.newTab().setText(R.string.category_radio_title),
                 RadioFragmentActivity.class, null);
-        mTabsAdapter.addTab(bar.newTab().setText(R.string.category_screen_title),
+        tabsAdapter.addTab(bar.newTab().setText(R.string.category_screen_title),
                 ScreenFragmentActivity.class, null);
-        mTabsAdapter.addTab(bar.newTab().setText(R.string.category_haptic_title),
+        tabsAdapter.addTab(bar.newTab().setText(R.string.category_haptic_title),
                 HapticFragmentActivity.class, null);
-        mTabsAdapter.addTab(bar.newTab().setText(R.string.category_audio_title),
+        tabsAdapter.addTab(bar.newTab().setText(R.string.category_audio_title),
                 AudioFragmentActivity.class, null);
 
         if (savedInstanceState != null) {
@@ -91,7 +74,7 @@ public class DeviceSettings extends FragmentActivity {
         private final Context mContext;
         private final ActionBar mActionBar;
         private final ViewPager mViewPager;
-        private final ArrayList<TabInfo> mTabs = new ArrayList<TabInfo>();
+        private final ArrayList<TabInfo> mTabs = new ArrayList<>();
 
         static final class TabInfo {
             private final Class<?> clss;
@@ -132,16 +115,20 @@ public class DeviceSettings extends FragmentActivity {
             return Fragment.instantiate(mContext, info.clss.getName(), info.args);
         }
 
+        @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         }
 
+        @Override
         public void onPageSelected(int position) {
             mActionBar.setSelectedNavigationItem(position);
         }
 
+        @Override
         public void onPageScrollStateChanged(int state) {
         }
 
+        @Override
         public void onTabSelected(Tab tab, FragmentTransaction ft) {
             Object tag = tab.getTag();
             for (int i=0; i<mTabs.size(); i++) {
@@ -151,9 +138,11 @@ public class DeviceSettings extends FragmentActivity {
             }
         }
 
+        @Override
         public void onTabUnselected(Tab tab, FragmentTransaction ft) {
         }
 
+        @Override
         public void onTabReselected(Tab tab, FragmentTransaction ft) {
         }
     }

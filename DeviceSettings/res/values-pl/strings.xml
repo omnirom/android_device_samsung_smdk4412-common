@@ -16,7 +16,6 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">Advanced settings</string>
 
-    <string name="category_dock_title">Stacja dokująca</string>
     <string name="dockaudio_subcat_title">Dźwięk w stacji dokującej</string>
     <string name="use_dock_audio_title_head">Użyj stacji dokującej</string>
     <string name="use_dock_audio_summary_head">Użyj pasywnego wyjścia audio w stacji dokującej</string>

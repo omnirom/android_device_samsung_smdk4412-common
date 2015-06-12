@@ -16,7 +16,10 @@
 
 package org.omnirom.device;
 
+import android.app.ActivityManagerNative;
 import android.content.Context;
+import android.content.Intent;
+import android.os.UserHandle;
 import android.util.AttributeSet;
 import android.content.SharedPreferences;
 import android.preference.Preference;
@@ -24,41 +27,46 @@ import android.preference.ListPreference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceManager;
 
-public class mDNIeNegative extends ListPreference implements OnPreferenceChangeListener {
+public class DockAudio extends ListPreference implements OnPreferenceChangeListener {
 
-    public static final String KEY_MDNIE_NEGATIVE = "mdnie_negative";
-    private static String FILE = null;
+    public static final String KEY_USE_DOCK_AUDIO = "dock_audio";
+    private static String DOCK_INTENT_ACTION = null;
 
-    public mDNIeNegative(Context context, AttributeSet attrs) {
+    public DockAudio(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.setOnPreferenceChangeListener(this);
-        FILE = context.getResources().getString(R.string.mdnie_negative_sysfs_file);
+        DOCK_INTENT_ACTION = context.getResources().getString(R.string.dock_intent_action);
     }
 
     public static boolean isSupported(Context context) {
-        if (FILE == null) {
-            FILE = context.getResources().getString(R.string.mdnie_negative_sysfs_file);
+        if (DOCK_INTENT_ACTION == null) {
+            DOCK_INTENT_ACTION = context.getResources().getString(R.string.dock_intent_action);
         }
-        return Utils.fileExists(FILE);
+
+        // It seems there is no way to determine if there is a receiver for the intent.
+        // PackageManager.queryBroadcastReceivers() only returns receivers defined in xml
+
+        return true;
     }
 
-    /**
-     * Restore mdnie user mode setting from SharedPreferences. (Write to kernel.)
-     * @param context       The context to read the SharedPreferences from
-     */
     public static void restore(Context context) {
-        if (!isSupported(context)) { // also sets FILE
+        if (!isSupported(context)) { // also sets DOCK_INTENT_ACTION
             return;
         }
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-        Utils.writeValue(FILE, sharedPrefs.getString(KEY_MDNIE_NEGATIVE, "0"));
+        setDockAudio(sharedPrefs.getBoolean(KEY_USE_DOCK_AUDIO, false));
     }
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        Utils.writeValue(FILE, (String) newValue);
+        setDockAudio((Boolean) newValue);
         return true;
     }
 
+    private static void setDockAudio(boolean enable) {
+        Intent i = new Intent(DOCK_INTENT_ACTION);
+        i.putExtra("data", enable);
+        ActivityManagerNative.broadcastStickyIntent(i, null, UserHandle.USER_ALL);
+    }
 }
