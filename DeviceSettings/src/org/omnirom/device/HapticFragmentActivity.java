@@ -17,62 +17,24 @@
 package org.omnirom.device;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.ListPreference;
-import android.preference.Preference;
-import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
-import android.preference.PreferenceScreen;
-import android.util.Log;
-
-import org.omnirom.device.R;
 
 public class HapticFragmentActivity extends PreferenceFragment {
-
-    private static final String TAG = "DeviceSettings_Haptic";
-    public static final String KEY_VIBRATOR_TUNING = "vibrator_tuning";
-
-    private static boolean sVibratorTuning;
-    private static boolean mEnableVibratorTuning = false;
-    private VibratorTuningPreference mVibratorTuning;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Resources res = getResources();
-        sVibratorTuning = res.getBoolean(R.bool.has_vibrator_tuning);
-
         addPreferencesFromResource(R.xml.haptic_preferences);
 
-        mVibratorTuning = (VibratorTuningPreference) findPreference(KEY_VIBRATOR_TUNING);
-
-        if (sVibratorTuning) {
-            String vibratorFilePath = res.getString(R.string.vibrator_sysfs_file);
-            if(VibratorTuningPreference.isSupported(vibratorFilePath)){
-                  mEnableVibratorTuning = true;
-            }
+        // Vibrator tuning
+        if (!VibratorTuningPreference.isSupported(getActivity())) {
+            findPreference(VibratorTuningPreference.KEY_VIBRATOR_TUNING).setEnabled(false);
         }
-
-        mVibratorTuning.setEnabled(mEnableVibratorTuning);
-    }
-
-    @Override
-    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
-        String boxValue;
-        String key = preference.getKey();
-        Log.w(TAG, "key: " + key);
-        return true;
-    }
-
-    public static boolean isSupported(String FILE) {
-        return Utils.fileExists(FILE);
     }
 
     public static void restore(Context context) {
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+        VibratorTuningPreference.restore(context);
     }
 }

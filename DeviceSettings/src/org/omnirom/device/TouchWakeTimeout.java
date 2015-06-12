@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 The CyanogenMod Project
+ * Copyright (C) 2013 The CyanogenMod Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,48 +17,44 @@
 package org.omnirom.device;
 
 import android.content.Context;
-import android.util.AttributeSet;
 import android.content.SharedPreferences;
 import android.preference.Preference;
-import android.preference.ListPreference;
-import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceManager;
+import android.util.AttributeSet;
 
-public class mDNIeNegative extends ListPreference implements OnPreferenceChangeListener {
+public class TouchWakeTimeout extends SeekBarPreference implements Preference.OnPreferenceChangeListener {
 
-    public static final String KEY_MDNIE_NEGATIVE = "mdnie_negative";
-    private static String FILE = null;
+    public static final String KEY_TOUCHWAKE_TIMEOUT = "touchwake_timeout";
+    private static String FILE_TOUCHWAKE_TIMEOUT = null;
 
-    public mDNIeNegative(Context context, AttributeSet attrs) {
+    public TouchWakeTimeout(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.setOnPreferenceChangeListener(this);
-        FILE = context.getResources().getString(R.string.mdnie_negative_sysfs_file);
+        FILE_TOUCHWAKE_TIMEOUT = context.getResources().getString(R.string.touchwaketimeout_sysfs_file);
     }
 
     public static boolean isSupported(Context context) {
-        if (FILE == null) {
-            FILE = context.getResources().getString(R.string.mdnie_negative_sysfs_file);
+        if (FILE_TOUCHWAKE_TIMEOUT == null) {
+            FILE_TOUCHWAKE_TIMEOUT = context.getResources().getString(R.string.touchwaketimeout_sysfs_file);
         }
-        return Utils.fileExists(FILE);
+        return Utils.fileExists(FILE_TOUCHWAKE_TIMEOUT);
     }
 
-    /**
-     * Restore mdnie user mode setting from SharedPreferences. (Write to kernel.)
-     * @param context       The context to read the SharedPreferences from
-     */
     public static void restore(Context context) {
-        if (!isSupported(context)) { // also sets FILE
+        if (!isSupported(context)) { // also sets FILE_*
             return;
         }
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-        Utils.writeValue(FILE, sharedPrefs.getString(KEY_MDNIE_NEGATIVE, "0"));
+        int i = sharedPrefs.getInt(KEY_TOUCHWAKE_TIMEOUT, 5) * 1000;
+        Utils.writeValue(FILE_TOUCHWAKE_TIMEOUT, Integer.toString(i));
     }
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        Utils.writeValue(FILE, (String) newValue);
+        int i = (Integer) newValue;
+        String s = Integer.toString (i * 1000);
+        Utils.writeValue(FILE_TOUCHWAKE_TIMEOUT, s);
         return true;
     }
-
 }

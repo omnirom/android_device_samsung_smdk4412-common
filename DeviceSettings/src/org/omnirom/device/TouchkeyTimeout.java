@@ -16,7 +16,6 @@
 
 package org.omnirom.device;
 
-import java.io.IOException;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.content.SharedPreferences;
@@ -27,14 +26,19 @@ import android.preference.PreferenceManager;
 
 public class TouchkeyTimeout extends ListPreference implements OnPreferenceChangeListener {
 
+    public static final String KEY_TOUCHKEY_TIMEOUT = "touchkey_timeout";
+    private static String FILE_TOUCHKEY_TIMEOUT = null;
+
     public TouchkeyTimeout(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.setOnPreferenceChangeListener(this);
+        FILE_TOUCHKEY_TIMEOUT = context.getResources().getString(R.string.touckeytimeout_sysfs_file);
     }
 
-    private static final String FILE_TOUCHKEY_TIMEOUT = "/sys/class/sec/sec_touchkey/timeout";
-
-    public static boolean isSupported() {
+    public static boolean isSupported(Context context) {
+        if (FILE_TOUCHKEY_TIMEOUT == null) {
+            FILE_TOUCHKEY_TIMEOUT = context.getResources().getString(R.string.touckeytimeout_sysfs_file);
+        }
         return Utils.fileExists(FILE_TOUCHKEY_TIMEOUT);
     }
 
@@ -43,14 +47,15 @@ public class TouchkeyTimeout extends ListPreference implements OnPreferenceChang
      * @param context       The context to read the SharedPreferences from
      */
     public static void restore(Context context) {
-        if (!isSupported()) {
+        if (!isSupported(context)) { // also sets FILE_TOUCHKEY_TIMEOUT
             return;
         }
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-        Utils.writeValue(FILE_TOUCHKEY_TIMEOUT, sharedPrefs.getString(DeviceSettings.KEY_TOUCHKEY_TIMEOUT, "3"));
+        Utils.writeValue(FILE_TOUCHKEY_TIMEOUT, sharedPrefs.getString(KEY_TOUCHKEY_TIMEOUT, "3"));
     }
 
+    @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         Utils.writeValue(FILE_TOUCHKEY_TIMEOUT, (String) newValue);
         return true;
