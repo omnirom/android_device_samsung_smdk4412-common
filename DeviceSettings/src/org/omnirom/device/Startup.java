@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2012 The CyanogenMod Project
+ *               2015 The OmniROM Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,17 +26,8 @@ public class Startup extends BroadcastReceiver {
     @Override
     public void onReceive(final Context context, final Intent bootintent) {
         AudioFragmentActivity.restore(context);
-        CABC.restore(context);
         HapticFragmentActivity.restore(context);
-        Hspa.restore(context);
-        LedFade.restore(context);
-        mDNIeScenario.restore(context);
-        mDNIeMode.restore(context);
-        // mDNIeNegative.restore(context);
         RadioFragmentActivity.restore(context);
         ScreenFragmentActivity.restore(context);
-        SPenPowerSavingMode.restore(context);
-        TouchkeyTimeout.restore(context);
-        VibratorTuningPreference.restore(context);
     }
 }

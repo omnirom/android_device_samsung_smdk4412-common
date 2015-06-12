@@ -22,6 +22,7 @@
 
     <string-array name="mdnie_scenario_entries">
         <item>OmniROM (По умолч.)</item>
+        <item>UI</item>
         <item>Видео</item>
         <item>Видео (тёпл.)</item>
         <item>Видео (хол.)</item>

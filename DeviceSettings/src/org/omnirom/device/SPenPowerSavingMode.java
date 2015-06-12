@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2012 The CyanogenMod Project
+ *               2015 The OmniROM Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +18,6 @@
 package org.omnirom.device;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.AttributeSet;
 import android.preference.CheckBoxPreference;
@@ -27,6 +27,7 @@ import android.preference.PreferenceManager;
 
 public class SPenPowerSavingMode extends CheckBoxPreference implements OnPreferenceChangeListener {
 
+    public static final String KEY_SPEN_POWER_SAVE = "spen_power_save";
     private static String FILE_PATH = null;
 
     public SPenPowerSavingMode(Context context, AttributeSet attrs) {
@@ -35,8 +36,11 @@ public class SPenPowerSavingMode extends CheckBoxPreference implements OnPrefere
         FILE_PATH = context.getResources().getString(R.string.spen_powersaving_sysfs_file);
     }
 
-    public static boolean isSupported(String filePath) {
-        return Utils.fileExists(filePath);
+    public static boolean isSupported(Context context) {
+        if (FILE_PATH == null) {
+            FILE_PATH = context.getResources().getString(R.string.spen_powersaving_sysfs_file);
+        }
+        return Utils.fileExists(FILE_PATH);
     }
 
     /**
@@ -44,16 +48,15 @@ public class SPenPowerSavingMode extends CheckBoxPreference implements OnPrefere
      * @param context       The context to read the SharedPreferences from
      */
     public static void restore(Context context) {
-        FILE_PATH = context.getResources().getString(R.string.spen_powersaving_sysfs_file);
-
-        if (!isSupported(FILE_PATH)) {
+        if (!isSupported(context)) { // also sets FILE_PATH
             return;
         }
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-        Utils.writeValue(FILE_PATH, sharedPrefs.getBoolean(DeviceSettings.KEY_SPEN_POWER_SAVING_MODE, false) ? "1" : "0");
+        Utils.writeValue(FILE_PATH, sharedPrefs.getBoolean(KEY_SPEN_POWER_SAVE, false) ? "1" : "0");
     }
 
+    @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         Utils.writeValue(FILE_PATH, ((Boolean) newValue) ? "1" : "0");
         return true;

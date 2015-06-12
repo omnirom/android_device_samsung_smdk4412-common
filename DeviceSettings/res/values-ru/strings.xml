@@ -49,7 +49,6 @@
     <string name="hspa_title_head">HSPA</string>
     <string name="hspa_summary_head">Включить HSDPA/HSUPA</string>
 
-    <string name="category_dock_title">Док-станция</string>
     <string name="dockaudio_subcat_title">Аудио</string>
     <string name="use_dock_audio_title_head">USB аудио док-станция</string>
     <string name="use_dock_audio_summary_head">Использовать пассивный режим аудио док-станции</string>
