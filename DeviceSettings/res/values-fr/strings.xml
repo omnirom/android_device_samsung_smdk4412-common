@@ -16,7 +16,6 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">Paramètres avancés</string>
     <string name="defaults_button">Réinitialiser</string>
-    <string name="kernel_does_not_support">Aucun support du noyau</string>
     <string name="category_screen_title">Écran</string>
     <string name="screen_colors_title">Couleurs</string>
     <string name="cabc_title_head">CABC</string>

@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2013 The CyanogenMod Project
+ *               2015 The OmniROM Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +21,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
 import android.graphics.LightingColorFilter;
 import android.graphics.drawable.Drawable;
@@ -37,13 +37,15 @@ import android.widget.TextView;
 import android.widget.Button;
 
 import java.lang.Math;
-import java.text.DecimalFormat;
 
 /**
  * Special preference type that allows configuration of vibrator intensity settings on Samsung devices
  */
 public class VibratorTuningPreference extends DialogPreference implements SeekBar.OnSeekBarChangeListener {
+
     private static final String TAG = "DeviceSettings_Vibrator";
+
+    public static final String KEY_VIBRATOR_TUNING = "vibrator_tuning";
 
     private static String FILE_PATH = null;
     private static int MAX_VALUE;
@@ -54,7 +56,6 @@ public class VibratorTuningPreference extends DialogPreference implements SeekBa
     private Context mContext;
     private SeekBar mSeekBar;
     private TextView mValue;
-    private TextView mWarning;
     private String mOriginalValue;
     private Drawable mProgressDrawable;
     private Drawable mProgressThumb;
@@ -88,10 +89,10 @@ public class VibratorTuningPreference extends DialogPreference implements SeekBa
 
         mSeekBar = (SeekBar) view.findViewById(R.id.vibrator_seekbar);
         mValue = (TextView) view.findViewById(R.id.vibrator_value);
-        mWarning = (TextView) view.findViewById(R.id.textWarn);
+        TextView warning = (TextView) view.findViewById(R.id.textWarn);
 
         String strWarnMsg = getContext().getResources().getString(R.string.vibrator_warning, strengthToPercent(WARNING_THRESHOLD));
-        mWarning.setText(strWarnMsg);
+        warning.setText(strWarnMsg);
 
         Drawable progressDrawable = mSeekBar.getProgressDrawable();
         if (progressDrawable instanceof LayerDrawable) {
@@ -110,7 +111,7 @@ public class VibratorTuningPreference extends DialogPreference implements SeekBa
         int percent = settings.getInt("percent", strengthToPercent(DEFAULT_VALUE));
 
         mSeekBar.setOnSeekBarChangeListener(this);
-        mSeekBar.setProgress(Integer.valueOf(percent));
+        mSeekBar.setProgress(percent);
     }
 
     @Override
@@ -145,9 +146,7 @@ public class VibratorTuningPreference extends DialogPreference implements SeekBa
     }
 
     public static void restore(Context context) {
-        FILE_PATH = context.getResources().getString(R.string.vibrator_sysfs_file);
-
-        if (!isSupported(FILE_PATH)) {
+        if (!isSupported(context)) { // also sets FILE_PATH
             return;
         }
 
@@ -162,8 +161,13 @@ public class VibratorTuningPreference extends DialogPreference implements SeekBa
         Utils.writeValue(FILE_PATH, String.valueOf(strength));
     }
 
-    public static boolean isSupported(String filePath) {
-        return Utils.fileExists(filePath);
+    public static boolean isSupported(Context context) {
+        if (FILE_PATH == null) {
+            FILE_PATH = context.getResources().getString(R.string.vibrator_sysfs_file);
+        }
+        boolean hasVibratorTuning = context.getResources().getBoolean(R.bool.has_vibrator_tuning);
+
+        return (Utils.fileExists(FILE_PATH) && hasVibratorTuning);
     }
 
     @Override
@@ -193,7 +197,7 @@ public class VibratorTuningPreference extends DialogPreference implements SeekBa
     /**
     * Convert vibrator strength to percent
     */
-    public static int strengthToPercent(int strength) {
+    private static int strengthToPercent(int strength) {
         double maxValue = MAX_VALUE;
         double minValue = MIN_VALUE;
 
@@ -210,7 +214,7 @@ public class VibratorTuningPreference extends DialogPreference implements SeekBa
     /**
     * Convert percent to vibrator strength
     */
-    public static int percentToStrength(int percent) {
+    private static int percentToStrength(int percent) {
         int strength = Math.round((((MAX_VALUE - MIN_VALUE) * percent) / 100) + MIN_VALUE);
 
         if (strength > MAX_VALUE)

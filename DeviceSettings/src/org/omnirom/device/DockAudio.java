@@ -17,7 +17,10 @@
 
 package org.omnirom.device;
 
+import android.app.ActivityManagerNative;
 import android.content.Context;
+import android.content.Intent;
+import android.os.UserHandle;
 import android.util.AttributeSet;
 import android.content.SharedPreferences;
 import android.preference.Preference;
@@ -25,41 +28,46 @@ import android.preference.ListPreference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceManager;
 
-public class TouchkeyTimeout extends ListPreference implements OnPreferenceChangeListener {
+public class DockAudio extends ListPreference implements OnPreferenceChangeListener {
 
-    public static final String KEY_TOUCHKEY_TIMEOUT = "touchkey_timeout";
-    private static String FILE_TOUCHKEY_TIMEOUT = null;
+    public static final String KEY_USE_DOCK_AUDIO = "dock_audio";
+    private static String DOCK_INTENT_ACTION = null;
 
-    public TouchkeyTimeout(Context context, AttributeSet attrs) {
+    public DockAudio(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.setOnPreferenceChangeListener(this);
-        FILE_TOUCHKEY_TIMEOUT = context.getResources().getString(R.string.touckeytimeout_sysfs_file);
+        DOCK_INTENT_ACTION = context.getResources().getString(R.string.dock_intent_action);
     }
 
     public static boolean isSupported(Context context) {
-        if (FILE_TOUCHKEY_TIMEOUT == null) {
-            FILE_TOUCHKEY_TIMEOUT = context.getResources().getString(R.string.touckeytimeout_sysfs_file);
+        if (DOCK_INTENT_ACTION == null) {
+            DOCK_INTENT_ACTION = context.getResources().getString(R.string.dock_intent_action);
         }
-        return Utils.fileExists(FILE_TOUCHKEY_TIMEOUT);
+
+        // It seems there is no way to determine if there is a receiver for the intent.
+        // PackageManager.queryBroadcastReceivers() only returns receivers defined in xml
+
+        return true;
     }
 
-    /**
-     * Restore touchscreen sensitivity setting from SharedPreferences. (Write to kernel.)
-     * @param context       The context to read the SharedPreferences from
-     */
     public static void restore(Context context) {
-        if (!isSupported(context)) { // also sets FILE_TOUCHKEY_TIMEOUT
+        if (!isSupported(context)) { // also sets DOCK_INTENT_ACTION
             return;
         }
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-        Utils.writeValue(FILE_TOUCHKEY_TIMEOUT, sharedPrefs.getString(KEY_TOUCHKEY_TIMEOUT, "3"));
+        setDockAudio(sharedPrefs.getBoolean(KEY_USE_DOCK_AUDIO, false));
     }
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        Utils.writeValue(FILE_TOUCHKEY_TIMEOUT, (String) newValue);
+        setDockAudio((Boolean) newValue);
         return true;
     }
 
+    private static void setDockAudio(boolean enable) {
+        Intent i = new Intent(DOCK_INTENT_ACTION);
+        i.putExtra("data", enable);
+        ActivityManagerNative.broadcastStickyIntent(i, null, UserHandle.USER_ALL);
+    }
 }
