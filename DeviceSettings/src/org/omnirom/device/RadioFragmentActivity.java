@@ -50,7 +50,7 @@ public class RadioFragmentActivity extends PreferenceFragment {
         sHspa = res.getBoolean(R.bool.has_hspa);
 
         mHspa = (Hspa) findPreference(DeviceSettings.KEY_HSPA);
-        mHspa.setEnabled(sHspa);
+        mHspa.setEnabled(sHspa && Hspa.isSupported(getActivity()));
     }
 
     @Override
