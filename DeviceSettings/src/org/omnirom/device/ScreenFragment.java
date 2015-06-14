@@ -43,9 +43,9 @@ public class ScreenFragment extends PreferenceFragment {
             findPreference(mDNIeMode.KEY_MDNIE_MODE).setEnabled(false);
         }
 
-        // if (!mDNIeNegative.isSupported(context)) {
-        //     findPreference(mDNIeNegative.KEY_MDNIE_NEGATIVE).setEnabled(false);
-        // }
+        if (!mDNIeNegative.isSupported(context)) {
+            findPreference(mDNIeNegative.KEY_MDNIE_NEGATIVE).setEnabled(false);
+        }
 
         /* LED */
         if (!LedFade.isSupported(context)) {
@@ -82,7 +82,7 @@ public class ScreenFragment extends PreferenceFragment {
         LedFade.restore(context);
         mDNIeScenario.restore(context);
         mDNIeMode.restore(context);
-        // mDNIeNegative.restore(context);
+        mDNIeNegative.restore(context);
         SPenPowerSavingMode.restore(context);
         Touchkey.restore(context);
         TouchkeyTimeout.restore(context);

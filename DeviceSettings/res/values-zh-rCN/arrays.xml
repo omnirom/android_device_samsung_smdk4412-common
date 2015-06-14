@@ -39,16 +39,6 @@
         <item>电影</item>
     </string-array>
 
-    <string-array name="mdnie_negative_entries">
-        <item>正常</item>
-        <item>反色</item>
-    </string-array>
-
-    <string-array name="led_fade_entries">
-        <item>闪烁</item>
-        <item>淡出</item>
-    </string-array>
-
     <string-array name="touchkey_timeout_entries">
         <item>从不</item>
         <item>1 秒</item>
