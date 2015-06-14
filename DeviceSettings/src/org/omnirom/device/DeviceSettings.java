@@ -50,13 +50,13 @@ public class DeviceSettings extends FragmentActivity {
 
         TabsAdapter tabsAdapter = new TabsAdapter(this, viewPager);
         tabsAdapter.addTab(bar.newTab().setText(R.string.category_radio_title),
-                RadioFragmentActivity.class, null);
+                RadioFragment.class, null);
         tabsAdapter.addTab(bar.newTab().setText(R.string.category_screen_title),
-                ScreenFragmentActivity.class, null);
+                ScreenFragment.class, null);
         tabsAdapter.addTab(bar.newTab().setText(R.string.category_haptic_title),
-                HapticFragmentActivity.class, null);
+                HapticFragment.class, null);
         tabsAdapter.addTab(bar.newTab().setText(R.string.category_audio_title),
-                AudioFragmentActivity.class, null);
+                AudioFragment.class, null);
 
         if (savedInstanceState != null) {
             bar.setSelectedNavigationItem(savedInstanceState.getInt("tab", 0));
