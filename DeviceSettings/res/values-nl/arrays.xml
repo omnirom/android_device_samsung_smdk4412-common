@@ -33,11 +33,6 @@
         <item>Film</item>
     </string-array>
 
-    <string-array name="mdnie_negative_entries">
-        <item>Normaal</item>
-        <item>Omgedraaid</item>
-    </string-array>
-
     <string-array name="touchkey_timeout_entries">
         <item>Nooit</item>
         <item>1 seconde</item>
@@ -46,11 +41,6 @@
         <item>4 seconden</item>
         <item>5 seconden</item>
         <item>6 seconden</item>
-    </string-array>
-
-    <string-array name="led_fade_entries">
-        <item>Knipperen</item>
-        <item>Vervagen</item>
     </string-array>
 
     <string-array name="hspa_entries">

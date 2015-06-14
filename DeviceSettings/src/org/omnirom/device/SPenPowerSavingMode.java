@@ -18,13 +18,13 @@ package org.omnirom.device;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.SwitchPreference;
 import android.util.AttributeSet;
-import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceManager;
 
-public class SPenPowerSavingMode extends CheckBoxPreference implements OnPreferenceChangeListener {
+public class SPenPowerSavingMode extends SwitchPreference implements OnPreferenceChangeListener {
 
     public static final String KEY_SPEN_POWER_SAVE = "spen_power_save";
     private static String FILE_PATH = null;
