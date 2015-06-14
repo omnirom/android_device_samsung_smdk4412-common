@@ -20,7 +20,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 
-public class ScreenFragmentActivity extends PreferenceFragment {
+public class ScreenFragment extends PreferenceFragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

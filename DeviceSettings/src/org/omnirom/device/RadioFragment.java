@@ -20,7 +20,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 
-public class RadioFragmentActivity extends PreferenceFragment {
+public class RadioFragment extends PreferenceFragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
