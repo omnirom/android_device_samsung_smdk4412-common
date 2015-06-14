@@ -16,7 +16,7 @@
         <org.omnirom.device.mDNIeScenario
                 android:key="mdnie_scenario"
                 android:title="@string/mdnie_scenario_title_head"
-                android:summary="@string/mdnie_scenario_summary_head"
+                android:summary="%s"
                 android:entries="@array/mdnie_scenario_entries"
                 android:entryValues="@array/mdnie_scenario_entries_values"
                 android:defaultValue="0" />
@@ -25,19 +25,17 @@
         <org.omnirom.device.mDNIeMode
                 android:key="mdnie_mode"
                 android:title="@string/mdnie_mode_title_head"
-                android:summary="@string/mdnie_mode_summary_head"
+                android:summary="%s"
                 android:entries="@array/mdnie_mode_entries"
                 android:entryValues="@array/mdnie_mode_entries_values"
                 android:defaultValue="0" />
 
-        <!-- mDNIe Negative mode
+        <!-- mDNIe Negative mode -->
         <org.omnirom.device.mDNIeNegative
                 android:key="mdnie_negative"
                 android:title="@string/mdnie_negative_title_head"
                 android:summary="@string/mdnie_negative_summary_head"
-                android:entries="@array/mdnie_negative_entries"
-                android:entryValues="@array/mdnie_negative_entries_values"
-                android:defaultValue="0" /> -->
+                android:defaultValue="false" />
     </PreferenceCategory>
 
     <!-- LED -->
@@ -48,9 +46,7 @@
                 android:key="led_fade"
                 android:title="@string/led_fade_title_head"
                 android:summary="@string/led_fade_summary_head"
-                android:entries="@array/led_fade_entries"
-                android:entryValues="@array/led_fade_entries_values"
-                android:defaultValue="1" />
+                android:defaultValue="true" />
     </PreferenceCategory>
 
     <!-- S-Pen -->
@@ -72,14 +68,14 @@
         <org.omnirom.device.Touchkey
                 android:key="touchkey_light"
                 android:title="@string/touchkey_light_title_head"
-                android:summaryOff="@string/touchkey_light_summary_off"
-                android:summaryOn="@string/touchkey_light_summary_on"
+                android:summary="@string/touchkey_light_summary"
                 android:defaultValue="true" />
+        <!-- Touchkey timeout -->
         <org.omnirom.device.TouchkeyTimeout
                 android:key="touchkey_timeout"
                 android:dependency="touchkey_light"
                 android:title="@string/touchkey_timeout_title_head"
-                android:summary="@string/touchkey_timeout_summary_head"
+                android:summary="After %s"
                 android:entries="@array/touchkey_timeout_entries"
                 android:entryValues="@array/touchkey_timeout_entries_values"
                 android:defaultValue="3" />

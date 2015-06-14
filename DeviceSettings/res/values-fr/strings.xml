@@ -21,9 +21,7 @@
     <string name="cabc_title_head">CABC</string>
     <string name="cabc_summary_head">Activer le contrôle adaptatif du rétroéclairage</string>
     <string name="mdnie_scenario_title_head">Scénario</string>
-    <string name="mdnie_scenario_summary_head">Définir le scénario mDNIe</string>
     <string name="mdnie_mode_title_head">Mode</string>
-    <string name="mdnie_mode_summary_head">Définir le mode mDNIe</string>
     <string name="mdnie_negative_title_head">Mode négatif</string>
     <string name="mdnie_negative_summary_head">Activer/désactiver les couleurs inversées</string>
     <string name="led_subcat_title">LED de notification</string>
@@ -31,8 +29,6 @@
     <string name="led_fade_summary_head">Préférer l\'éclairage progressif au clignotement</string>
     <string name="touchkey_subcat_title">Touches tactiles</string>
     <string name="touchkey_light_title_head">Rétroéclairage</string>
-    <string name="touchkey_light_summary_off">Activer le rétroéclairage des touches tactiles lorsque l\'écran est activé</string>
-    <string name="touchkey_light_summary_on">Désactiver le rétroéclairage des touches tactiles lorsque l\'écran est activé</string>
     <string name="touchkey_timeout_title_head">Délai avant extinction</string>
     <string name="touchkey_timeout_summary_head">Définir le délai avant l\'extinction des touches</string>
     <string name="category_haptic_title">Haptique</string>

@@ -18,14 +18,14 @@
 package org.omnirom.device;
 
 import android.content.Context;
+import android.preference.SwitchPreference;
 import android.util.AttributeSet;
 import android.content.SharedPreferences;
 import android.preference.Preference;
-import android.preference.ListPreference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceManager;
 
-public class LedFade extends ListPreference implements OnPreferenceChangeListener {
+public class LedFade extends SwitchPreference implements OnPreferenceChangeListener {
 
     public static final String KEY_LED_FADE = "led_fade";
     private static String FILE = null;
@@ -53,12 +53,12 @@ public class LedFade extends ListPreference implements OnPreferenceChangeListene
         }
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-        Utils.writeValue(FILE, sharedPrefs.getString(KEY_LED_FADE, "1"));
+        Utils.writeValue(FILE, sharedPrefs.getBoolean(KEY_LED_FADE, true));
     }
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        Utils.writeValue(FILE, (String) newValue);
+        Utils.writeValue(FILE, (Boolean) newValue);
         return true;
     }
 
