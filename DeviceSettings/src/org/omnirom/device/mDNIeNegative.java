@@ -17,14 +17,14 @@
 package org.omnirom.device;
 
 import android.content.Context;
+import android.preference.SwitchPreference;
 import android.util.AttributeSet;
 import android.content.SharedPreferences;
 import android.preference.Preference;
-import android.preference.ListPreference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceManager;
 
-public class mDNIeNegative extends ListPreference implements OnPreferenceChangeListener {
+public class mDNIeNegative extends SwitchPreference implements OnPreferenceChangeListener {
 
     public static final String KEY_MDNIE_NEGATIVE = "mdnie_negative";
     private static String FILE = null;
@@ -52,12 +52,12 @@ public class mDNIeNegative extends ListPreference implements OnPreferenceChangeL
         }
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-        Utils.writeValue(FILE, sharedPrefs.getString(KEY_MDNIE_NEGATIVE, "0"));
+        Utils.writeValue(FILE, sharedPrefs.getBoolean(KEY_MDNIE_NEGATIVE, false));
     }
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        Utils.writeValue(FILE, (String) newValue);
+        Utils.writeValue(FILE, (Boolean) newValue);
         return true;
     }
 

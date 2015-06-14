@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2012 The CyanogenMod Project
+<!-- Copyright (C) 2006 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -12,16 +12,11 @@
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
      limitations under the License.
- -->
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory
-                android:title="@string/dockaudio_subcat_title">
-    <!-- Use Dock Audio -->
-    <org.omnirom.device.DockAudio
-                android:key="dock_audio"
-                android:title="@string/use_dock_audio_title_head"
-                android:summary="@string/use_dock_audio_summary_head"
-                android:defaultValue="false"/>
-    </PreferenceCategory>
+-->
 
-</PreferenceScreen>
+<resources>
+    <style name="TextAppearance.PagerTabs" parent="@android:style/TextAppearance.Material.Small">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+</resources>

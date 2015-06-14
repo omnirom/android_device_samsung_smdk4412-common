@@ -18,13 +18,13 @@ package org.omnirom.device;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceManager;
+import android.preference.SwitchPreference;
 import android.util.AttributeSet;
 
-public class CABC extends CheckBoxPreference implements OnPreferenceChangeListener {
+public class CABC extends SwitchPreference implements OnPreferenceChangeListener {
 
     public static final String KEY_CABC = "cabc";
     private static String FILE = null;

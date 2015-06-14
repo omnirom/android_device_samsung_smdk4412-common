@@ -20,14 +20,14 @@ import android.app.ActivityManagerNative;
 import android.content.Context;
 import android.content.Intent;
 import android.os.UserHandle;
+import android.preference.SwitchPreference;
 import android.util.AttributeSet;
 import android.content.SharedPreferences;
 import android.preference.Preference;
-import android.preference.ListPreference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceManager;
 
-public class DockAudio extends ListPreference implements OnPreferenceChangeListener {
+public class DockAudio extends SwitchPreference implements OnPreferenceChangeListener {
 
     public static final String KEY_USE_DOCK_AUDIO = "dock_audio";
     private static String DOCK_INTENT_ACTION = null;

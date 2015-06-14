@@ -4,7 +4,7 @@
     <org.omnirom.device.Hspa
             android:key="hspa"
             android:title="@string/hspa_title_head"
-            android:summary="@string/hspa_summary_head"
+            android:summary="%s"
             android:entries="@array/hspa_entries"
             android:entryValues="@array/hspa_entries_values"
             android:defaultValue="23" />
