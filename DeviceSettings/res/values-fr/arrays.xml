@@ -36,14 +36,6 @@
         <item>Naturel</item>
         <item>Vidéo</item>
     </string-array>
-    <string-array name="mdnie_negative_entries">
-        <item>Normal</item>
-        <item>Inversé</item>
-    </string-array>
-    <string-array name="led_fade_entries">
-        <item>Clignotante</item>
-        <item>Progressive</item>
-    </string-array>
     <string-array name="touchkey_timeout_entries">
         <item>Désactivé</item>
         <item>1 seconde</item>

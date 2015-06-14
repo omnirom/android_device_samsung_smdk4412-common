@@ -21,9 +21,7 @@
     <string name="category_screen_title">Display</string>
     <string name="screen_colors_title">Farben</string>
     <string name="mdnie_scenario_title_head">Szenario</string>
-    <string name="mdnie_scenario_summary_head">Wähle das mDNIe Szenario</string>
     <string name="mdnie_mode_title_head">Modus</string>
-    <string name="mdnie_mode_summary_head">Wähle den mDNIe Modus</string>
     <string name="mdnie_negative_title_head">Negativ Modus</string>
     <string name="mdnie_negative_summary_head">Invertiere Farben</string>
 
@@ -33,8 +31,6 @@
 
     <string name="touchkey_subcat_title">Touchkeys</string>
     <string name="touchkey_light_title_head">Beleuchtung</string>
-    <string name="touchkey_light_summary_off">Aktiviere Beleuchtung</string>
-    <string name="touchkey_light_summary_on">Deaktiviere Beleuchtung</string>
     <string name="touchkey_timeout_title_head">Zeitabschaltung der Beleuchtung</string>
     <string name="touchkey_timeout_summary_head">Setze Zeit für automatische Abschaltung</string>
 

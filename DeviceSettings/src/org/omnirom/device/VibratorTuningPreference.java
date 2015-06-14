@@ -126,6 +126,8 @@ public class VibratorTuningPreference extends DialogPreference implements SeekBa
             @Override
             public void onClick(View v) {
                 mSeekBar.setProgress(strengthToPercent(DEFAULT_VALUE));
+                Vibrator vib = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+                vib.vibrate(200);
             }
         });
     }
