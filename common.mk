@@ -114,6 +114,10 @@ PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml
 
+# Show SELinux status in about phone
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.build.selinux=1
+
 # Filesystem management tools
 PRODUCT_PACKAGES += \
     static_busybox \
