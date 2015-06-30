@@ -75,7 +75,7 @@
 
     <!-- Audio Preferences -->
         <!-- Dock Audio -->
-        <bool name="disable_dock_audio_preference">false</bool>
+        <bool name="disable_dock_audio_preference">true</bool>
         <string name="dock_intent_action">org.omnirom.settings.SamsungDock</string>
 
 </resources>
