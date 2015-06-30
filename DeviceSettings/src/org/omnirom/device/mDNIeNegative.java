@@ -37,6 +37,10 @@ public class mDNIeNegative extends SwitchPreference implements OnPreferenceChang
     }
 
     public static boolean isSupported(Context context) {
+        if (context.getResources().getBoolean(R.bool.disable_mdnie_negative_preference)){
+            return false;
+        }
+
         if (FILE == null) {
             FILE = context.getResources().getString(R.string.mdnie_negative_sysfs_file);
         }

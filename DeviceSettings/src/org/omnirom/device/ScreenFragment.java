@@ -19,7 +19,9 @@ package org.omnirom.device;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceScreen;
 
 public class ScreenFragment extends PreferenceFragment {
 
@@ -29,52 +31,81 @@ public class ScreenFragment extends PreferenceFragment {
 
         addPreferencesFromResource(R.xml.screen_preferences);
         Context context = getActivity();
+        PreferenceScreen preferenceScreen = getPreferenceScreen();
+        PreferenceCategory preferenceCategory = null;
 
-        /* CABC */
+        /* Colors */
+        preferenceCategory = (PreferenceCategory) findPreference("category_colors");
+
         if (!CABC.isSupported(context)) {
-            findPreference(CABC.KEY_CABC).setEnabled(false);
+            preferenceCategory.removePreference(findPreference(CABC.KEY_CABC));
         }
-
-        /* mDNIe */
         if (!mDNIeScenario.isSupported(context)) {
-            findPreference(mDNIeScenario.KEY_MDNIE_SCENARIO).setEnabled(false);
+            preferenceCategory.removePreference(findPreference(mDNIeScenario.KEY_MDNIE_SCENARIO));
         }
-
         if (!mDNIeMode.isSupported(context)) {
-            findPreference(mDNIeMode.KEY_MDNIE_MODE).setEnabled(false);
+            preferenceCategory.removePreference(findPreference(mDNIeMode.KEY_MDNIE_MODE));
+        }
+        if (!mDNIeNegative.isSupported(context)) {
+            preferenceCategory.removePreference(findPreference(mDNIeNegative.KEY_MDNIE_NEGATIVE));
         }
 
-        if (!mDNIeNegative.isSupported(context)) {
-            findPreference(mDNIeNegative.KEY_MDNIE_NEGATIVE).setEnabled(false);
+        if (preferenceCategory.getPreferenceCount() == 0) {
+            preferenceScreen.removePreference(preferenceCategory);
         }
+
 
         /* LED */
+        preferenceCategory = (PreferenceCategory) findPreference("category_led");
+
         if (!LedFade.isSupported(context)) {
-            findPreference(LedFade.KEY_LED_FADE).setEnabled(false);
+            preferenceCategory.removePreference(findPreference(LedFade.KEY_LED_FADE));
         }
 
-        /* Touchkey */
-        TouchkeyTimeout touchKeyTimeout = (TouchkeyTimeout) findPreference(TouchkeyTimeout.KEY_TOUCHKEY_TIMEOUT);
-        if (!Touchkey.isSupported(context)) {
-            findPreference(Touchkey.KEY_TOUCHKEY_LIGHT).setEnabled(false);
-            touchKeyTimeout.setEnabled(false);  // TODO needed?
-        } else if (!TouchkeyTimeout.isSupported(context)) {
-            touchKeyTimeout.setEnabled(false);
+        if (preferenceCategory.getPreferenceCount() == 0) {
+            preferenceScreen.removePreference(preferenceCategory);
         }
 
-        /* Touchwake */
-        TouchWakeTimeout touchwakeTimeout = (TouchWakeTimeout) findPreference(TouchWakeTimeout.KEY_TOUCHWAKE_TIMEOUT);
-
-        if (!TouchWake.isSupported(context)) {
-            findPreference(TouchWake.KEY_TOUCHWAKE_ENABLE).setEnabled(false);
-            touchwakeTimeout.setEnabled(false); // TODO needed?
-        } else if (!TouchWakeTimeout.isSupported(context)) {
-            touchwakeTimeout.setEnabled(false);
-        }
 
         /* S-Pen */
+        preferenceCategory = (PreferenceCategory) findPreference("category_spen");
+
         if (!SPenPowerSavingMode.isSupported(context)) {
-            findPreference(SPenPowerSavingMode.KEY_SPEN_POWER_SAVE).setEnabled(false);
+            preferenceCategory.removePreference(findPreference(SPenPowerSavingMode.KEY_SPEN_POWER_SAVE));
+        }
+
+        if (preferenceCategory.getPreferenceCount() == 0) {
+            preferenceScreen.removePreference(preferenceCategory);
+        }
+
+
+        /* Touchkey */
+        preferenceCategory = (PreferenceCategory) findPreference("category_touchkeys");
+
+        if (!Touchkey.isSupported(context)) {
+            preferenceCategory.removePreference(findPreference(Touchkey.KEY_TOUCHKEY_LIGHT));
+            preferenceCategory.removePreference(findPreference(TouchkeyTimeout.KEY_TOUCHKEY_TIMEOUT));
+        } else if (!TouchkeyTimeout.isSupported(context)) {
+            preferenceCategory.removePreference(findPreference(TouchkeyTimeout.KEY_TOUCHKEY_TIMEOUT));
+        }
+
+        if (preferenceCategory.getPreferenceCount() == 0) {
+            preferenceScreen.removePreference(preferenceCategory);
+        }
+
+
+        /* Touchwake */
+        preferenceCategory = (PreferenceCategory) findPreference("category_touchwake");
+
+        if (!TouchWake.isSupported(context)) {
+            preferenceCategory.removePreference(findPreference(TouchWake.KEY_TOUCHWAKE_ENABLE));
+            preferenceCategory.removePreference(findPreference(TouchWakeTimeout.KEY_TOUCHWAKE_TIMEOUT));
+        } else if (!TouchWakeTimeout.isSupported(context)) {
+            preferenceCategory.removePreference(findPreference(TouchWakeTimeout.KEY_TOUCHWAKE_TIMEOUT));
+        }
+
+        if (preferenceCategory.getPreferenceCount() == 0) {
+            preferenceScreen.removePreference(preferenceCategory);
         }
     }
 
@@ -89,5 +120,18 @@ public class ScreenFragment extends PreferenceFragment {
         TouchkeyTimeout.restore(context);
         TouchWake.restore(context);
         TouchWakeTimeout.restore(context);
+    }
+
+    public static boolean hasSupportedPreferences(Context context) {
+        boolean isSupported = false;
+        isSupported |= CABC.isSupported(context);
+        isSupported |= mDNIeScenario.isSupported(context);
+        isSupported |= mDNIeMode.isSupported(context);
+        isSupported |= mDNIeNegative.isSupported(context);
+        isSupported |= LedFade.isSupported(context);
+        isSupported |= SPenPowerSavingMode.isSupported(context);
+        isSupported |= Touchkey.isSupported(context);
+        isSupported |= TouchWake.isSupported(context);
+        return isSupported;
     }
 }

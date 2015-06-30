@@ -37,6 +37,10 @@ public class TouchWake extends SwitchPreference implements OnPreferenceChangeLis
     }
 
     public static boolean isSupported(Context context) {
+        if (context.getResources().getBoolean(R.bool.disable_touchwake_preference)){
+            return false;
+        }
+
         if (FILE_TOUCHWAKE_ENABLE == null) {
             FILE_TOUCHWAKE_ENABLE = context.getResources().getString(R.string.touchwake_sysfs_file);
         }

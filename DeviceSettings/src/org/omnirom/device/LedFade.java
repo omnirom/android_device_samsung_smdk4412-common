@@ -37,6 +37,10 @@ public class LedFade extends SwitchPreference implements OnPreferenceChangeListe
     }
 
     public static boolean isSupported(Context context) {
+        if (context.getResources().getBoolean(R.bool.disable_led_fade_preference)){
+            return false;
+        }
+
         if (FILE == null) {
             FILE = context.getResources().getString(R.string.led_fade_sysfs_file);
         }

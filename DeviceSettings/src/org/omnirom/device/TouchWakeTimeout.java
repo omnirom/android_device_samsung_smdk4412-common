@@ -35,6 +35,10 @@ public class TouchWakeTimeout extends SeekBarPreference implements Preference.On
     }
 
     public static boolean isSupported(Context context) {
+        if (context.getResources().getBoolean(R.bool.disable_touchwake_timeout_preference)){
+            return false;
+        }
+
         if (FILE_TOUCHWAKE_TIMEOUT == null) {
             FILE_TOUCHWAKE_TIMEOUT = context.getResources().getString(R.string.touchwaketimeout_sysfs_file);
         }

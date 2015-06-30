@@ -42,11 +42,13 @@ public class Hspa extends ListPreference implements OnPreferenceChangeListener {
     }
 
     public static boolean isSupported(Context context) {
+        if (context.getResources().getBoolean(R.bool.disable_hspa_preference)){
+            return false;
+        }
+
         if (SERVICE_MODE_PACKAGE == null) {
             SERVICE_MODE_PACKAGE = context.getString(R.string.service_mode_package);
         }
-
-        boolean hasHspa = context.getResources().getBoolean(R.bool.has_hspa);
 
         boolean hasServiceMode;
         PackageManager pm = context.getPackageManager();
@@ -58,7 +60,7 @@ public class Hspa extends ListPreference implements OnPreferenceChangeListener {
             Log.e(DeviceSettings.LOGTAG, "SamsungServiceMode package not found");
         }
 
-        return (hasServiceMode && hasHspa);
+        return hasServiceMode;
     }
 
     /**

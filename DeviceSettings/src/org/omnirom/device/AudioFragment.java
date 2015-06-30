@@ -19,7 +19,9 @@ package org.omnirom.device;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceScreen;
 
 public class AudioFragment extends PreferenceFragment {
 
@@ -28,14 +30,29 @@ public class AudioFragment extends PreferenceFragment {
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.audio_preferences);
+        Context context = getActivity();
+        PreferenceScreen preferenceScreen = getPreferenceScreen();
+        PreferenceCategory preferenceCategory = null;
 
-        // Dock Audio
-        if (!DockAudio.isSupported(getActivity())) {
-            findPreference(DockAudio.KEY_USE_DOCK_AUDIO).setEnabled(false);
+        /* Dock Audio */
+        preferenceCategory = (PreferenceCategory) findPreference("category_dock_audio");
+
+        if (!DockAudio.isSupported(context)) {
+            preferenceCategory.removePreference(findPreference(DockAudio.KEY_USE_DOCK_AUDIO));
+        }
+
+        if (preferenceCategory.getPreferenceCount() == 0) {
+            preferenceScreen.removePreference(preferenceCategory);
         }
     }
 
     public static void restore(Context context) {
         DockAudio.restore(context);
+    }
+
+    public static boolean hasSupportedPreferences(Context context) {
+        boolean isSupported = false;
+        isSupported |= DockAudio.isSupported(context);
+        return isSupported;
     }
 }

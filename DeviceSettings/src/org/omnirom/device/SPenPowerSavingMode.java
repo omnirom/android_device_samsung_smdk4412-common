@@ -37,6 +37,10 @@ public class SPenPowerSavingMode extends SwitchPreference implements OnPreferenc
     }
 
     public static boolean isSupported(Context context) {
+        if (context.getResources().getBoolean(R.bool.disable_spen_powersaving_preference)){
+            return false;
+        }
+
         if (FILE_PATH == null) {
             FILE_PATH = context.getResources().getString(R.string.spen_powersaving_sysfs_file);
         }

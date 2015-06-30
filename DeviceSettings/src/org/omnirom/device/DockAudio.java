@@ -40,6 +40,10 @@ public class DockAudio extends SwitchPreference implements OnPreferenceChangeLis
     }
 
     public static boolean isSupported(Context context) {
+        if (context.getResources().getBoolean(R.bool.disable_dock_audio_preference)){
+            return false;
+        }
+
         if (DOCK_INTENT_ACTION == null) {
             DOCK_INTENT_ACTION = context.getResources().getString(R.string.dock_intent_action);
         }

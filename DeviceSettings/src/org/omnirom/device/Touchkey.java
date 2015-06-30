@@ -39,6 +39,10 @@ public class Touchkey extends SwitchPreference implements OnPreferenceChangeList
     }
 
     public static boolean isSupported(Context context) {
+        if (context.getResources().getBoolean(R.bool.disable_touchkey_preference)){
+            return false;
+        }
+
         if (FILE_TOUCHKEY_BRIGHTNESS == null) {
             FILE_TOUCHKEY_BRIGHTNESS = context.getResources().getString(R.string.touchkey_brightness_sysfs_file);
         }
@@ -46,9 +50,7 @@ public class Touchkey extends SwitchPreference implements OnPreferenceChangeList
             FILE_TOUCHKEY_DISABLE = context.getResources().getString(R.string.touchkey_disable_sysfs_file);
         }
 
-        boolean hasTouchKey = context.getResources().getBoolean(R.bool.has_touchkey);
-
-        return (Utils.fileExists(FILE_TOUCHKEY_BRIGHTNESS) && Utils.fileExists(FILE_TOUCHKEY_DISABLE) && hasTouchKey);
+        return (Utils.fileExists(FILE_TOUCHKEY_BRIGHTNESS) && Utils.fileExists(FILE_TOUCHKEY_DISABLE));
     }
 
     public static void restore(Context context) {
