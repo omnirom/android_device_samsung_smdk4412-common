@@ -58,14 +58,18 @@ public class DeviceSettings extends FragmentActivity {
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
 
         TabsAdapter tabsAdapter = new TabsAdapter(this, viewPager);
-        tabsAdapter.addTab(res.getString(R.string.category_radio_title),
-                RadioFragment.class, null);
-        tabsAdapter.addTab(res.getString(R.string.category_screen_title),
-                ScreenFragment.class, null);
-        tabsAdapter.addTab(res.getString(R.string.category_haptic_title),
-                HapticFragment.class, null);
-        tabsAdapter.addTab(res.getString(R.string.category_audio_title),
-                AudioFragment.class, null);
+        if (RadioFragment.hasSupportedPreferences(this)) {
+            tabsAdapter.addTab(res.getString(R.string.category_radio_title), RadioFragment.class, null);
+        }
+        if (ScreenFragment.hasSupportedPreferences(this)) {
+            tabsAdapter.addTab(res.getString(R.string.category_screen_title), ScreenFragment.class, null);
+        }
+        if (HapticFragment.hasSupportedPreferences(this)) {
+            tabsAdapter.addTab(res.getString(R.string.category_haptic_title), HapticFragment.class, null);
+        }
+        if (AudioFragment.hasSupportedPreferences(this)) {
+            tabsAdapter.addTab(res.getString(R.string.category_audio_title), AudioFragment.class, null);
+        }
     }
 
     @Override

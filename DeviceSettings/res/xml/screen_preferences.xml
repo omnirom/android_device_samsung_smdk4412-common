@@ -1,10 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2012 The CyanogenMod Project
+                   2015 The OmniROM Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:devicesettings="http://schemas.android.com/apk/res/org.omnirom.device" >
 
-    <!-- Screen -->
+    <!-- Colors -->
     <PreferenceCategory
+            android:key="category_colors"
             android:title="@string/screen_colors_title">
+
         <!-- CABC -->
         <org.omnirom.device.CABC
                 android:key="cabc"
@@ -40,7 +58,9 @@
 
     <!-- LED -->
     <PreferenceCategory
+            android:key="category_led"
             android:title="@string/led_subcat_title">
+
         <!-- LED fading mode -->
         <org.omnirom.device.LedFade
                 android:key="led_fade"
@@ -53,6 +73,7 @@
     <PreferenceCategory
             android:key="category_spen"
             android:title="@string/spen_subcat_title">
+
         <!-- S-Pen power saving mode -->
         <org.omnirom.device.SPenPowerSavingMode
                 android:key="spen_power_save"
@@ -63,13 +84,16 @@
 
     <!-- Touchkeys -->
     <PreferenceCategory
+            android:key="category_touchkeys"
             android:title="@string/touchkey_subcat_title">
+
         <!-- Touchkey backlight -->
         <org.omnirom.device.Touchkey
                 android:key="touchkey_light"
                 android:title="@string/touchkey_light_title_head"
                 android:summary="@string/touchkey_light_summary"
                 android:defaultValue="true" />
+
         <!-- Touchkey timeout -->
         <org.omnirom.device.TouchkeyTimeout
                 android:key="touchkey_timeout"
@@ -82,14 +106,19 @@
     </PreferenceCategory>
 
     <!-- Touchwake -->
-    <PreferenceCategory android:key="touchwake"
+    <PreferenceCategory
+            android:key="category_touchwake"
             android:title="@string/touchwake_title">
+
+        <!-- Touchwake enable -->
         <org.omnirom.device.TouchWake
                 android:key="touchwake_enable"
                 android:title="@string/touchwake_enable_title"
                 android:summary="@string/touchwake_enable_summary"
                 android:persistent="true"
                 android:defaultValue="false" />
+
+        <!-- Touchwake timeout -->
         <org.omnirom.device.TouchWakeTimeout
                 android:key="touchwake_timeout"
                 android:title="@string/touchwake_timeout_title"

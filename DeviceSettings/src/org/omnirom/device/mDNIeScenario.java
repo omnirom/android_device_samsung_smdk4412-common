@@ -38,6 +38,10 @@ public class mDNIeScenario extends ListPreference implements OnPreferenceChangeL
     }
 
     public static boolean isSupported(Context context) {
+        if (context.getResources().getBoolean(R.bool.disable_mdnie_scenario_preference)){
+            return false;
+        }
+
         if (FILE == null) {
             FILE = context.getResources().getString(R.string.mdnie_scenario_sysfs_file);
         }

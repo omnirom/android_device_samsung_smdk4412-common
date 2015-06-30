@@ -19,7 +19,9 @@ package org.omnirom.device;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceScreen;
 
 public class HapticFragment extends PreferenceFragment {
 
@@ -28,14 +30,29 @@ public class HapticFragment extends PreferenceFragment {
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.haptic_preferences);
+        Context context = getActivity();
+        PreferenceScreen preferenceScreen = getPreferenceScreen();
+        PreferenceCategory preferenceCategory = null;
 
-        // Vibrator tuning
-        if (!VibratorTuningPreference.isSupported(getActivity())) {
-            findPreference(VibratorTuningPreference.KEY_VIBRATOR_TUNING).setEnabled(false);
+        /* Vibrator tuning */
+        preferenceCategory = (PreferenceCategory) findPreference("category_vibrator");
+
+        if (!VibratorTuningPreference.isSupported(context)) {
+            preferenceCategory.removePreference(findPreference(VibratorTuningPreference.KEY_VIBRATOR_TUNING));
+        }
+
+        if (preferenceCategory.getPreferenceCount() == 0) {
+            preferenceScreen.removePreference(preferenceCategory);
         }
     }
 
     public static void restore(Context context) {
         VibratorTuningPreference.restore(context);
+    }
+
+    public static boolean hasSupportedPreferences(Context context) {
+        boolean isSupported = false;
+        isSupported |= VibratorTuningPreference.isSupported(context);
+        return isSupported;
     }
 }

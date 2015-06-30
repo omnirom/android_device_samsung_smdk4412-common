@@ -37,6 +37,10 @@ public class CABC extends SwitchPreference implements OnPreferenceChangeListener
     }
 
     public static boolean isSupported(Context context) {
+        if (context.getResources().getBoolean(R.bool.disable_cabc_preference)){
+            return false;
+        }
+
         if (FILE == null) {
             FILE = context.getResources().getString(R.string.mdnie_cabc_sysfs_file);
         }

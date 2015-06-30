@@ -20,6 +20,7 @@ package org.omnirom.device;
 import android.content.Context;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceScreen;
 
 public class RadioFragment extends PreferenceFragment {
 
@@ -29,12 +30,21 @@ public class RadioFragment extends PreferenceFragment {
 
         addPreferencesFromResource(R.xml.radio_preferences);
 
-        if (!Hspa.isSupported(getActivity())) {
-            findPreference(Hspa.KEY_HSPA).setEnabled(false);
+        Context context = getActivity();
+        PreferenceScreen preferenceScreen = getPreferenceScreen();
+
+        if (!Hspa.isSupported(context)) {
+            preferenceScreen.removePreference(findPreference(Hspa.KEY_HSPA));
         }
     }
 
     public static void restore(Context context) {
         Hspa.restore(context);
+    }
+
+    public static boolean hasSupportedPreferences(Context context) {
+        boolean isSupported = false;
+        isSupported |= Hspa.isSupported(context);
+        return isSupported;
     }
 }

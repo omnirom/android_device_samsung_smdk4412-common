@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Copyright (C) 2013 The CyanogenMod Project
+                   2015 The OmniROM Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -16,44 +17,65 @@
 
 <!-- These resources are around just to allow their values to be customized
      for different hardware and product builds. -->
+
+<!-- Don't forget to make sure all used files and sysfs paths have the
+     correct permissions and selinux contexts applied! -->
+
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-    <!-- Dock Audio -->
-    <string name="dock_intent_action">org.omnirom.settings.SamsungDock</string>
+    <!-- Radio Preferences -->
+        <!-- HSPA -->
+        <bool name="disable_hspa_preference">false</bool>
+        <string name="service_mode_package">org.omnirom.samsungservicemode</string>
+        <string name="service_mode_intent_execute">org.omnirom.SamsungServiceMode.EXECUTE</string>
 
-    <!-- Vibrator Tuning -->
-    <bool name="has_vibrator_tuning">true</bool>
-    <string name="vibrator_sysfs_file" translatable="false">"/sys/class/timed_output/vibrator/pwm_value"</string>
-    <string name="intensity_max_value" translatable="false">100</string>
-    <string name="intensity_warning_threshold" translatable="false">75</string>
-    <string name="intensity_default_value" translatable="false">50</string>
-    <string name="intensity_min_value" translatable="false">0</string>
 
-    <!-- S-Pen -->
-    <string name="spen_powersaving_sysfs_file" translatable="false">"/sys/class/sec/sec_epen/epen_saving_mode"</string>
+    <!-- Screen Preferences -->
+        <!-- Colors -->
+        <bool name="disable_cabc_preference">false</bool>
+        <bool name="disable_mdnie_scenario_preference">false</bool>
+        <bool name="disable_mdnie_mode_preference">false</bool>
+        <bool name="disable_mdnie_negative_preference">false</bool>
+        <string name="mdnie_cabc_sysfs_file" translatable="false">"/sys/class/lcd/panel/power_reduce"</string>
+        <string name="mdnie_scenario_sysfs_file" translatable="false">"/sys/class/mdnie/mdnie/scenario"</string>
+        <string name="mdnie_mode_sysfs_file" translatable="false">"/sys/class/mdnie/mdnie/mode"</string>
+        <string name="mdnie_negative_sysfs_file" translatable="false">"/sys/class/mdnie/mdnie/negative"</string>
 
-    <!-- HSPA -->
-    <bool name="has_hspa">true</bool>
-    <string name="service_mode_package">org.omnirom.samsungservicemode</string>
-    <string name="service_mode_intent_execute">org.omnirom.SamsungServiceMode.EXECUTE</string>
+        <!-- LED Fade -->
+        <bool name="disable_led_fade_preference">false</bool>
+        <string name="led_fade_sysfs_file" translatable="false">"/sys/class/sec/led/led_fade"</string>
 
-    <!-- Touchkey -->
-    <bool name="has_touchkey">true</bool>
-    <string name="touchkey_brightness_sysfs_file" translatable="false">"/sys/class/sec/sec_touchkey/brightness"</string>
-    <string name="touchkey_disable_sysfs_file" translatable="false">"/sys/class/sec/sec_touchkey/force_disable"</string>
-    <string name="touckeytimeout_sysfs_file" translatable="false">"/sys/class/sec/sec_touchkey/timeout"</string>
+        <!-- S-Pen -->
+        <bool name="disable_spen_powersaving_preference">false</bool>
+        <string name="spen_powersaving_sysfs_file" translatable="false">"/sys/class/sec/sec_epen/epen_saving_mode"</string>
 
-    <!-- MDNIE -->
-    <string name="mdnie_cabc_sysfs_file" translatable="false">"/sys/class/lcd/panel/power_reduce"</string>
-    <string name="mdnie_scenario_sysfs_file" translatable="false">"/sys/class/mdnie/mdnie/scenario"</string>
-    <string name="mdnie_mode_sysfs_file" translatable="false">"/sys/class/mdnie/mdnie/mode"</string>
-    <string name="mdnie_negative_sysfs_file" translatable="false">"/sys/class/mdnie/mdnie/negative"</string>
+        <!-- Touchkey -->
+        <bool name="disable_touchkey_preference">false</bool>
+        <bool name="disable_touchkey_timeout_preference">false</bool> <!-- always considered true if above is true -->
+        <string name="touchkey_brightness_sysfs_file" translatable="false">"/sys/class/sec/sec_touchkey/brightness"</string>
+        <string name="touchkey_disable_sysfs_file" translatable="false">"/sys/class/sec/sec_touchkey/force_disable"</string>
+        <string name="touckeytimeout_sysfs_file" translatable="false">"/sys/class/sec/sec_touchkey/timeout"</string>
 
-    <!-- LED -->
-    <string name="led_fade_sysfs_file" translatable="false">"/sys/class/sec/led/led_fade"</string>
+        <!-- Touchwake -->
+        <bool name="disable_touchwake_preference">false</bool>
+        <bool name="disable_touchwake_timeout_preference">false</bool> <!-- always considered true if above is true -->
+        <string name="touchwake_sysfs_file">"/sys/devices/virtual/misc/touchwake/enabled"</string>
+        <string name="touchwaketimeout_sysfs_file">"/sys/devices/virtual/misc/touchwake/delay"</string>
 
-    <!-- Touchwake -->
-    <string name="touchwake_sysfs_file">"/sys/devices/virtual/misc/touchwake/enabled"</string>
-    <string name="touchwaketimeout_sysfs_file">"/sys/devices/virtual/misc/touchwake/delay"</string>
+
+    <!-- Haptic Preferences -->
+        <!-- Vibrator Tuning -->
+        <bool name="disable_vibrator_tuning_preference">false</bool>
+        <string name="vibrator_sysfs_file" translatable="false">"/sys/class/timed_output/vibrator/pwm_value"</string>
+        <string name="intensity_max_value" translatable="false">100</string>
+        <string name="intensity_warning_threshold" translatable="false">75</string>
+        <string name="intensity_default_value" translatable="false">50</string>
+        <string name="intensity_min_value" translatable="false">0</string>
+
+
+    <!-- Audio Preferences -->
+        <!-- Dock Audio -->
+        <bool name="disable_dock_audio_preference">false</bool>
+        <string name="dock_intent_action">org.omnirom.settings.SamsungDock</string>
 
 </resources>

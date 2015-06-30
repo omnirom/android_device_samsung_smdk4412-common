@@ -37,6 +37,10 @@ public class mDNIeMode extends ListPreference implements OnPreferenceChangeListe
     }
 
     public static boolean isSupported(Context context) {
+        if (context.getResources().getBoolean(R.bool.disable_mdnie_mode_preference)){
+            return false;
+        }
+
         if (FILE == null) {
             FILE = context.getResources().getString(R.string.mdnie_mode_sysfs_file);
         }

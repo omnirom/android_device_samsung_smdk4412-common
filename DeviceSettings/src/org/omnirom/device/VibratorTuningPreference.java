@@ -164,12 +164,15 @@ public class VibratorTuningPreference extends DialogPreference implements SeekBa
     }
 
     public static boolean isSupported(Context context) {
+        if (context.getResources().getBoolean(R.bool.disable_vibrator_tuning_preference)){
+            return false;
+        }
+
         if (FILE_PATH == null) {
             FILE_PATH = context.getResources().getString(R.string.vibrator_sysfs_file);
         }
-        boolean hasVibratorTuning = context.getResources().getBoolean(R.bool.has_vibrator_tuning);
 
-        return (Utils.fileExists(FILE_PATH) && hasVibratorTuning);
+        return Utils.fileExists(FILE_PATH);
     }
 
     @Override

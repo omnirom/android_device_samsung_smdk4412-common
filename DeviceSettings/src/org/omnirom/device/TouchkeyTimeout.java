@@ -37,6 +37,10 @@ public class TouchkeyTimeout extends ListPreference implements OnPreferenceChang
     }
 
     public static boolean isSupported(Context context) {
+        if (context.getResources().getBoolean(R.bool.disable_touchkey_timeout_preference)){
+            return false;
+        }
+
         if (FILE_TOUCHKEY_TIMEOUT == null) {
             FILE_TOUCHKEY_TIMEOUT = context.getResources().getString(R.string.touckeytimeout_sysfs_file);
         }
