@@ -75,4 +75,12 @@
     <string name="touchwake_timeout_title">Timeout</string>
     <string name="touchwake_timeout_summary">Set timeout for touchwake</string>
 
+    <!-- About -->
+    <string name="about_action">About</string>
+    <string name="about_title">Advanced smdk4412 device settings</string>
+    <string name="about_version_title">Version Number</string>
+    <string name="about_version_summary" translatable="false">1.0</string>
+    <string name="about_copyright1" translatable="false">Copyright \u00A9 2015 OmniRom</string>
+    <string name="about_copyright2" translatable="false">Copyright \u00A9 2012 CyanogenMod</string>
+
 </resources>

@@ -70,6 +70,9 @@ public class DeviceSettings extends FragmentActivity {
         if (AudioFragment.hasSupportedPreferences(this)) {
             tabsAdapter.addTab(res.getString(R.string.category_audio_title), AudioFragment.class, null);
         }
+        tabsAdapter.addTab(res.getString(R.string.about_action), AboutFragment.class, null);
+        }
+
     }
 
     @Override
