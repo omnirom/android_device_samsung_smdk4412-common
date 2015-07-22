@@ -26,8 +26,8 @@
     <!-- Radio Preferences -->
         <!-- HSPA -->
         <bool name="disable_hspa_preference">false</bool>
-        <string name="service_mode_package">org.omnirom.samsungservicemode</string>
-        <string name="service_mode_intent_execute">org.omnirom.SamsungServiceMode.EXECUTE</string>
+        <string name="service_mode_package" translatable="false">org.omnirom.samsungservicemode</string>
+        <string name="service_mode_intent_execute" translatable="false">org.omnirom.SamsungServiceMode.EXECUTE</string>
 
 
     <!-- Screen Preferences -->
@@ -59,8 +59,8 @@
         <!-- Touchwake -->
         <bool name="disable_touchwake_preference">false</bool>
         <bool name="disable_touchwake_timeout_preference">false</bool> <!-- always considered true if above is true -->
-        <string name="touchwake_sysfs_file">"/sys/devices/virtual/misc/touchwake/enabled"</string>
-        <string name="touchwaketimeout_sysfs_file">"/sys/devices/virtual/misc/touchwake/delay"</string>
+        <string name="touchwake_sysfs_file" translatable="false">"/sys/devices/virtual/misc/touchwake/enabled"</string>
+        <string name="touchwaketimeout_sysfs_file" translatable="false">"/sys/devices/virtual/misc/touchwake/delay"</string>
 
 
     <!-- Haptic Preferences -->
@@ -76,6 +76,6 @@
     <!-- Audio Preferences -->
         <!-- Dock Audio -->
         <bool name="disable_dock_audio_preference">true</bool>
-        <string name="dock_intent_action">org.omnirom.settings.SamsungDock</string>
+        <string name="dock_intent_action" translatable="false">org.omnirom.settings.SamsungDock</string>
 
 </resources>
