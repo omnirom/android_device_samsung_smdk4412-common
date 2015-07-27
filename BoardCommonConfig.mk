@@ -74,7 +74,6 @@ USE_OPENGL_RENDERER := true
 BOARD_USES_SKIAHWJPEG := true
 # DWORKAROUND_BUG_10194508: Needed since Mali400 doesn't have the EGL_KHL_gl_colorspace extension
 COMMON_GLOBAL_CFLAGS += -DSEC_HWJPEG_G2D -DFORCE_SCREENSHOT_CPU_PATH -DWORKAROUND_BUG_10194508
-BOARD_EGL_NEEDS_LEGACY_FB := true
 
 # Widevine
 # enable fix for missing signature in libstagefright's MediaBufferGroup::acquire_buffer()
